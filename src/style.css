@@ -1,0 +1,234 @@
+/* Emails */
+.Cp {
+	/*box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);*/
+	margin: 10px;
+	max-width: 1200px;
+}
+
+@media only screen and (min-width: 1600px) {
+	.Cp {
+		margin-left: 100px !important;
+	}
+}
+
+/* Star email */
+td.apU.xY {
+	display: block;
+	position: absolute;
+	right: 0px;
+}
+
+/* Display star (pin) on hover */
+.zA:hover td.apU.xY {
+	display: block;
+}
+
+/* Not starred image */
+td.apU.xY .T-KT::before {
+	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_pin_black_24dp.png') !important;
+	background-size: 24px !important;
+}
+
+/* Starred image */
+td.apU.xY .T-KT.T-KT-Jp::before {
+	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/ic_mark-pinned_clr_24dp_r4.png') !important;
+	background-size: 24px !important;
+	opacity: 1;
+}
+
+/* Starred menu item */
+.aHS-bnw .qj {
+	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_pin_black_24dp.png') !important;
+	background-size: 24px !important;
+}
+
+/* Unread email */
+.yO {
+	background: #FFF !important;
+}
+
+/* Time */
+.time {
+	color: #666;
+    font-size: 14px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-left: 20px;
+}
+
+/* Email */
+.zA, .zA:hover {
+	box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24) !important;
+	-webkit-box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24) !important;
+	z-index: 0 !important;
+	padding-right: 24px;
+	background: #FFF !important;
+}
+
+/* Compose email */
+.T-I.J-J5-Ji.T-I-KE.L3 {
+	user-select: none;
+    position: fixed;
+    right: 40px;
+    bottom: 20px;
+    z-index: 3;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    padding: 0;
+    background: #d23f31;
+	overflow: hidden;
+}
+
+/* Compose email image */
+.z0>.L3::before {
+	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_speeddial_compose_white_24dp.png') !important;
+    background-size: 24px !important;
+}
+
+/* Compose email old place */
+.z0 {
+	margin: 0px !important;
+	height: 10px !important;
+}
+
+/* Compose email boxes wrapper */
+.no {
+	padding-right: 40px;
+}
+
+/* behind emails */
+.AO, .Tm.aeJ,
+
+/* left sidebar */
+.nH.oy8Mbf.nn.aeN,
+
+/* right sidebar */
+.brC-aT5-aOt-Jw,
+
+/* Hangout bar */
+.aj5 .J-KU, .aj5.J-KU-Jg,
+
+/* toolbar */
+.aeH,
+
+/* Inbox tabs */
+.aKh,
+
+/* Empty inbox tab */
+.aRs
+{
+	background: #F2F2F2 !important;
+}
+
+/* Border under toolbar */
+.D.E.G-atb::before {
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+
+/* top bar (old, new) */
+.gb_Ld.gb_je.gb_Td, .nH.w-asV.aiw {
+	background-color: #4285f4 !important;
+}
+
+/* storage usage, terms of service, privacy, account activity */
+.aeG {
+	display: none;
+}
+
+/* Gmail icon (old, new) */
+a.gb_te.gb_ec.gb_Me, a.gb_ue.gb_fc.gb_Ne {
+    width: 44px;
+    overflow: hidden;
+}
+/* Gmail text */
+.gb_cc::after {
+    content: 'Gmail';
+    font-size: 20px;
+    color: #FFF;
+    position: relative;
+    top: -2px;
+    padding-left: 7px;
+}
+
+/* Top bar icons */
+.gb_Va svg, .gb_nc svg {
+	color: #FFF !important;
+	opacity: 1 !important;
+}
+
+/* Search bar (old, new) */
+.gb_1e.gb_yf, .gb_2e.gb_zf {
+	background: #5E97F6;
+}
+
+/* Search bar icon on active input (old, new) */
+.gb_1e.gb_yf.gb_if button svg, .gb_2e.gb_zf.gb_jf button svg {
+	color: #000 !important;
+}
+
+/* Search bar placeholder (old, new) */
+.gb_vf.gb_Bf .gb_jf::placeholder, .gb_2e.gb_zf .gb_kf::placeholder {
+	color: #FFF;
+}
+
+/* Add reminder */
+.add-reminder {
+	user-select: none;
+    position: fixed;
+    right: 48px;
+    bottom: 90px;
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 0;
+    background: #4285f4;
+	overflow: hidden;
+	box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+	cursor: pointer;
+}
+
+/* Add reminder image */
+.add-reminder::before {
+	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_speeddial_reminders_white_24dp.png') !important;
+	background-size: 24px !important;
+	background-position: center;
+    background-repeat: no-repeat;
+    background-size: 32px;
+    content: '';
+    display: block;
+    height: 40px;
+    width: 40px;
+}
+
+.add-reminder:hover {
+	box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
+}
+
+/* Archive button (inbox email, opened email) */
+.brq, .ar8 {
+	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_done_black_24dp.png') !important;
+	background-size: 24px !important;
+}
+
+/* Snooze button (inbox email, opened email) */
+.brv, .brW {
+	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_snooze_black_24dp.png') !important;
+	background-size: 24px !important;
+}
+
+/* Opened email */
+.Bs.nH.iY.bAt {
+	margin: 10px;
+    box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24) !important;
+	width: calc(100% - 62px);
+	background: #FFF;
+}
+
+/* Left toolbar when collapsed (this is done to fix hidden compose button when collapsed) */
+.bhZ {
+	position: relative !important;
+	margin-right: -72px;
+}
