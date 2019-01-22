@@ -2,16 +2,22 @@ const processedEmails = [];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 let lastEmailCount = 0;
 let lastRefresh = new Date();
 
 const getMyEmail = function () {
-	const element = document.querySelector(".gb_Fb");
-	if (element) {
-		return element.innerText;
-	} else {
-		return "";
+	const accountInfo = document.querySelector("div[aria-label='Account Information']");
+	if (accountInfo) {
+		for (const child of accountInfo.getElementsByTagName("*")) {
+			if (child.children.length > 0) continue;
+			const emailMatch = child.innerText.match(emailRegex);
+			if (emailMatch) return emailMatch[0];
+		}
 	}
+
+	return "";
 };
 
 const triggerMouseEvent = function (node, event) {
@@ -49,7 +55,7 @@ const updateReminders = function () {
 		let isReminder = false;
 
 		const titleNode = email.querySelector(".bqe");
-		if (titleNode && titleNode.innerText.toLowerCase() == "reminder") {
+		if (titleNode && titleNode.innerText.toLowerCase().trim() == "reminder") {
 			isReminder = true;
 		}
 
@@ -60,9 +66,6 @@ const updateReminders = function () {
 				nameNode.setAttribute("email", "reminder");
 				nameNode.innerHTML = "Reminder";
 				isReminder = true;
-			} else if (nameNode.innerText.toLowerCase() != "reminder") {
-				isReminder = false;
-				break;
 			}
 		}
 

@@ -138,29 +138,34 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 }
 
 /* Gmail icon (old, new) */
-a.gb_te.gb_ec.gb_Me, a.gb_ue.gb_fc.gb_Ne {
-    width: 44px;
+a[href='#inbox'] {
+    width: 120px;
     overflow: hidden;
+	text-decoration: none;
 }
+a[href='#inbox'] img {
+	display: none
+}
+
 /* Gmail text */
-.gb_cc::after {
+a[href='#inbox']::after {
     content: 'Gmail';
     font-size: 20px;
     color: #FFF;
     position: relative;
     top: -2px;
-    padding-left: 7px;
+	padding-left: 7px;
 }
 
 /* Top bar icons */
-.gb_Va svg, .gb_nc svg {
+header svg {
 	color: #FFF !important;
 	opacity: 1 !important;
 }
 
 /* Search bar (old, new) */
-.gb_1e.gb_yf, .gb_2e.gb_zf {
-	background: #5E97F6;
+header form {
+	background: #5E97F6 !important;
 }
 
 /* Search bar icon on active input (old, new) */
@@ -169,8 +174,8 @@ a.gb_te.gb_ec.gb_Me, a.gb_ue.gb_fc.gb_Ne {
 }
 
 /* Search bar placeholder (old, new) */
-.gb_vf.gb_Bf .gb_jf::placeholder, .gb_2e.gb_zf .gb_kf::placeholder {
-	color: #FFF;
+header form input::placeholder {
+	color: #FFF !important;
 }
 
 /* Add reminder */
