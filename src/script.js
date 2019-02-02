@@ -12,7 +12,7 @@ const getMyEmail = function () {
 	if (accountInfo) {
 		for (const child of accountInfo.getElementsByTagName("*")) {
 			if (child.children.length > 0) continue;
-			const emailMatch = child.innerText.match(emailRegex);
+			const emailMatch = (child.innerText || "").match(emailRegex);
 			if (emailMatch) return emailMatch[0];
 		}
 	}
