@@ -60,13 +60,22 @@ const updateReminders = function () {
 		}
 
 		const nameNodes = email.querySelectorAll(".yP,.zF");
+		let allNamesMe = true;
+
 		for (const nameNode of nameNodes) {
-			if (nameNode.getAttribute("email") == myEmail) {
+			if (nameNode.getAttribute("email") != myEmail) {
+				allNamesMe = false;
+			}
+		}
+
+		if (allNamesMe) {
+			for (const nameNode of nameNodes) {
 				nameNode.setAttribute("name", "Reminder");
 				nameNode.setAttribute("email", "reminder");
 				nameNode.innerHTML = "Reminder";
-				isReminder = true;
 			}
+
+			isReminder = true;
 		}
 
 		if (isReminder) {
