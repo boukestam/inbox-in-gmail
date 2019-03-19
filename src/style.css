@@ -97,6 +97,23 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 	padding-right: 40px;
 }
 
+/* left menu padding for icons */
+div.aim {
+	padding-bottom: 10px;
+}
+
+/* left menu border under snooze */
+div.TN.bzz.aHS-bu1 {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #DDDDDD;
+}
+
+/* left menu border under trash */
+div.TN.bzz.aHS-bnx {
+	padding-bottom: 10px;
+	border-bottom: 1px solid #DDDDDD;
+}
+
 /* behind emails */
 .AO, .Tm.aeJ,
 
@@ -129,7 +146,7 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 
 /* top bar (old, new) */
 .gb_Ld.gb_je.gb_Td, .nH.w-asV.aiw {
-	background-color: #4285f4 !important;
+	background-color: #4C85F1 !important;
 }
 
 /* storage usage, terms of service, privacy, account activity */
