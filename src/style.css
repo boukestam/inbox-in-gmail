@@ -97,22 +97,103 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 	padding-right: 40px;
 }
 
-/* left menu padding for icons */
-div.aim {
-	padding-bottom: 10px;
+
+
+
+
+
+/*START OF LEFT MENU*/
+
+/* padding for inbox, stared, sent, drafts */
+div.TN.bzz.aHS-bnq, div.TN.bzz.aHS-bnu, div.TN.bzz.aHS-bnw, div.TN.bzz.aHS-bnt {
+	padding-bottom: 5px;
+	padding-top: 5px;
 }
 
 /* left menu border under snooze */
 div.TN.bzz.aHS-bu1 {
-	padding-bottom: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
 	border-bottom: 1px solid #DDDDDD;
 }
 
 /* left menu border under trash */
 div.TN.bzz.aHS-bnx {
-	padding-bottom: 10px;
+	padding-bottom: 5px;
+	padding-top: 5px;
 	border-bottom: 1px solid #DDDDDD;
 }
+
+/*END OF LEFT MENU*/
+
+
+
+
+
+/*START OF MAIN MENU AND SEARCH BAR */
+
+
+/* main top bar */
+div.gb_xd.gb_4d.gb_Fd {
+	height: 56px;
+}
+
+/* main top bar bottom border */
+div.gb_xd.gb_4d.gb_Fd:after {
+	content: "";
+	border-bottom: 12px solid transparent;
+	width: 100%;
+	position: absolute;
+	left: 0;
+	bottom: -12px;
+
+ -webkit-border-image: url(https://i.ibb.co/zGdSGgw/border.png); 
+ -o-border-image: url(https://i.ibb.co/zGdSGgw/border.png);
+ border-image: url(https://i.ibb.co/zGdSGgw/border.png) ;
+
+ border-image-slice: 3;
+ border-image-width: 1568px;
+ border-image-outset: 0;
+ border-image-repeat: stretch;
+}
+
+/* main menu & gmail name  */
+div.gb_2b, div.gb_Vb {
+	margin-top: -8px;
+}
+
+/* search icon */
+button.gb_ff.gb_gf  {
+	margin-top: -3px;
+	margin-left: 0px;
+}
+
+/* search icon options */
+button.gb_lf {
+	margin-top: -5px;
+}
+
+/* main search window */
+div.gb_oc.gb_Od.gb_Xd.gb_Td {
+	margin-left: 10px;
+}
+
+/* search mail text */
+ input.gb_3e {
+	margin-top: -5px;
+	margin-left: 20px;
+}
+
+/* search bar */
+div.gb_mf.gb_gf {
+	margin-top: 0px;
+	margin-left: 30px;
+	height: 36px;
+}
+
+/*END OF MAIN MENU AND SEARCH BAR */
+
+
 
 /* behind emails */
 .AO, .Tm.aeJ,
