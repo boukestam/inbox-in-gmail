@@ -184,6 +184,11 @@ div.gb_oc.gb_Od.gb_Xd.gb_Td {
 	margin-left: 20px;
 }
 
+/* Google Apps icon & Google Account icon */
+div.gb_w.gb_Xc.gb_f.gb_Af, div.gb_Ea.gb_Xc.gb_qg.gb_f.gb_Af {
+	margin-top: -7px;
+}
+
 /* search bar */
 div.gb_mf.gb_gf {
 	margin-top: 0px;
