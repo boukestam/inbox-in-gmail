@@ -130,7 +130,7 @@ div.TN.bzz.aHS-bnx {
 
 
 
-/*START OF MAIN MENU AND SEARCH BAR */
+/*START OF MAIN MENU AND SEARCH BAR AND EMAIL AREA */
 
 
 /* main top bar */
@@ -194,6 +194,11 @@ div.gb_mf.gb_gf {
 	margin-top: 0px;
 	margin-left: 30px;
 	height: 36px;
+}
+
+/* email area moves over compose icon */
+div.BltHke.nH.oy8Mbf {
+	padding-right: 95px;
 }
 
 /*END OF MAIN MENU AND SEARCH BAR */
