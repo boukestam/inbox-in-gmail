@@ -67,7 +67,6 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 
 /* Compose email */
 .T-I.J-J5-Ji.T-I-KE.L3 {
-	user-select: none;
     position: fixed;
     right: 40px;
     bottom: 20px;
@@ -118,7 +117,12 @@ div.aeN.bhZ {
 
 /* Compose email image */
 .z0>.L3::before {
-	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_speeddial_compose_white_24dp.png') !important;
+	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_speeddial_white_24dp.png') !important;
+    background-size: 24px !important;
+}
+
+.z0>.L3:hover::before {
+	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_speeddial_compose_white_24dp.png') !important;
     background-size: 24px !important;
 }
 
