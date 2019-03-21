@@ -80,6 +80,42 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 	overflow: hidden;
 }
 
+/*
+**
+**START OF LEFT MENU
+**
+*/
+
+div.aim {
+  padding-left: 4px !important;
+}
+
+/* Menu item row */
+div.TK .TO {
+  border-radius: 2px !important;
+}
+
+/* Menu item row, hover */
+div.TK .TO:hover {
+  background-color: rgba(0,0,0,.05) !important;
+  cursor: pointer;
+}
+
+/* Menu item row active */
+div.TK .TO:active,
+div.n6 .ah9.aiu:active
+div.CL:active,
+div.TO.nZ,
+div.TO.NQ,
+div.TO.ol {
+  background-color: rgba(0,0,0,.05) !important; 
+}
+
+/* Left sidebar collapsed */
+div.aeN.bhZ {
+  display: none !important;
+}
+
 /* Compose email image */
 .z0>.L3::before {
 	background-image: url('https://www.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/btw_ic_speeddial_compose_white_24dp.png') !important;
@@ -97,12 +133,119 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 	padding-right: 40px;
 }
 
+/* Menu container */
+div.aeN {
+  width: 232px !important;
+  max-width: unset !important;
+  min-width: unset !important;
+  left: 0;
+}
+div.wT {
+  margin-top: -20px;
+  max-width: unset;
+  min-width: unset;
+  width: 224px;
+  padding: 12px 8px 52px;
+}
 
+/* Menu item sections */
+div.TK {
+    padding: 8px 0;
+}
 
+/* Menu item row inner */
+div.aim .TN {
+  height: 40px;
+}
 
+/* Menu item link */
+div.TO .nU > .n0 {
+  font-weight: normal;
+}
 
+/* Menu item link */
+div.TO .nU > .n0 {
+  font-weight: normal;
+}
 
-/*START OF LEFT MENU*/
+div.wT > .n3 .byl:first-child .aim:first-child .nZ {
+  background-color: rgba(0,0,0,.05) !important; 
+}
+div.qj {
+  width: 24px !important;
+  height: 24px !important;
+  opacity: 1 !important;
+  margin-right: 24px !important;
+  background-size: 24px !important;
+}
+div.qj::before {
+  content: none !important;
+}
+div.qj::after {
+  content: none !important;
+}
+/* Inbox */
+div.aHS-bnt .qj {
+  background-image: url("//www.gstatic.com/images/icons/material/system/2x/inbox_googblue_24dp.png") !important;
+}
+/* Dropdown arrow */
+div.aHS-bnt .afM {
+  background-image: url('//www.gstatic.com/images/icons/material/system/2x/arrow_drop_down_black_20dp.png') !important;
+}
+/* Starred, Important, Chats */
+div.aHS-bnw .qr,
+div.aHS-bns .qr,
+div.aHS-aHP .qr {
+  opacity: 0.6 !important;
+}
+/* Starred */
+div.aHS-bnw .qj {
+  background-image: url("//www.gstatic.com/images/icons/material/system/2x/grade_black_24dp.png") !important;
+}
+/* Important */
+div.aHS-bns .qj {
+  background-image: url("//www.gstatic.com/images/icons/material/system/2x/label_important_black_24dp.png") !important;
+}
+/* Chats */
+div.aHS-aHP .qj {
+  background-image: url("//www.gstatic.com/images/icons/material/system/2x/hangout_black_24dp.png") !important;
+}
+/* Snoozed */
+div.aHS-bu1 .qj {
+  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_upcoming_clr_24dp_r5_2x.png") !important;
+}
+/* Sent */
+div.aHS-bnu .qj {
+  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_sent_right_g60_24dp_r1_2x.png") !important;
+}
+/* Drafts */
+div.aHS-bnq .qj {
+  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_draft_g60_24dp_r2_2x.png") !important;
+}
+/* Trash */
+div.aHS-bnx .qj {
+  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_trash_g60_24dp_r2_2x.png") !important;
+}
+/* Category */
+div.aHS-bnr .qj {
+  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_custom-cluster_24px_g60_r3_2x.png") !important;
+}
+/* Done */
+div.aHS-aHO .qj {
+  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_done_clr_24dp_r4_2x.png") !important;
+}
+/* Spam */
+div.aHS-bnv .qj {
+  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_spam_g60_24dp_r2_2x.png") !important;
+}
+div.TO.nZ .n0 {
+  color: #212121 !important;
+  outline: none;
+}
+div.TO .n0 {
+  color: #616161 !important;
+  outline: none;
+}
 
 /* padding for inbox, stared, sent, drafts */
 div.TN.bzz.aHS-bnq, div.TN.bzz.aHS-bnu, div.TN.bzz.aHS-bnw, div.TN.bzz.aHS-bnt {
@@ -124,37 +267,23 @@ div.TN.bzz.aHS-bnx {
 	border-bottom: 1px solid #DDDDDD;
 }
 
-/*END OF LEFT MENU*/
+/*
+**
+**END OF LEFT MENU
+**
+*/
 
 
+/*
+**
+**START OF MAIN MENU, SEARCH BAR AND EMAIL AREA
+**
+*/
 
-
-
-/*START OF MAIN MENU AND SEARCH BAR AND EMAIL AREA */
-
-
-/* main top bar */
+/* main top bar including shadow*/
 div.gb_xd.gb_4d.gb_Fd {
 	height: 56px;
-}
-
-/* main top bar bottom border */
-div.gb_xd.gb_4d.gb_Fd:after {
-	content: "";
-	border-bottom: 12px solid transparent;
-	width: 100%;
-	position: absolute;
-	left: 0;
-	bottom: -12px;
-
- -webkit-border-image: url(https://i.ibb.co/zGdSGgw/border.png); 
- -o-border-image: url(https://i.ibb.co/zGdSGgw/border.png);
- border-image: url(https://i.ibb.co/zGdSGgw/border.png) ;
-
- border-image-slice: 3;
- border-image-width: 1568px;
- border-image-outset: 0;
- border-image-repeat: stretch;
+	box-shadow: 0px 5px 4px #c6c6c6;
 }
 
 /* main menu & gmail name  */
@@ -201,7 +330,16 @@ div.BltHke.nH.oy8Mbf {
 	padding-right: 95px;
 }
 
-/*END OF MAIN MENU AND SEARCH BAR */
+/* main email area */
+div.Cp {
+	margin-top: -15px;
+}
+
+/*
+**
+**END OF MAIN MENU, SEARCH BAR AND EMAIL AREA
+**
+*/
 
 
 
