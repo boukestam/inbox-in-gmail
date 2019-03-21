@@ -134,6 +134,145 @@ const updateReminders = function () {
 	setTimeout(updateReminders, 100);
 };
 
+/*
+**
+**START OF LEFT MENU
+**
+*/
+
+const _nodes = {};
+
+const setupNodes = () => {
+  const observer = new MutationObserver(() => {
+    // menu items
+    [
+      { label: 'inbox',     selector: '.aHS-bnt' },
+      { label: 'snoozed',   selector: '.aHS-bu1' },
+      { label: 'done',      selector: '.aHS-aHO' },
+      { label: 'drafts',    selector: '.aHS-bnq' },
+      { label: 'sent',      selector: '.aHS-bnu' },
+      { label: 'spam',      selector: '.aHS-bnv' },
+      { label: 'trash',     selector: '.aHS-bnx' },
+      { label: 'starred',   selector: '.aHS-bnw' },
+      { label: 'important', selector: '.aHS-bns' },
+      { label: 'chats',     selector: '.aHS-aHP' },
+    ].map(({ label, selector }) => {
+      const node = queryParentSelector(document.querySelector(selector), '.aim');
+      if (node) {
+        _nodes[label] = node;
+      }
+    });
+
+    // others
+    [
+      { label: 'title',          selector: 'a[title="Gmail"]:not([aria-label])' },
+      { label: 'back',           selector: '.lS'     },
+      { label: 'archive',        selector: '.lR'     },
+      { label: 'resportSpam',    selector: '.nN'     },
+      { label: 'deleteMail',     selector: '.bvt'    },
+      { label: 'markUnread',     selector: '.uUQygd' },
+      { label: 'moveTo',         selector: '.ns'     },
+      { label: 'addLabel',       selector: '.mw'     },
+      { label: 'more',           selector: '.nf'     },
+      { label: 'messageSection', selector: '.Bs'     },
+    ].map(({ label, selector }) => {
+      const node = document.querySelector(selector);
+      if (node) {
+        _nodes[label] = node;
+      }
+    });
+  });
+  observer.observe(document.body, {subtree:true, childList:true});
+};
+
+const reorderMenuItems = () => {
+  const observer = new MutationObserver(() => {
+    const parent = document.querySelector('.wT .byl');
+    const refer = document.querySelector('.wT .byl>.TK');
+    const {
+      inbox, snoozed, done, drafts, sent,
+      spam, trash, starred, important, chats,
+    } = _nodes;
+
+    if (
+      parent && refer &&
+      inbox && snoozed && done && drafts && sent &&
+      spam && trash && starred && important && chats
+    ) {
+      /* Gmail will execute its script to add element to the first child, so
+       * add one placeholder for it and do the rest in the next child.
+       */
+      const placeholder = document.createElement('div');
+      placeholder.classList.add('TK');
+      placeholder.style.cssText = 'padding: 0; border: 0;';
+
+      // Assign link href which only show archived mail
+      done.querySelector('a').href = '#search/-is%3Ainbox';
+
+      // Remove id attribute from done element for preventing event override from Gmail
+      done.firstChild.removeAttribute('id');
+
+      // Manually add on-click event to done elment
+      done.addEventListener('click', () => window.location.assign('#search/-is%3Ainbox'));
+
+      const newNode = document.createElement('div');
+      newNode.classList.add('TK');
+      newNode.appendChild(inbox);
+      newNode.appendChild(snoozed);
+      newNode.appendChild(done);
+      parent.insertBefore(placeholder, refer);
+      parent.insertBefore(newNode, refer);
+      refer.appendChild(drafts);
+      refer.appendChild(sent);
+      refer.appendChild(trash);
+      refer.appendChild(spam);
+      setupClickEventForNodes([
+        inbox, snoozed, done, drafts, sent,
+        spam, trash, starred, important, chats,
+      ]);
+      observer.disconnect();
+    }
+  });
+  observer.observe(document.body, {subtree:true, childList:true});
+};
+
+const activateMenuItem = (target, nodes) => {
+  nodes.map(node => node.firstChild.classList.remove('nZ'));
+  target.firstChild.classList.add('nZ');
+};
+
+const setupClickEventForNodes = (nodes) => {
+  nodes.map(node =>
+    node.addEventListener('click', () =>
+      activateMenuItem(node, nodes)
+    )
+  );
+};
+
+const initMenu = () => {
+  reorderMenuItems();
+};
+
+const queryParentSelector = (elm, sel) => {
+  if (!elm) {
+    return null;
+  }
+  var parent = elm.parentElement;
+  while (!parent.matches(sel)) {
+    parent = parent.parentElement;
+    if (!parent) {
+      return null;
+    }
+  }
+  return parent;
+};
+
+/*
+**
+**END OF LEFT MENU
+**
+*/
+
 document.addEventListener("DOMContentLoaded", function(event) {
 	const addReminder = document.createElement("div");
 	addReminder.className = "add-reminder";
