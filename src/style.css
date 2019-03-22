@@ -334,6 +334,12 @@ div.BltHke.nH.oy8Mbf {
 	padding-right: 95px;
 }
 
+/* collapsed main menu */
+div.no{
+	background-color: #F2F2F2;
+}
+
+
 /* main email area */
 div.Cp {
 	margin-top: -15px;
@@ -378,7 +384,7 @@ div.Cp {
 }
 
 /* top bar (old, new) */
-.gb_Ld.gb_je.gb_Td, .nH.w-asV.aiw {
+.gb_Ld.gb_je.gb_Td, .nH.w-asV.aiw, .nH.nn {
 	background-color: #4C85F1 !important;
 }
 
