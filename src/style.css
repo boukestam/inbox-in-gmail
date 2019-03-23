@@ -1,14 +1,9 @@
 /* Emails */
 .Cp {
 	/*box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);*/
-	margin: 10px;
+	margin: auto !important;
 	max-width: 1200px;
-}
-
-@media only screen and (min-width: 1600px) {
-	.Cp {
-		margin-left: 100px !important;
-	}
+	padding: 0 10px;
 }
 
 /* Star email */
@@ -166,6 +161,7 @@ header svg {
 /* Search bar (old, new) */
 header form {
 	background: #5E97F6 !important;
+	max-width: 90% !important;
 }
 
 /* Search bar icon on active input (old, new) */
@@ -176,6 +172,11 @@ header form {
 /* Search bar placeholder (old, new) */
 header form input::placeholder {
 	color: #FFF !important;
+}
+
+/* Search bar input */
+header form input {
+	color: white !important;
 }
 
 /* Add reminder */
