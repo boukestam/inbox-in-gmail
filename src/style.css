@@ -94,6 +94,7 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 
 /* behind emails */
 .AO, .Tm.aeJ,
+.nH.bkK.nn,
 
 /* left sidebar */
 .nH.oy8Mbf.nn.aeN,
@@ -237,4 +238,23 @@ header form input {
 .bhZ {
 	position: relative !important;
 	margin-right: -72px;
+}
+
+/* Toolbar above opened email */
+.iH {
+	height: 48px !important;
+	align-items: center;
+}
+
+/* Toolbar above email list */
+.nH.aqK {
+	display: none;
+}
+.D.E.G-atb {
+	height: unset;
+}
+
+/* Right toolbar */
+.bAw {
+	display: none;
 }
