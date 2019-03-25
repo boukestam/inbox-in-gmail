@@ -154,7 +154,12 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 
 /* Menu item row inner */
 .aim .TN {
-  height: 40px;
+	height: 40px;
+}
+
+/* Menu item row inner (when collapsed) */
+.bhZ:not(.bym) .TN {
+	padding: 0 4px !important;
 }
 
 /* Menu item link */
@@ -292,7 +297,7 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 
 /* main menu & gmail name  */
 .gb_2b, .gb_Vb {
-	margin-top: -8px;
+	margin-top: -8px !important;
 }
 
 /* search icon */
@@ -342,7 +347,7 @@ button.gb_lf {
 
 /* main email area */
 .Cp {
-	margin-top: -15px;
+	margin-top: 2px !important;
 }
 
 /*
@@ -428,6 +433,9 @@ header form {
 /* Search bar icon on active input (old, new) */
 .gb_1e.gb_yf.gb_if button svg, .gb_2e.gb_zf.gb_jf button svg {
 	color: #000 !important;
+}
+.gb_if {
+	margin-top: -5px;
 }
 
 /* Search bar placeholder (old, new) */
