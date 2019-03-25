@@ -85,35 +85,35 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 **
 */
 
-div.aim {
+.aim {
   padding-left: 4px !important;
 }
 
 /* Menu item row */
-div.TK .TO {
+.TK .TO {
   border-radius: 2px !important;
 }
 
 /* Menu item row, hover */
-div.TK .TO:hover {
+.TK .TO:hover {
   background-color: rgba(0,0,0,.05) !important;
   cursor: pointer;
 }
 
 /* Menu item row active */
-div.TK .TO:active,
-div.n6 .ah9.aiu:active
-div.CL:active,
-div.TO.nZ,
-div.TO.NQ,
-div.TO.ol {
+.TK .TO:active,
+.n6 .ah9.aiu:active
+.CL:active,
+.TO.nZ,
+.TO.NQ,
+.TO.ol {
   background-color: rgba(0,0,0,.05) !important; 
 }
 
-/* Left sidebar collapsed */
-div.aeN.bhZ {
+/* Left sidebar collapsed 
+.aeN.bhZ {
   display: none !important;
-}
+}*/
 
 /* Compose email image */
 .z0>.L3::before {
@@ -138,13 +138,13 @@ div.aeN.bhZ {
 }
 
 /* Menu container */
-div.aeN {
+.aeN {
   width: 232px !important;
   max-width: unset !important;
   min-width: unset !important;
   left: 0;
 }
-div.wT {
+.wT {
   margin-top: -20px;
   max-width: unset;
   min-width: unset;
@@ -153,119 +153,124 @@ div.wT {
 }
 
 /* Menu item sections */
-div.TK {
+.TK {
     padding: 8px 0;
 }
 
 /* Menu item row inner */
-div.aim .TN {
+.aim .TN {
   height: 40px;
 }
 
 /* Menu item link */
-div.TO .nU > .n0 {
+.TO .nU > .n0 {
   font-weight: normal;
 }
 
 /* Menu item link */
-div.TO .nU > .n0 {
+.TO .nU > .n0 {
   font-weight: normal;
 }
 
-div.wT > .n3 .byl:first-child .aim:first-child .nZ {
+.wT > .n3 .byl:first-child .aim:first-child .nZ {
   background-color: rgba(0,0,0,.05) !important; 
 }
-div.qj {
+.qj {
   width: 24px !important;
   height: 24px !important;
   opacity: 1 !important;
   margin-right: 24px !important;
   background-size: 24px !important;
 }
-div.qj::before {
+.qj::before {
   content: none !important;
 }
-div.qj::after {
+.qj::after {
   content: none !important;
 }
 /* Inbox */
-div.aHS-bnt .qj {
+.aHS-bnt .qj {
   background-image: url("//www.gstatic.com/images/icons/material/system/2x/inbox_googblue_24dp.png") !important;
 }
 /* Dropdown arrow */
-div.aHS-bnt .afM {
+.aHS-bnt .afM {
   background-image: url('//www.gstatic.com/images/icons/material/system/2x/arrow_drop_down_black_20dp.png') !important;
 }
 /* Starred, Important, Chats */
-div.aHS-bnw .qr,
-div.aHS-bns .qr,
-div.aHS-aHP .qr {
+.aHS-bnw .qr,
+.aHS-bns .qr,
+.aHS-aHP .qr {
   opacity: 0.6 !important;
 }
 /* Starred */
-div.aHS-bnw .qj {
+.aHS-bnw .qj {
   background-image: url("//www.gstatic.com/images/icons/material/system/2x/grade_black_24dp.png") !important;
 }
 /* Important */
-div.aHS-bns .qj {
+.aHS-bns .qj {
   background-image: url("//www.gstatic.com/images/icons/material/system/2x/label_important_black_24dp.png") !important;
 }
 /* Chats */
-div.aHS-aHP .qj {
+.aHS-aHP .qj {
   background-image: url("//www.gstatic.com/images/icons/material/system/2x/hangout_black_24dp.png") !important;
 }
 /* Snoozed */
-div.aHS-bu1 .qj {
+.aHS-bu1 .qj {
   background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_upcoming_clr_24dp_r5_2x.png") !important;
 }
 /* Sent */
-div.aHS-bnu .qj {
+.aHS-bnu .qj {
   background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_sent_right_g60_24dp_r1_2x.png") !important;
 }
 /* Drafts */
-div.aHS-bnq .qj {
+.aHS-bnq .qj {
   background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_draft_g60_24dp_r2_2x.png") !important;
 }
 /* Trash */
-div.aHS-bnx .qj {
+.aHS-bnx .qj {
   background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_trash_g60_24dp_r2_2x.png") !important;
 }
 /* Category */
-div.aHS-bnr .qj {
+.aHS-bnr .qj {
   background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_custom-cluster_24px_g60_r3_2x.png") !important;
 }
 /* Done */
-div.aHS-aHO .qj {
+.aHS-aHO .qj {
   background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_done_clr_24dp_r4_2x.png") !important;
 }
 /* Spam */
-div.aHS-bnv .qj {
+.aHS-bnv .qj {
   background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_spam_g60_24dp_r2_2x.png") !important;
 }
-div.TO.nZ .n0 {
+.TO.nZ .n0 {
   color: #212121 !important;
   outline: none;
 }
-div.TO .n0 {
+.TO .n0 {
   color: #616161 !important;
   outline: none;
 }
 
 /* padding for inbox, stared, sent, drafts */
-div.TN.bzz.aHS-bnq, div.TN.bzz.aHS-bnu, div.TN.bzz.aHS-bnw, div.TN.bzz.aHS-bnt {
+.TN.bzz.aHS-bnq, .TN.bzz.aHS-bnu, .TN.bzz.aHS-bnw, .TN.bzz.aHS-bnt {
 	padding-bottom: 5px;
 	padding-top: 5px;
 }
 
+/* padding for inbox, stared, sent, drafts */
+.aim {
+  margin-left: -14px;
+}
+
 /* left menu border under snooze */
-div.TN.bzz.aHS-bu1 {
+.TN.bzz.aHS-bu1 {
 	padding-bottom: 5px;
 	padding-top: 5px;
 	border-bottom: 1px solid #DDDDDD;
 }
 
 /* left menu border under trash */
-div.TN.bzz.aHS-bnx {
+.TN.bzz.aHS-bnx {
 	padding-bottom: 5px;
 	padding-top: 5px;
 	border-bottom: 1px solid #DDDDDD;
@@ -285,13 +290,13 @@ div.TN.bzz.aHS-bnx {
 */
 
 /* main top bar including shadow*/
-div.gb_xd.gb_4d.gb_Fd {
+.gb_xd.gb_4d.gb_Fd {
 	height: 56px;
 	box-shadow: 0px 5px 4px #c6c6c6;
 }
 
 /* main menu & gmail name  */
-div.gb_2b, div.gb_Vb {
+.gb_2b, .gb_Vb {
 	margin-top: -8px;
 }
 
@@ -307,7 +312,7 @@ button.gb_lf {
 }
 
 /* main search window */
-div.gb_oc.gb_Od.gb_Xd.gb_Td {
+.gb_oc.gb_Od.gb_Xd.gb_Td {
 	margin-left: 10px;
 }
 
@@ -318,30 +323,30 @@ div.gb_oc.gb_Od.gb_Xd.gb_Td {
 }
 
 /* Google Apps icon & Google Account icon */
-div.gb_w.gb_Xc.gb_f.gb_Af, div.gb_Ea.gb_Xc.gb_qg.gb_f.gb_Af {
+.gb_w.gb_Xc.gb_f.gb_Af, .gb_Ea.gb_Xc.gb_qg.gb_f.gb_Af {
 	margin-top: -7px;
 }
 
 /* search bar */
-div.gb_mf.gb_gf {
+.gb_mf.gb_gf {
 	margin-top: 0px;
 	margin-left: 30px;
 	height: 36px;
 }
 
 /* email area moves over compose icon */
-div.BltHke.nH.oy8Mbf {
+.BltHke.nH.oy8Mbf {
 	padding-right: 95px;
 }
 
-/* collapsed main menu */
-div.no{
+/* colapsed main menu */
+.no{
 	background-color: #F2F2F2;
 }
 
 
 /* main email area */
-div.Cp {
+.Cp {
 	margin-top: -15px;
 }
 
