@@ -82,7 +82,7 @@ const updateReminders = function () {
 			email.querySelectorAll(".y6,.Zt").forEach(node => node.outerHTML = "");
 			email.querySelectorAll(".pH.a9q").forEach(node => {
 				node.style.opacity = "1";
-				node.style.backgroundImage = "url('https://gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/1x/ic_reminder_blue_24dp_r2.png')";
+				node.style.backgroundImage = "url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_reminder_blue_24dp_r2_2x.png')";
 			});
 			email.querySelectorAll(".y2").forEach(node => node.style.color = "#202124");
 		}
