@@ -502,6 +502,11 @@ header form input {
 	background: #FFF;
 }
 
+/* Fixed border on email */
+.Bu > .nH > .no { 
+	display: none; 
+}
+
 /* Left toolbar when collapsed (this is done to fix hidden compose button when collapsed) */
 .bhZ {
 	position: relative !important;
