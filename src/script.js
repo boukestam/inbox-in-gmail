@@ -213,7 +213,10 @@ const reorderMenuItems = () => {
       done.firstChild.removeAttribute('id');
 
       // Manually add on-click event to done elment
-      done.addEventListener('click', () => window.location.assign('#archive'));
+			done.addEventListener('click', () => window.location.assign('#archive'));
+			
+			// Rewrite text from All Mail to Done
+			done.querySelector('a').innerText = 'Done';
 
       const newNode = document.createElement('div');
       newNode.classList.add('TK');
