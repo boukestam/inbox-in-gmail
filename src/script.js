@@ -207,13 +207,13 @@ const reorderMenuItems = () => {
       placeholder.style.cssText = 'padding: 0; border: 0;';
 
       // Assign link href which only show archived mail
-      done.querySelector('a').href = '#search/-is%3Ainbox';
+      done.querySelector('a').href = '#archive';
 
       // Remove id attribute from done element for preventing event override from Gmail
       done.firstChild.removeAttribute('id');
 
       // Manually add on-click event to done elment
-      done.addEventListener('click', () => window.location.assign('#search/-is%3Ainbox'));
+      done.addEventListener('click', () => window.location.assign('#archive'));
 
       const newNode = document.createElement('div');
       newNode.classList.add('TK');
@@ -249,9 +249,16 @@ const setupClickEventForNodes = (nodes) => {
   );
 };
 
-const initMenu = () => {
-  reorderMenuItems();
-};
+const init = () => {
+	setupNodes();
+	reorderMenuItems();
+}
+
+if (document.head) {
+  init();
+} else {
+  document.addEventListener("DOMContentLoaded", init);
+}
 
 const queryParentSelector = (elm, sel) => {
   if (!elm) {
