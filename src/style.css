@@ -418,6 +418,11 @@ a[href='#inbox']::after {
 	padding-left: 7px;
 }
 
+/* Invisible inbox info with huge padding at bottom of email  */
+.pfiaof {
+	display: none;
+}
+
 /* Top bar icons */
 header svg {
 	color: #FFF !important;
