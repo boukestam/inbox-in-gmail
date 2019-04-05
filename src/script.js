@@ -216,8 +216,11 @@ const reorderMenuItems = () => {
       // Manually add on-click event to done elment
       done.addEventListener('click', () => window.location.assign('#archive'));
 			
-			// Rewrite text from All Mail to Done
-			done.querySelector('a').innerText = 'Done';
+      // Rewrite text from All Mail to Done
+      done.querySelector('a').innerText = 'Done';
+
+      // Change icon to green checkmark
+      done.querySelector('.qj').style.backgroundImage = 'url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_done_clr_24dp_r4_2x.png")';
 
       const newNode = document.createElement('div');
       newNode.classList.add('TK');
