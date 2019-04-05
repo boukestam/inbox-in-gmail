@@ -223,9 +223,10 @@ const reorderMenuItems = () => {
       done.querySelector('.qj').style.backgroundImage = 'url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_done_clr_24dp_r4_2x.png")';
 
       // Add border seperator to bottom of Done
-      done.style.borderBottom = '1px solid rgb(221, 221, 221)';
-      done.style.paddingBottom = '5px';
-      done.style.paddingTop = '5px';
+      const innerDone = done.querySelector('div');
+      innerDone.style.borderBottom = '1px solid rgb(221, 221, 221)';
+      innerDone.style.paddingBottom = '5px';
+      innerDone.style.paddingTop = '5px';
 
       const newNode = document.createElement('div');
       newNode.classList.add('TK');

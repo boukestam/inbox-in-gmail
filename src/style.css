@@ -1,6 +1,6 @@
 /* Change font everywhere */
 * {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
 	font-size: 99.1%;
 	letter-spacing: normal;
 }
