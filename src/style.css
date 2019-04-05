@@ -1,3 +1,39 @@
+/* Change font everywhere */
+* {
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 99.1%;
+	letter-spacing: normal;
+}
+/* Email subject colour */
+.zA {
+	color: #040404;
+}
+
+/* Header bar */
+header {
+	box-shadow: 0 0 4px rgba(0, 0, 0, .14), 0 4px 8px rgba(0, 0, 0, .28);
+}
+
+/* Sidebar: hide the label email counters */
+.bsU {
+	display: none;
+}
+
+/* Sidebar: labels */
+.TO .nU > .n0,
+.ah9 > .CJ {
+	color: #616161;
+}
+
+/* Sidebar: labels */
+.TO .nU > .n0,
+.TO.NQ .nU > .n0,
+.TO.nZ .nU > .n0,
+.ah9 > .CJ,
+.n3 > .CL > .CK {
+	text-shadow: none;
+}
+
 /* Emails */
 .Cp {
 	/*box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);*/
@@ -262,9 +298,8 @@ td.apU.xY .T-KT.T-KT-Jp::before {
   margin-left: -14px;
 }
 
-/* left menu border under done and trash */
-.TN.bzz.aHS-bnx,
-.TN.bzz.aHS-aHO {
+/* left menu border under trash */
+.TN.bzz.aHS-bnx {
 	padding-bottom: 5px;
 	padding-top: 5px;
 	border-bottom: 1px solid #DDDDDD;
