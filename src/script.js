@@ -182,7 +182,7 @@ const setupNodes = () => {
       }
     });
   });
-  observer.observe(document.body, {subtree:true, childList:true});
+  observer.observe(document.body, { subtree: true, childList: true });
 };
 
 const reorderMenuItems = () => {
@@ -190,14 +190,12 @@ const reorderMenuItems = () => {
     const parent = document.querySelector('.wT .byl');
     const refer = document.querySelector('.wT .byl>.TK');
     const {
-      inbox, snoozed, done, drafts, sent,
-      spam, trash, starred, important, chats,
+      inbox, snoozed, done,
     } = _nodes;
 
     if (
       parent && refer &&
-      inbox && snoozed && done && drafts && sent &&
-      spam && trash && starred && important && chats
+      inbox && snoozed && done
     ) {
       /* Gmail will execute its script to add element to the first child, so
        * add one placeholder for it and do the rest in the next child.
@@ -213,7 +211,7 @@ const reorderMenuItems = () => {
       done.firstChild.removeAttribute('id');
 
       // Manually add on-click event to done elment
-			done.addEventListener('click', () => window.location.assign('#archive'));
+      done.addEventListener('click', () => window.location.assign('#archive'));
 			
 			// Rewrite text from All Mail to Done
 			done.querySelector('a').innerText = 'Done';
@@ -225,18 +223,14 @@ const reorderMenuItems = () => {
       newNode.appendChild(done);
       parent.insertBefore(placeholder, refer);
       parent.insertBefore(newNode, refer);
-      refer.appendChild(drafts);
-      refer.appendChild(sent);
-      refer.appendChild(trash);
-      refer.appendChild(spam);
+
       setupClickEventForNodes([
-        inbox, snoozed, done, drafts, sent,
-        spam, trash, starred, important, chats,
+        inbox, snoozed, done,
       ]);
       observer.disconnect();
     }
   });
-  observer.observe(document.body, {subtree:true, childList:true});
+  observer.observe(document.body, { subtree: true, childList: true });
 };
 
 const activateMenuItem = (target, nodes) => {

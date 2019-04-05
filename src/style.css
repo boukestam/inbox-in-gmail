@@ -251,8 +251,12 @@ td.apU.xY .T-KT.T-KT-Jp::before {
   outline: none;
 }
 
-/* padding for inbox, stared, sent, drafts */
-.TN.bzz.aHS-bnq, .TN.bzz.aHS-bnu, .TN.bzz.aHS-bnw, .TN.bzz.aHS-bnt {
+/* padding for inbox, starred, sent, drafts, snooze */
+.TN.bzz.aHS-bnq,
+.TN.bzz.aHS-bnu,
+.TN.bzz.aHS-bnw,
+.TN.bzz.aHS-bnt,
+.TN.bzz.aHS-bu1 {
 	padding-bottom: 5px;
 	padding-top: 5px;
 }
@@ -262,15 +266,9 @@ td.apU.xY .T-KT.T-KT-Jp::before {
   margin-left: -14px;
 }
 
-/* left menu border under snooze */
-.TN.bzz.aHS-bu1 {
-	padding-bottom: 5px;
-	padding-top: 5px;
-	border-bottom: 1px solid #DDDDDD;
-}
-
-/* left menu border under trash */
-.TN.bzz.aHS-bnx {
+/* left menu border under done and trash */
+.TN.bzz.aHS-bnx,
+.TN.bzz.aHS-aHO {
 	padding-bottom: 5px;
 	padding-top: 5px;
 	border-bottom: 1px solid #DDDDDD;
