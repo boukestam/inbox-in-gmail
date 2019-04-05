@@ -6,6 +6,7 @@ const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 
 let lastEmailCount = 0;
 let lastRefresh = new Date();
+let loadedMenu = false;
 
 const getMyEmail = function () {
 	const accountInfo = document.querySelector("div[aria-label='Account Information']");
@@ -190,12 +191,14 @@ const reorderMenuItems = () => {
     const parent = document.querySelector('.wT .byl');
     const refer = document.querySelector('.wT .byl>.TK');
     const {
-      inbox, snoozed, done,
+      inbox, snoozed, done, drafts, sent,
+      spam, trash, starred, important, chats,
     } = _nodes;
 
     if (
-      parent && refer &&
-      inbox && snoozed && done
+      parent && refer && loadedMenu &&
+      inbox && snoozed && done && drafts && sent &&
+      spam && trash && starred && important && chats
     ) {
       /* Gmail will execute its script to add element to the first child, so
        * add one placeholder for it and do the rest in the next child.
@@ -225,9 +228,21 @@ const reorderMenuItems = () => {
       parent.insertBefore(newNode, refer);
 
       setupClickEventForNodes([
-        inbox, snoozed, done,
+        inbox, snoozed, done, drafts, sent,
+        spam, trash, starred, important, chats,
       ]);
+
+      // Close More menu
+      document.body.querySelector(".J-Ke.n4.ah9").click();
       observer.disconnect();
+    }
+
+    if (
+      !loadedMenu && inbox
+    ) {
+      // Open More menu
+      document.body.querySelector(".J-Ke.n4.ah9").click();
+      loadedMenu = true;
     }
   });
   observer.observe(document.body, { subtree: true, childList: true });
