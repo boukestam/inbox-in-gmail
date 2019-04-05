@@ -583,25 +583,6 @@ header form input {
 	margin-right: 7vw;
 	width: auto;
 }
-@media (min-width: 1650px) {
-	.nH .AO .aeF {
-		min-width: 512px;
-		margin-right: 10vw;
-		width: auto;
-	}
-
-	/* the bar that the menu items typically rest on */
-	.G-atb {
-		height: 0px !important;    
-	}
-	.nH.aqK {
-		padding-top: 48px !important;
-	}
-	/* shifts the inbox down */
-	.aeF {
-		margin-top: 18px !important;
-	}
-}
 
 /* Inbox: starred heading space */
 .Cp {
