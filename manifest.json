@@ -3,7 +3,7 @@
   "version": "0.3.6",
   "manifest_version": 2,
   "description": "This extension adds features like reminders and the clean style from Google Inbox in Gmail",
-  "homepage_url": "http://extensionizr.com",
+  "homepage_url": "https://github.com/boukestam/inbox-in-gmail",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
