@@ -188,7 +188,7 @@ td.apU.xY .T-KT.xf::before {
 .TD>.TC {
   background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/2x/ic_zero_inbox_2x.png');
   background-repeat: no-repeat;
-  background-position: center; 
+  background-position: center;
   color: transparent;
   height: 618px;
   width: 456px;
@@ -632,10 +632,25 @@ li.bqX.brv {
 	margin-right: -72px;
 }
 
+/* Attachments styling to look more like inbox */
+.brd {
+	margin-left: 0px !important;
+}
+.brc {
+	border-radius: 2px !important;
+	background-color: #f7f7f7;
+	padding: 0 6px !important;
+	color: #212121 !important;
+	box-shadow: 0 0 1px rgba(0,0,0,.11), 0 1px 2px rgba(0,0,0,.22) !important;
+}
+.brc .brg {
+	font-size: 13px !important;
+}
+
 /* --------------------------------------------- */
 /* Hides the pin icon until the mouse is over it */
 /* --------------------------------------------- */
- 
+
 /* Nudges the pin along and then moves the date/time over a bit */
 .zA .apU.xY {
 	margin-right: 2px;
@@ -735,7 +750,7 @@ li.bqX.brv {
 
 /* the bar that the menu items typically rest on */
 .G-atb {
-	height: 48px;      
+	height: 48px;
 }
 
 /* shifts the inbox down */
