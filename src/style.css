@@ -1,9 +1,10 @@
 /* Change font everywhere */
 * {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 99.1%;
 	letter-spacing: normal;
 }
+
 /* Email subject colour */
 .zA {
 	color: #040404;
@@ -363,11 +364,6 @@ button.gb_lf {
 	height: 36px;
 }
 
-/* email area moves over compose icon */
-.BltHke.nH.oy8Mbf {
-	padding-right: 95px;
-}
-
 /* colapsed main menu */
 .no {
 	background-color: #F2F2F2;
@@ -545,4 +541,148 @@ header form input {
 .bhZ {
 	position: relative !important;
 	margin-right: -72px;
+}
+
+/* --------------------------------------------- */
+/* Hides the pin icon until the mouse is over it */
+/* --------------------------------------------- */
+ 
+/* Nudges the pin along and then moves the date/time over a bit */
+.zA .apU.xY {
+	margin-right: 2px;
+}
+.zA .xW.xY {
+	margin-left: -32px;
+	margin-right: 10px;
+}
+
+/* Handles the positioning of the quick action icons that appear when you mouse over an email row to make room for the pin */
+.bqY {
+	position: relative;
+	left: -10px;
+}
+
+/* Hides the pin when not pinned, until the cursor is over it */
+.zA .apU.xY .aXw {
+	display: none;
+}
+.zA .apU.xY .T-KT-JW {
+	display: block;
+}
+.aqw .apU.xY .aXw {
+	display: block;
+}
+
+/* --------------------------------------------- */
+/* Inbox and top toolbar layout	    						 */
+/* --------------------------------------------- */
+
+/* Inbox: message list layout */
+.nH .AO .aeF {
+	min-width: 512px;
+	margin-right: 7vw;
+	width: auto;
+}
+@media (min-width: 1650px) {
+	.nH .AO .aeF {
+		min-width: 512px;
+		margin-right: 10vw;
+		width: auto;
+	}
+
+	/* the bar that the menu items typically rest on */
+	.G-atb {
+		height: 0px !important;    
+	}
+	.nH.aqK {
+		padding-top: 48px !important;
+	}
+	/* shifts the inbox down */
+	.aeF {
+		margin-top: 18px !important;
+	}
+}
+
+/* Inbox: starred heading space */
+.Cp {
+	margin: 0 5px;
+}
+
+/* Inbox: hide the starred heading */
+.nH.Wg.aAD.aAr {
+	display: none;
+}
+
+/* Inbox: hide the everything else heading */
+.nH.Wg.aAr {
+	display: none;
+}
+
+/* Inbox: date groupings */
+.time {
+	font-size: 13px;
+	padding-top: 13px;
+}
+
+/* Inbox: email rows */
+.zA {
+	padding: 12px 12px 12px 5px;
+}
+
+/* Inbox: email row contents */
+.zA * {
+	font-size: 13px;
+}
+
+/* Moves the selection indicator to the left */
+.PF.xY.PE {
+	margin-left: -5px;
+	margin-right: 5px;
+}
+
+/* Hides the checkbox when not checked */
+.zA .oZ-x3.xY .T-Jo {
+	display: none;
+}
+
+/* Unhides the checkbox when checked */
+.zA.aqw .oZ-x3.xY .T-Jo {
+	display: inline;
+}
+.aqw .yX.xY div:nth-child(n+3)>img {
+	display: none;
+}
+.x7 .yX.xY div:nth-child(n+3)>img {
+	display: none;
+}
+.zA.x7 .oZ-x3.xY .T-Jo {
+	display: inline;
+}
+
+/* */
+/* Rearranges the menu at the top and moves it all to the right corner */
+/* */
+
+/* the bar that the menu items typically rest on */
+.G-atb {
+	height: 48px;      
+}
+
+/* shifts the inbox down */
+.aeF {
+	margin-top: -8px;
+}
+
+.nH.aqK {
+	padding-top: 0px;
+}
+
+.Cq.aqL {
+	margin-left: auto;
+	margin-right: -24px;
+}
+
+.Cr.aqJ {
+	margin-left: 0px;
+	margin-right: 0px;
 }
