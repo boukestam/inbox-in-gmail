@@ -607,7 +607,7 @@ header form input {
 
 /* Inbox: email rows */
 .zA {
-	padding: 12px 12px 12px 5px;
+	padding: 13px 12px 13px 5px !important;
 }
 
 /* Inbox: email row contents */
