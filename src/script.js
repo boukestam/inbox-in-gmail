@@ -83,7 +83,7 @@ const updateReminders = function () {
 			email.querySelectorAll(".y6,.Zt").forEach(node => node.outerHTML = "");
 			email.querySelectorAll(".pH.a9q").forEach(node => {
 				node.style.opacity = "1";
-				node.style.backgroundImage = "url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_reminder_blue_24dp_r2_2x.png')";
+				node.style.backgroundImage = "url('https://i.ibb.co/nRdXnR2/ic-reminder-blue-24dp-r2-2x.png')";
 			});
 			email.querySelectorAll(".y2").forEach(node => node.style.color = "#202124");
 		}
@@ -220,7 +220,7 @@ const reorderMenuItems = () => {
       done.querySelector('a').innerText = 'Done';
 
       // Change icon to green checkmark
-      done.querySelector('.qj').style.backgroundImage = 'url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_done_clr_24dp_r4_2x.png")';
+      done.querySelector('.qj').style.backgroundImage = 'urlss("https://i.ibb.co/nbQZg5y/ic-done-clr-24dp-r4-2x.png")';
 
       // Add border seperator to bottom of Done
       const innerDone = done.querySelector('div');
