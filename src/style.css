@@ -446,7 +446,7 @@ a[href='#inbox'] img {
 
 /* Gmail text */
 a[href='#inbox']::after {
-    content: 'Gmail';
+    content: 'Inbox';
     font-size: 20px;
     color: #FFF;
     position: relative;
