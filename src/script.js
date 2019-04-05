@@ -220,7 +220,7 @@ const reorderMenuItems = () => {
       done.querySelector('a').innerText = 'Done';
 
       // Change icon to green checkmark
-      done.querySelector('.qj').style.backgroundImage = 'urlss("https://i.ibb.co/nbQZg5y/ic-done-clr-24dp-r4-2x.png")';
+      done.querySelector('.qj').style.backgroundImage = 'url("https://i.ibb.co/nbQZg5y/ic-done-clr-24dp-r4-2x.png")';
 
       // Add border seperator to bottom of Done
       const innerDone = done.querySelector('div');
