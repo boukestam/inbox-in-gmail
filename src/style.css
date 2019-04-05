@@ -57,20 +57,20 @@ td.apU.xY {
 
 /* Not starred image */
 td.apU.xY .T-KT::before {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_pin_black_24dp_2x.png') !important;
+	background-image: url('https://i.ibb.co/L6F6nTk/btw-ic-pin-black-24dp-2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Starred image */
 td.apU.xY .T-KT.T-KT-Jp::before {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_mark-pinned_clr_24dp_r4_2x.png') !important;
+	background-image: url('https://i.ibb.co/mFmGKTg/ic-mark-pinned-clr-24dp-r4-2x.png') !important;
 	background-size: 24px !important;
 	opacity: 1;
 }
 
 /* Starred menu item */
 .aHS-bnw .qj {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_pin_black_24dp_2x.png') !important;
+	background-image: url('https://i.ibb.co/L6F6nTk/btw-ic-pin-black-24dp-2x.png') !important;
 	background-size: 24px !important;
 }
 
@@ -149,12 +149,12 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 
 /* Compose email image */
 .z0>.L3::before {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_speeddial_white_24dp_2x.png') !important;
+	background-image: url('https://i.ibb.co/y09xqPH/btw-ic-speeddial-white-24dp-2x.png') !important;
     background-size: 24px !important;
 }
 
 .z0>.L3:hover::before {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_speeddial_compose_white_24dp_2x.png') !important;
+	background-image: url('https://i.ibb.co/x6n7nSQ/btw-ic-speeddial-compose-white-24dp-2x.png') !important;
     background-size: 24px !important;
 }
 
@@ -227,11 +227,11 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 }
 /* Inbox */
 .aHS-bnt .qj {
-  background-image: url("//ssl.gstatic.com/images/icons/material/system/2x/inbox_googblue_24dp.png") !important;
+  background-image: url("https://i.ibb.co/fn7MyRG/inbox-googblue-24dp.png") !important;
 }
 /* Dropdown arrow */
 .aHS-bnt .afM {
-  background-image: url('//ssl.gstatic.com/images/icons/material/system/2x/arrow_drop_down_black_20dp.png') !important;
+  background-image: url("https://i.ibb.co/R7pYSLZ/arrow-drop-down-black-20dp.png") !important;
 }
 /* Starred, Important, Chats */
 .aHS-bnw .qr,
@@ -241,39 +241,39 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 }
 /* Starred */
 .aHS-bnw .qj {
-  background-image: url("//ssl.gstatic.com/images/icons/material/system/2x/grade_black_24dp.png") !important;
+  background-image: url("https://i.ibb.co/mXkG5ff/grade-black-24dp.png") !important;
 }
 /* Important */
 .aHS-bns .qj {
-  background-image: url("//ssl.gstatic.com/images/icons/material/system/2x/label_important_black_24dp.png") !important;
+  background-image: url("https://i.ibb.co/rw73YY4/label-important-black-24dp.png") !important;
 }
 /* Chats */
 .aHS-aHP .qj {
-  background-image: url("//ssl.gstatic.com/images/icons/material/system/2x/hangout_black_24dp.png") !important;
+  background-image: url("https://i.ibb.co/RHqK4MB/hangout-black-24dp.png") !important;
 }
 /* Snoozed */
 .aHS-bu1 .qj {
-  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_upcoming_clr_24dp_r5_2x.png") !important;
+  background-image: url("https://i.ibb.co/KL9Wm2J/ic-upcoming-clr-24dp-r5-2x.png") !important;
 }
 /* Sent */
 .aHS-bnu .qj {
-  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_sent_right_g60_24dp_r1_2x.png") !important;
+  background-image: url("https://i.ibb.co/0fYwQYN/ic-sent-right-g60-24dp-r1-2x.png") !important;
 }
 /* Drafts */
 .aHS-bnq .qj {
-  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_draft_g60_24dp_r2_2x.png") !important;
+  background-image: url("https://i.ibb.co/St5mfzv/ic-draft-g60-24dp-r2-2x.png") !important;
 }
 /* Trash */
 .aHS-bnx .qj {
-  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_trash_g60_24dp_r2_2x.png") !important;
+  background-image: url("https://i.ibb.co/RQp6mnM/ic-trash-g60-24dp-r2-2x.png") !important;
 }
 /* Category */
 .aHS-bnr .qj {
-  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_custom-cluster_24px_g60_r3_2x.png") !important;
+  background-image: url("https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png") !important;
 }
 /* Spam */
 .aHS-bnv .qj {
-  background-image: url("//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_spam_g60_24dp_r2_2x.png") !important;
+  background-image: url("https://i.ibb.co/CJm8B4X/ic-spam-g60-24dp-r2-2x.png") !important;
 }
 .TO.nZ .n0 {
   color: #212121 !important;
@@ -497,7 +497,7 @@ header form input {
 
 /* Add reminder image */
 .add-reminder::before {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_speeddial_reminders_white_24dp_2x.png') !important;
+	background-image: url("https://i.ibb.co/ZXjKTgc/btw-ic-speeddial-reminders-white-24dp-2x.png") !important;
 	background-size: 24px !important;
 	background-position: center;
     background-repeat: no-repeat;
@@ -514,13 +514,13 @@ header form input {
 
 /* Archive button (inbox email, opened email) */
 .brq, .ar8 {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_done_black_24dp_2x.png') !important;
+	background-image: url("https://i.ibb.co/yXwztKr/btw-ic-done-black-24dp-2x.png") !important;
 	background-size: 24px !important;
 }
 
 /* Snooze button (inbox email, opened email) */
 .brv, .brW {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_snooze_black_24dp_2x.png') !important;
+	background-image: url("https://i.ibb.co/3ptb3Tk/btw-ic-snooze-black-24dp-2x.png") !important;
 	background-size: 24px !important;
 }
 
