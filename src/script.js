@@ -7,6 +7,11 @@ let lastEmailCount = 0;
 let lastRefresh = new Date();
 let loadedMenu = false;
 
+/* remove element */
+Element.prototype.remove = function() {
+	this.parentElement.removeChild(this);
+};
+
 const getMyEmailAddress = function () {
 	const accountInfo = document.querySelector("div[aria-label='Account Information']");
 	if (accountInfo) {
@@ -57,16 +62,21 @@ const isReminder = function(email, myEmailAddress) {
 };
 
 const addDateLabel = function (email, label) {
-    if (!email.previousSibling || email.previousSibling.className != "time-row") {
-        const timeRow = document.createElement("div");
-        timeRow.className = "time-row";
-        const time = document.createElement("div");
-        time.className = "time";
-        time.innerText = label;
-        timeRow.appendChild(time);
+    if (email.previousSibling && email.previousSibling.className === "time-row") {
+    	if(email.previousSibling.innerText === label) {
+    		return;
+		}
+		email.previousSibling.remove();
+	}
 
-        email.parentElement.insertBefore(timeRow, email);
-    }
+	const timeRow = document.createElement("div");
+	timeRow.classList.add("time-row");
+	const time = document.createElement("div");
+	time.className = "time";
+	time.innerText = label;
+	timeRow.appendChild(time);
+
+	email.parentElement.insertBefore(timeRow, email);
 };
 
 const getDate = function(email) {
@@ -91,21 +101,21 @@ const buildDateLabel = function(email) {
     return date.getFullYear().toString();
 };
 
-const deleteAllDateLabels =  function() {
-    document.querySelectorAll(".time-row").forEach(row => row.outerHTML = "");
+const cleanupDateLabels =  function() {
+    document.querySelectorAll(".time-row").forEach(row => {
+    	// delete any back to back date labels
+    	if(row.nextSibling && row.nextSibling.className === "time-row") {
+    		row.remove();
+		}
+	});
 };
 
 const updateReminders = function () {
 	const emails = document.querySelectorAll(".zA");
 	const myEmail = getMyEmailAddress();
 	let lastLabel = null;
-	const now = new Date();
 
-	if (emails.length !== lastEmailCount || now.getDate() !== lastRefresh.getDate()) {
-		deleteAllDateLabels();
-		lastEmailCount = emails.length;
-		lastRefresh = now;
-	}
+	cleanupDateLabels();
 
 	for (const email of emails) {
 		if (isReminder(email, myEmail)) {
@@ -120,7 +130,7 @@ const updateReminders = function () {
 		}
 	}
 
-	setTimeout(updateReminders, 100);
+	setTimeout(updateReminders, 250);
 };
 
 /*

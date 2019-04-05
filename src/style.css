@@ -529,7 +529,7 @@ a[href='#inbox']::after {
 
 /* Invisible inbox info with huge padding at bottom of email  */
 .pfiaof {
-	/*display: none;*/
+	display: none;
 }
 
 /* Top bar icons */
