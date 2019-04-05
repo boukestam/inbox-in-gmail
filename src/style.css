@@ -111,6 +111,17 @@ td.apU.xY .T-KT.T-KT-Jp::before {
 	overflow: hidden;
 }
 
+/* Inbox Email is Empty show Sun */
+.TD>.TC {
+  background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/2x/ic_zero_inbox_2x.png');
+  background-repeat: no-repeat;
+  background-position: center; 
+  color: transparent;
+  height: 618px;
+  width: 456px;
+  background-color: #F2F2F2;
+}
+
 /*
 **
 **START OF LEFT MENU
