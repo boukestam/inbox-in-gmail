@@ -535,6 +535,11 @@ header form input {
 	background-size: 24px !important;
 }
 
+/* Snooze button */
+li.bqX.brv {
+	margin-right: 20px;
+}
+
 /* Opened email */
 .Bs.nH.iY.bAt {
 	margin: 10px;
