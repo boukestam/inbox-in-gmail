@@ -8,6 +8,8 @@ let lastRefresh = new Date();
 let loadedMenu = false;
 
 const REMINDER_EMAIL_CLASS = "reminder";
+const CALENDAR_EMAIL_CLASS = "calendar-event";
+const CALENDAR_ATTACHMENT_CLASS = "calendar-attachment";
 
 /* remove element */
 Element.prototype.remove = function() {
@@ -63,6 +65,11 @@ const isReminder = function(email, myEmailAddress) {
 	return allNamesMe;
 };
 
+const isCalendarEvent = function(email) {
+	const node = email.querySelector(".aKS .aJ6");
+	return node && node.innerText === "RSVP";
+};
+
 const addDateLabel = function (email, label) {
     if (email.previousSibling && email.previousSibling.className === "time-row") {
     	if(email.previousSibling.innerText === label) {
@@ -82,13 +89,19 @@ const addDateLabel = function (email, label) {
 };
 
 const getDate = function(email) {
-    const dateString = email.querySelector(".xW.xY span").getAttribute("title");
-    return new Date(dateString);
+    const dateElement = email.querySelector(".xW.xY span");
+    if(dateElement) {
+		return new Date(dateElement.getAttribute("title"));
+	}
 };
 
 const buildDateLabel = function(email) {
     let now = new Date();
     let date = getDate(email);
+
+    if(date === undefined) {
+    	return;
+	}
 
     if(now.getFullYear() == date.getFullYear()) {
 		if(now.getMonth() == date.getMonth()) {
@@ -112,6 +125,63 @@ const cleanupDateLabels =  function() {
 	});
 };
 
+const addEventAttachment = function(email) {
+	let title = "Calendar Event";
+	let time = "";
+	const titleNode = email.querySelector(".bqe,.bog");
+	if(titleNode) {
+		const titleFullText = titleNode.innerText;
+		let matches = Array.from(titleFullText.matchAll(/[^:]*: ([^@]*)@(.*)/g))[0];
+		title = matches[1].trim();
+		time = matches[2].trim();
+	}
+
+	//build calendar attachment, this is based on regular attachments we no longer
+	// have access to inbox to see the full structure
+	const span = document.createElement("span");
+	span.appendChild(document.createTextNode("Attachment"));
+	span.classList.add("bzB");
+
+	const attachmentNameSpan = document.createElement("span");
+	attachmentNameSpan.classList.add("event-title");
+	attachmentNameSpan.appendChild(document.createTextNode(title));
+
+	const attachmentTimeSpan = document.createElement("span");
+	attachmentTimeSpan.classList.add("event-time");
+	attachmentTimeSpan.appendChild(document.createTextNode(time));
+
+	const attachmentContentWrapper = document.createElement("span");
+	attachmentContentWrapper.classList.add("brg");
+	attachmentContentWrapper.appendChild(attachmentNameSpan);
+	attachmentContentWrapper.appendChild(attachmentTimeSpan);
+
+	//find Invitation Action
+	const action = email.querySelector(".aKS");
+	if(action) {
+		attachmentContentWrapper.appendChild(action);
+	}
+
+	const imageSpan = document.createElement("span");
+	imageSpan.classList.add("calendar-image");
+
+	const attachmentCard = document.createElement("div");
+	attachmentCard.classList.add("brc");
+	attachmentCard.setAttribute("role", "listitem");
+	attachmentCard.setAttribute("title", title);
+	attachmentCard.appendChild(imageSpan);
+	attachmentCard.appendChild(attachmentContentWrapper);
+
+	const attachmentNode = document.createElement('div');
+	attachmentNode.classList.add("brd", CALENDAR_ATTACHMENT_CLASS);
+	attachmentNode.appendChild(span);
+	attachmentNode.appendChild(attachmentCard);
+
+	const emailSubjectWrapper = email.querySelectorAll(".a4W");
+	if(emailSubjectWrapper) {
+		emailSubjectWrapper[0].appendChild(attachmentNode);
+	}
+};
+
 const updateReminders = function () {
 	const emails = document.querySelectorAll(".zA");
 	const myEmail = getMyEmailAddress();
@@ -125,6 +195,14 @@ const updateReminders = function () {
 			email.classList.add(REMINDER_EMAIL_CLASS);
 		}
 
+
+		if(isCalendarEvent(email) && !email.querySelector("." + CALENDAR_ATTACHMENT_CLASS)) {
+			email.classList.add(CALENDAR_EMAIL_CLASS);
+			addEventAttachment(email);
+			// remove gmail calendar icon
+			email.querySelector(".yf img").remove();
+		}
+
 		let label = buildDateLabel(email);
 		if (label !== lastLabel) {
 			addDateLabel(email, label);
@@ -132,7 +210,7 @@ const updateReminders = function () {
 		}
 	}
 
-	setTimeout(updateReminders, 250);
+	setTimeout(updateReminders, 100);
 };
 
 /*
