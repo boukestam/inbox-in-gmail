@@ -61,17 +61,90 @@ td.apU.xY .T-KT::before {
 	background-size: 24px !important;
 }
 
-/* Starred image */
-td.apU.xY .T-KT.T-KT-Jp::before {
-	background-image: url('https://i.ibb.co/mFmGKTg/ic-mark-pinned-clr-24dp-r4-2x.png') !important;
-	background-size: 24px !important;
-	opacity: 1;
-}
-
 /* Starred menu item */
 .aHS-bnw .qj {
 	background-image: url('https://i.ibb.co/L6F6nTk/btw-ic-pin-black-24dp-2x.png') !important;
 	background-size: 24px !important;
+}
+
+/* Starred */
+td.apU.xY .T-KT.xl::before {
+	background-image: url('https://i.ibb.co/L6F6nTk/btw-ic-pin-black-24dp-2x.png') !important;
+	background-size: 24px !important;
+}
+
+
+/* Starred - Yellow Star */
+td.apU.xY .T-KT.T-KT-Jp::before {
+	background-image: url('https://i.ibb.co/42t3zLT/ic-mark-pinned-yellow-24dp-r4-2x.png') !important;
+	background-size: 24px !important;
+	opacity: 1;
+}
+
+/* Starred - Orange Star */
+td.apU.xY .T-KT.xl::before {
+	background-image: url('https://i.ibb.co/5MtMBt5/ic-mark-pinned-orange-24dp-r4-2x.png') !important;
+	background-size: 24px !important;
+}
+
+/* Starred - Red Star */
+td.apU.xY .T-KT.xn::before {
+	background-image: url('https://i.ibb.co/60stYpG/ic-mark-pinned-red-24dp-r4-2x.png') !important;
+	background-size: 24px !important;
+}
+
+/* Starred - Purple Star */
+td.apU.xY .T-KT.xm::before {
+	background-image: url('https://i.ibb.co/f13zypb/ic-mark-pinned-purple-24dp-r4-2x.png') !important;
+	background-size: 24px !important;
+}
+
+/* Starred - Blue Star */
+td.apU.xY .T-KT.xj::before {
+	background-image: url('https://i.ibb.co/p3Hc9HV/ic-mark-pinned-blue-24dp-r4-2x.png') !important;
+	background-size: 24px !important;
+}
+
+/* Starred - Green Star */
+td.apU.xY .T-KT.xk::before {
+	background-image: url('https://i.ibb.co/BcktQdk/ic-mark-pinned-green-24dp-r4-2x.png') !important;
+	background-size: 24px !important;
+}
+
+/* Starred - Red Bang */
+td.apU.xY .T-KT.xg::before {
+	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-size: 1px !important;
+}
+
+/* Starred - Orange Guillimet */
+td.apU.xY .T-KT.xe::before {
+	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-size: 1px !important;
+}
+
+/* Starred - Yellow Bang */
+td.apU.xY .T-KT.xh::before {
+	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-size: 1px !important;
+}
+
+/* Starred - Green Check */
+td.apU.xY .T-KT.xd::before {
+	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-size: 1px !important;
+}
+
+/* Starred - Blue Info */
+td.apU.xY .T-KT.xc::before {
+	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-size: 1px !important;
+}
+
+/* Starred - Purple Question */
+td.apU.xY .T-KT.xf::before {
+	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-size: 1px !important;
 }
 
 /* Unread email */
