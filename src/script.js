@@ -7,6 +7,8 @@ let lastEmailCount = 0;
 let lastRefresh = new Date();
 let loadedMenu = false;
 
+const REMINDER_EMAIL_CLASS = "reminder";
+
 /* remove element */
 Element.prototype.remove = function() {
 	this.parentElement.removeChild(this);
@@ -118,9 +120,9 @@ const updateReminders = function () {
 	cleanupDateLabels();
 
 	for (const email of emails) {
-		if (isReminder(email, myEmail)) {
+		if (isReminder(email, myEmail) && !email.classList.contains(REMINDER_EMAIL_CLASS)) { // skip if already added class
 			email.querySelectorAll(".yP,.zF").forEach(node => { node.innerHTML = "Reminder";});
-			email.classList.add("reminder");
+			email.classList.add(REMINDER_EMAIL_CLASS);
 		}
 
 		let label = buildDateLabel(email);
@@ -271,7 +273,7 @@ const setupClickEventForNodes = (nodes) => {
 const init = () => {
 	setupNodes();
 	reorderMenuItems();
-}
+};
 
 if (document.head) {
   init();
