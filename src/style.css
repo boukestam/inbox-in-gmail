@@ -171,12 +171,12 @@ td.apU.xY .T-KT.xf::before {
 	background: #FFF !important;
 }
 
-/* Compose email */
+/* Compose email button */
 .T-I.J-J5-Ji.T-I-KE.L3 {
     position: fixed;
     right: 40px;
     bottom: 20px;
-    z-index: 3;
+    z-index: 1000;
     width: 56px;
     height: 56px;
     border-radius: 50%;
@@ -573,7 +573,7 @@ header form input {
     position: fixed;
     right: 48px;
     bottom: 90px;
-    z-index: 3;
+    z-index: 1000;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -589,12 +589,12 @@ header form input {
 	background-image: url("https://i.ibb.co/ZXjKTgc/btw-ic-speeddial-reminders-white-24dp-2x.png") !important;
 	background-size: 24px !important;
 	background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px;
-  content: '';
-  display: block;
-  height: 40px;
-  width: 40px;
+  	background-repeat: no-repeat;
+  	background-size: 32px;
+  	content: '';
+  	display: block;
+  	height: 40px;
+  	width: 40px;
 }
 
 .add-reminder:hover {
