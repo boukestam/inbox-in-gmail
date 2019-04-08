@@ -17,7 +17,7 @@ header {
 
 /* Sidebar: hide the label email counters */
 .bsU {
-	display: none;
+	display: none !important;
 }
 
 /* Sidebar: labels */
