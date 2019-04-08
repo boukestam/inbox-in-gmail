@@ -194,6 +194,10 @@ td.apU.xY .T-KT.xf::before {
   width: 456px;
   background-color: #F2F2F2;
 }
+/* Hide border at bottom of empty inbox background */
+.cf.TB {
+  border-bottom: none !important;
+}
 
 /*
 **
@@ -584,12 +588,12 @@ header form input {
 	background-image: url("https://i.ibb.co/ZXjKTgc/btw-ic-speeddial-reminders-white-24dp-2x.png") !important;
 	background-size: 24px !important;
 	background-position: center;
-    background-repeat: no-repeat;
-    background-size: 32px;
-    content: '';
-    display: block;
-    height: 40px;
-    width: 40px;
+  background-repeat: no-repeat;
+  background-size: 32px;
+  content: '';
+  display: block;
+  height: 40px;
+  width: 40px;
 }
 
 .add-reminder:hover {
@@ -616,7 +620,7 @@ li.bqX.brv {
 /* Opened email */
 .Bs.nH.iY.bAt {
 	margin: 10px;
-    box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24) !important;
+  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24) !important;
 	width: calc(100% - 62px);
 	background: #FFF;
 }
