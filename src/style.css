@@ -39,6 +39,7 @@ header {
 .Cp {
 	/*box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);*/
 	margin: auto !important;
+	margin-bottom: 50px !important;
 	max-width: 1200px;
 	padding: 0 10px;
 }
@@ -188,7 +189,7 @@ td.apU.xY .T-KT.xf::before {
 .TD>.TC {
   background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/2x/ic_zero_inbox_2x.png');
   background-repeat: no-repeat;
-  background-position: center; 
+  background-position: center;
   color: transparent;
   height: 618px;
   width: 456px;
@@ -636,10 +637,25 @@ li.bqX.brv {
 	margin-right: -72px;
 }
 
+/* Attachments styling to look more like inbox */
+.brd {
+	margin-left: 0px !important;
+}
+.brc {
+	border-radius: 2px !important;
+	background-color: #f7f7f7;
+	padding: 0 6px !important;
+	color: #212121 !important;
+	box-shadow: 0 0 1px rgba(0,0,0,.11), 0 1px 2px rgba(0,0,0,.22) !important;
+}
+.brc .brg {
+	font-size: 13px !important;
+}
+
 /* --------------------------------------------- */
 /* Hides the pin icon until the mouse is over it */
 /* --------------------------------------------- */
- 
+
 /* Nudges the pin along and then moves the date/time over a bit */
 .zA .apU.xY {
 	margin-right: 2px;
@@ -739,7 +755,7 @@ li.bqX.brv {
 
 /* the bar that the menu items typically rest on */
 .G-atb {
-	height: 48px;      
+	height: 48px;
 }
 
 /* shifts the inbox down */
@@ -759,4 +775,81 @@ li.bqX.brv {
 .Cr.aqJ {
 	margin-left: 0px;
 	margin-right: 0px;
+}
+
+
+/* Snoozed notification styling */
+.cL {
+    font-weight: normal !important;
+    font-size: 13px;
+    margin-left: 0px !important;
+}
+
+/* Reminder Icon */
+.zA.reminder .pH.a9q {
+    opacity: 1;
+    background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_reminder_blue_24dp_r2_2x.png');
+}
+
+/* --------------------------------------------- */
+/* Calendar event as attachment                  */
+/* --------------------------------------------- */
+.calendar-attachment {
+	height: 80px !important;
+	width: 400px !important;
+}
+
+.calendar-attachment .brc {
+	height: 80px;
+	width: 400px;
+	max-width: 400px !important;
+	padding-left: 0 !important;
+}
+
+.calendar-attachment .brg {
+	display: flex;
+	flex-direction: column;
+	max-width: 250px;
+	overflow: visible;
+}
+
+.calendar-attachment .event-title, .calendar-attachment .event-time {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.calendar-attachment .event-title {
+	font-weight: normal;
+}
+.calendar-attachment .event-time {
+	color: #757575;
+}
+
+.calendar-attachment .aKS {
+	position: relative;
+	top: 0;
+	margin-top: 4px;
+}
+
+.calendar-attachment .aKS .aOd.T-I-awv {
+	border-radius: 2px;
+}
+
+.calendar-image {
+	height: 80px;
+	width: 100px;
+	background-position: center;
+	background-image: url('//i.ibb.co/2kB7DZk/calendar-event-attachment.png');
+	background-size: 200%;
+	margin-right: 16px;
+}
+
+/* Labels inline in email list */
+.ar {
+	height: 22px !important;
+	border-radius: 2px !important;
+}
+
+.ar .av {
+	padding-top: 2px;
 }

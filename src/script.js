@@ -1,4 +1,3 @@
-const processedEmails = [];
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
@@ -8,7 +7,16 @@ let lastEmailCount = 0;
 let lastRefresh = new Date();
 let loadedMenu = false;
 
-const getMyEmail = function () {
+const REMINDER_EMAIL_CLASS = "reminder";
+const CALENDAR_EMAIL_CLASS = "calendar-event";
+const CALENDAR_ATTACHMENT_CLASS = "calendar-attachment";
+
+/* remove element */
+Element.prototype.remove = function() {
+	this.parentElement.removeChild(this);
+};
+
+const getMyEmailAddress = function () {
 	const accountInfo = document.querySelector("div[aria-label='Account Information']");
 	if (accountInfo) {
 		for (const child of accountInfo.getElementsByTagName("*")) {
@@ -38,98 +46,168 @@ const waitForElement = function (selector, callback, tries) {
 	}
 };
 
+const isReminder = function(email, myEmailAddress) {
+	const titleNode = email.querySelector(".bqe");
+
+	if (titleNode && titleNode.innerText.toLowerCase().trim() === "reminder") {
+		return true;
+	}
+
+	const nameNodes = email.querySelectorAll(".yP,.zF");
+	let allNamesMe = true;
+
+	for (const nameNode of nameNodes) {
+		if (nameNode.getAttribute("email") !== myEmailAddress) {
+			allNamesMe = false;
+		}
+	}
+
+	return allNamesMe;
+};
+
+const isCalendarEvent = function(email) {
+	const node = email.querySelector(".aKS .aJ6");
+	return node && node.innerText === "RSVP";
+};
+
+const addDateLabel = function (email, label) {
+    if (email.previousSibling && email.previousSibling.className === "time-row") {
+    	if(email.previousSibling.innerText === label) {
+    		return;
+		}
+		email.previousSibling.remove();
+	}
+
+	const timeRow = document.createElement("div");
+	timeRow.classList.add("time-row");
+	const time = document.createElement("div");
+	time.className = "time";
+	time.innerText = label;
+	timeRow.appendChild(time);
+
+	email.parentElement.insertBefore(timeRow, email);
+};
+
+const getDate = function(email) {
+    const dateElement = email.querySelector(".xW.xY span");
+    if(dateElement) {
+		return new Date(dateElement.getAttribute("title"));
+	}
+};
+
+const buildDateLabel = function(email) {
+    let now = new Date();
+    let date = getDate(email);
+
+    if(date === undefined) {
+    	return;
+	}
+
+    if(now.getFullYear() == date.getFullYear()) {
+		if(now.getMonth() == date.getMonth()) {
+			if(now.getDate() == date.getDate()) { return "Today"; }
+			if(now.getDate()-1 == date.getDate()) { return "Yesterday"; }
+			return "This month";
+		}
+    	return months[date.getMonth()];
+    }
+    if(now.getFullYear()-1 == date.getFullYear()) { return "Last year"; }
+
+    return date.getFullYear().toString();
+};
+
+const cleanupDateLabels =  function() {
+    document.querySelectorAll(".time-row").forEach(row => {
+    	// delete any back to back date labels
+    	if(row.nextSibling && row.nextSibling.className === "time-row") {
+    		row.remove();
+		}
+	});
+};
+
+const addEventAttachment = function(email) {
+	let title = "Calendar Event";
+	let time = "";
+	const titleNode = email.querySelector(".bqe,.bog");
+	if(titleNode) {
+		const titleFullText = titleNode.innerText;
+		let matches = Array.from(titleFullText.matchAll(/[^:]*: ([^@]*)@(.*)/g))[0];
+		title = matches[1].trim();
+		time = matches[2].trim();
+	}
+
+	//build calendar attachment, this is based on regular attachments we no longer
+	// have access to inbox to see the full structure
+	const span = document.createElement("span");
+	span.appendChild(document.createTextNode("Attachment"));
+	span.classList.add("bzB");
+
+	const attachmentNameSpan = document.createElement("span");
+	attachmentNameSpan.classList.add("event-title");
+	attachmentNameSpan.appendChild(document.createTextNode(title));
+
+	const attachmentTimeSpan = document.createElement("span");
+	attachmentTimeSpan.classList.add("event-time");
+	attachmentTimeSpan.appendChild(document.createTextNode(time));
+
+	const attachmentContentWrapper = document.createElement("span");
+	attachmentContentWrapper.classList.add("brg");
+	attachmentContentWrapper.appendChild(attachmentNameSpan);
+	attachmentContentWrapper.appendChild(attachmentTimeSpan);
+
+	//find Invitation Action
+	const action = email.querySelector(".aKS");
+	if(action) {
+		attachmentContentWrapper.appendChild(action);
+	}
+
+	const imageSpan = document.createElement("span");
+	imageSpan.classList.add("calendar-image");
+
+	const attachmentCard = document.createElement("div");
+	attachmentCard.classList.add("brc");
+	attachmentCard.setAttribute("role", "listitem");
+	attachmentCard.setAttribute("title", title);
+	attachmentCard.appendChild(imageSpan);
+	attachmentCard.appendChild(attachmentContentWrapper);
+
+	const attachmentNode = document.createElement('div');
+	attachmentNode.classList.add("brd", CALENDAR_ATTACHMENT_CLASS);
+	attachmentNode.appendChild(span);
+	attachmentNode.appendChild(attachmentCard);
+
+	const emailSubjectWrapper = email.querySelectorAll(".a4W");
+	if(emailSubjectWrapper) {
+		emailSubjectWrapper[0].appendChild(attachmentNode);
+	}
+};
+
 const updateReminders = function () {
 	const emails = document.querySelectorAll(".zA");
-	const myEmail = getMyEmail();
+	const myEmail = getMyEmailAddress();
 	let lastLabel = null;
-	const now = new Date();
 
-	if (emails.length != lastEmailCount || now.getDate() != lastRefresh.getDate()) {
-		document.querySelectorAll(".time-row").forEach(row => row.outerHTML = "");
-		lastEmailCount = emails.length;
-		lastRefresh = now;
-	}
-	
+	cleanupDateLabels();
+
 	for (const email of emails) {
-		if (processedEmails.indexOf(email) != -1) continue;
-
-		let isReminder = false;
-
-		const titleNode = email.querySelector(".bqe");
-		if (titleNode && titleNode.innerText.toLowerCase().trim() == "reminder") {
-			isReminder = true;
+		if (isReminder(email, myEmail) && !email.classList.contains(REMINDER_EMAIL_CLASS)) { // skip if already added class
+			email.querySelectorAll(".yP,.zF").forEach(node => { node.innerHTML = "Reminder";});
+			email.classList.add(REMINDER_EMAIL_CLASS);
 		}
 
-		const nameNodes = email.querySelectorAll(".yP,.zF");
-		let allNamesMe = true;
 
-		for (const nameNode of nameNodes) {
-			if (nameNode.getAttribute("email") != myEmail) {
-				allNamesMe = false;
-			}
+		if(isCalendarEvent(email) && !email.querySelector("." + CALENDAR_ATTACHMENT_CLASS)) {
+			email.classList.add(CALENDAR_EMAIL_CLASS);
+			addEventAttachment(email);
+			// remove gmail calendar icon
+			email.querySelector(".yf img").remove();
 		}
 
-		if (allNamesMe) {
-			for (const nameNode of nameNodes) {
-				nameNode.setAttribute("name", "Reminder");
-				nameNode.setAttribute("email", "reminder");
-				nameNode.innerHTML = "Reminder";
-			}
-
-			isReminder = true;
-		}
-
-		if (isReminder) {
-			email.querySelectorAll(".y6,.Zt").forEach(node => node.outerHTML = "");
-			email.querySelectorAll(".pH.a9q").forEach(node => {
-				node.style.opacity = "1";
-				node.style.backgroundImage = "url('https://i.ibb.co/nRdXnR2/ic-reminder-blue-24dp-r2-2x.png')";
-			});
-			email.querySelectorAll(".y2").forEach(node => node.style.color = "#202124");
-		}
-
-		const dateString = email.querySelector(".xW.xY span").getAttribute("title");
-		const date = new Date(dateString);
-
-		const addLabel = function (label) {
-			if (!email.previousSibling || email.previousSibling.className != "time-row") {
-				const timeRow = document.createElement("div");
-				timeRow.className = "time-row";
-				const time = document.createElement("div");
-				time.className = "time";
-				time.innerText = label;
-				timeRow.appendChild(time);
-
-				email.parentElement.insertBefore(timeRow, email);
-			}
-		};
-
-		let label = "";
-
-		if (now.getFullYear() == date.getFullYear()) {
-			label = months[date.getMonth()];
-
-			if (now.getMonth() == date.getMonth()) {
-				label = "This month";
-
-				if (now.getDate() == date.getDate()) {
-					label = "Today";
-				} else if (now.getDate() - 1 == date.getDate()) {
-					label = "Yesterday";
-				}
-			}
-		} else if (now.getFullYear() - 1 == date.getFullYear()) {
-			label = "Last year";
-		} else {
-			label = date.getFullYear().toString();
-		}
-
-		if (label != lastLabel) {
-			addLabel(label);
+		let label = buildDateLabel(email);
+		if (label !== lastLabel) {
+			addDateLabel(email, label);
 			lastLabel = label;
 		}
-
-		//processedEmails.push(email);
 	}
 
 	setTimeout(updateReminders, 100);
@@ -273,7 +351,7 @@ const setupClickEventForNodes = (nodes) => {
 const init = () => {
 	setupNodes();
 	reorderMenuItems();
-}
+};
 
 if (document.head) {
   init();
@@ -305,7 +383,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	const addReminder = document.createElement("div");
 	addReminder.className = "add-reminder";
 	addReminder.addEventListener("click", function (e) {
-		const myEmail = getMyEmail();
+		const myEmail = getMyEmailAddress();
 
 		const composeButton = document.querySelector(".T-I.J-J5-Ji.T-I-KE.L3");
 		triggerMouseEvent(composeButton, "mousedown");
