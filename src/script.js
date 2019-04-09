@@ -132,8 +132,10 @@ const addEventAttachment = function(email) {
 	if(titleNode) {
 		const titleFullText = titleNode.innerText;
 		let matches = Array.from(titleFullText.matchAll(/[^:]*: ([^@]*)@(.*)/g))[0];
-		title = matches[1].trim();
-		time = matches[2].trim();
+		if (matches) {
+			title = matches[1].trim();
+			time = matches[2].trim();
+		}
 	}
 
 	//build calendar attachment, this is based on regular attachments we no longer
