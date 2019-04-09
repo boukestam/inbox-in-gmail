@@ -853,3 +853,22 @@ li.bqX.brv {
 .ar .av {
 	padding-top: 2px;
 }
+
+/* Name avatar */
+.avatar {
+	color: #fff;
+	border-radius: 50%;
+	font-weight: bold;
+	position: relative;
+	left: -6px;
+	flex: 32px 0 0;
+	width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+}
+
+/* Container of avatar/profile picture */
+.zA > .WA {
+	width: 30px !important;
+}

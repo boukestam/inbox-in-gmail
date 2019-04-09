@@ -10,6 +10,10 @@ let loadedMenu = false;
 const REMINDER_EMAIL_CLASS = "reminder";
 const CALENDAR_EMAIL_CLASS = "calendar-event";
 const CALENDAR_ATTACHMENT_CLASS = "calendar-attachment";
+const AVATAR_EMAIL_CLASS = "email-with-avatar";
+const AVATAR_CLASS = "avatar";
+
+const nameColors = ["1bbc9b","16a086","f1c40f","f39c11","2dcc70","27ae61","d93939","d25400","3598db","297fb8","e84c3d","c1392b","9a59b5","8d44ad","bec3c7","34495e","2d3e50","95a5a4","7e8e8e","ec87bf","d870ad","f69785","9ba37e","b49255","b49255","a94136"];
 
 /* remove element */
 Element.prototype.remove = function() {
@@ -46,6 +50,10 @@ const waitForElement = function (selector, callback, tries) {
 	}
 };
 
+const getEmailParticipants = function (email) {
+	return email.querySelectorAll(".yP,.zF");
+};
+
 const isReminder = function(email, myEmailAddress) {
 	const titleNode = email.querySelector(".bqe");
 
@@ -53,7 +61,7 @@ const isReminder = function(email, myEmailAddress) {
 		return true;
 	}
 
-	const nameNodes = email.querySelectorAll(".yP,.zF");
+	const nameNodes = getEmailParticipants(email);
 	let allNamesMe = true;
 
 	for (const nameNode of nameNodes) {
@@ -191,10 +199,32 @@ const updateReminders = function () {
 
 	for (const email of emails) {
 		if (isReminder(email, myEmail) && !email.classList.contains(REMINDER_EMAIL_CLASS)) { // skip if already added class
-			email.querySelectorAll(".yP,.zF").forEach(node => { node.innerHTML = "Reminder";});
-			email.classList.add(REMINDER_EMAIL_CLASS);
-		}
+			const subject = email.querySelector(".y6");
+			if (subject && subject.innerText.toLowerCase().trim() == "reminder") {
+				subject.outerHTML = "";
+				email.querySelectorAll(".Zt").forEach(node => node.outerHTML = "");
+				email.querySelectorAll(".y2").forEach(node => node.style.color = "#202124");
+			}
 
+			email.querySelectorAll(".yP,.zF").forEach(node => { node.innerHTML = "Reminder";});
+
+			email.classList.add(REMINDER_EMAIL_CLASS);
+		} else if (!email.classList.contains(REMINDER_EMAIL_CLASS) && !email.classList.contains(AVATAR_EMAIL_CLASS)) {
+			const participants = [...getEmailParticipants(email)];	// convert to array to filter
+			const excludingMe = participants.filter(node => 
+				node.getAttribute("email") !== myEmail && 
+				node.getAttribute("name")
+			);
+
+			if (excludingMe.length > 0) {
+				const name = excludingMe[0].getAttribute("name").toUpperCase();
+				const first = name.charCodeAt(0);
+				if (first >= 65 && first <= 90) { // between A and Z
+					email.querySelector(".WA.xY").innerHTML = "<div class='" + AVATAR_CLASS + "' style='background: #" + nameColors[first - 65] + "'>" + name[0] + "</div>";
+					email.classList.add(AVATAR_EMAIL_CLASS);
+				}
+			}
+		}
 
 		if(isCalendarEvent(email) && !email.querySelector("." + CALENDAR_ATTACHMENT_CLASS)) {
 			email.classList.add(CALENDAR_EMAIL_CLASS);
