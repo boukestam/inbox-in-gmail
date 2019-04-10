@@ -219,8 +219,18 @@ const updateReminders = function () {
 			if (excludingMe.length > 0) {
 				const name = excludingMe[0].getAttribute("name").toUpperCase();
 				const first = name.charCodeAt(0);
+				
 				if (first >= 65 && first <= 90) { // between A and Z
-					email.querySelector(".WA.xY").innerHTML = "<div class='" + AVATAR_CLASS + "' style='background: #" + nameColors[first - 65] + "'>" + name[0] + "</div>";
+					const targetElement = email.querySelector(".aid");
+				
+					if (targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
+						const avatarElement = document.createElement("div");
+						avatarElement.className = AVATAR_CLASS;
+						avatarElement.style.background = "#" + nameColors[first - 65];
+						avatarElement.innerText = name[0];
+						targetElement.appendChild(avatarElement);
+					}
+				
 					email.classList.add(AVATAR_EMAIL_CLASS);
 				}
 			}

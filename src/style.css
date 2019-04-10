@@ -858,17 +858,20 @@ li.bqX.brv {
 .avatar {
 	color: #fff;
 	border-radius: 50%;
-	font-weight: bold;
+	font-weight: 300;
 	position: relative;
-	left: -6px;
+	left: -10px;
 	flex: 32px 0 0;
 	width: 32px;
-    height: 32px;
-    text-align: center;
-    line-height: 32px;
+	height: 32px;
+	text-align: center;
+	line-height: 32px;
 }
 
-/* Container of avatar/profile picture */
-.zA > .WA {
-	width: 30px !important;
+.email-with-avatar:hover .avatar {
+	display: none;
+}
+
+.email-with-avatar > .aid > div[aria-checked="true"] + .avatar {
+	display: none;
 }
