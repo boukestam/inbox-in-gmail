@@ -719,6 +719,14 @@ li.bqX.brv {
 	padding: 13px 12px 13px 10px !important;
 }
 
+/* Email selected with keyboard shortcut (remove left padding so blue bar is still right against the left edge) */
+.zA.btb {
+	padding-left: 5px !important;
+}
+.zA.btb .PF.xY.PE {
+	margin-right: 10px;
+}
+
 /* Inbox: email row contents */
 .zA * {
 	font-size: 13px;
