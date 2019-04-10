@@ -194,11 +194,25 @@ td.apU.xY .T-KT.xf::before {
   background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/2x/ic_zero_inbox_2x.png');
   background-repeat: no-repeat;
   background-position: center;
-  color: transparent;
+  padding-top: 30px;
   height: 618px;
   width: 456px;
   background-color: #F2F2F2;
+  color: #000;
+  font-weight: bold;
+  font-size: 14px;
 }
+
+/* Fix for weird white space */
+.eb.TD {
+  display:none;
+}
+
+/* Fix padding on search */
+.BltHke.nH.oy8Mbf {
+  margin-top: 10px;
+}
+
 /* Hide border at bottom of empty inbox background */
 .cf.TB {
   border-bottom: none !important;
