@@ -207,7 +207,6 @@ const updateReminders = function () {
 				email.querySelectorAll(".Zt").forEach(node => node.outerHTML = "");
 				email.querySelectorAll(".y2").forEach(node => node.style.color = "#202124");
 			}
-
 			email.querySelectorAll(".yP,.zF").forEach(node => { node.innerHTML = "Reminder";});
 
 			const targetElement = email.querySelector(".oZ-x3");
