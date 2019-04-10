@@ -716,7 +716,15 @@ li.bqX.brv {
 
 /* Inbox: email rows */
 .zA {
-	padding: 13px 12px 13px 5px !important;
+	padding: 13px 12px 13px 10px !important;
+}
+
+/* Email selected with keyboard shortcut (remove left padding so blue bar is still right against the left edge) */
+.zA.btb {
+	padding-left: 5px !important;
+}
+.zA.btb .PF.xY.PE {
+	margin-right: 10px;
 }
 
 /* Inbox: email row contents */
@@ -785,12 +793,6 @@ li.bqX.brv {
     margin-left: 0px !important;
 }
 
-/* Reminder Icon */
-.zA.reminder .pH.a9q {
-    opacity: 1;
-    background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_reminder_blue_24dp_r2_2x.png');
-}
-
 /* --------------------------------------------- */
 /* Calendar event as attachment                  */
 /* --------------------------------------------- */
@@ -852,6 +854,41 @@ li.bqX.brv {
 
 .ar .av {
 	padding-top: 2px;
+}
+
+/* Name avatar */
+.avatar {
+	color: #fff;
+	border-radius: 50%;
+	font-weight: 300;
+	position: relative;
+	left: -10px;
+	flex: 32px 0 0;
+	width: 32px;
+	height: 32px;
+	text-align: center;
+	line-height: 32px;
+	background-size: 75% 75% !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
+}
+
+.zA:hover .avatar {
+	display: none;
+}
+
+.zA > .oZ-x3 > div[aria-checked="true"] + .avatar {
+	display: none;
+}
+
+/* Alignment of calendar icon */
+.zA>.yf {
+	padding-right: 32px !important;
+}
+
+/* Hide important indicator on reminders */
+.reminder .WA.xY {
+	visibility: hidden;
 }
 
 /* Firefox overflow fix emails list */
