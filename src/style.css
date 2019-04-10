@@ -904,6 +904,7 @@ li.bqX.brv {
 /* Firefox overflow fix right sidebar */
 .brC-aT5-aOt-bsf-Jw, brC-bsf-aT5-aOt {
 	overflow-y: hidden;
+}
 
 /* Right side Hangouts */
 div[aria-label="Hangouts"][role="complementary"] {
