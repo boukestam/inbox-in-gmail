@@ -873,11 +873,11 @@ li.bqX.brv {
 	background-position: center !important;
 }
 
-.email-with-avatar:hover .avatar {
+.zA:hover .avatar {
 	display: none;
 }
 
-.email-with-avatar > .oZ-x3 > div[aria-checked="true"] + .avatar {
+.zA > .oZ-x3 > div[aria-checked="true"] + .avatar {
 	display: none;
 }
 
