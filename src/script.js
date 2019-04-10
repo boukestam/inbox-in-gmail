@@ -193,10 +193,16 @@ const updateReminders = function () {
 
 	for (const email of emails) {
 		if (isReminder(email, myEmail) && !email.classList.contains(REMINDER_EMAIL_CLASS)) { // skip if already added class
+			const subject = email.querySelector(".y6");
+			if (subject && subject.innerText.toLowerCase().trim() == "reminder") {
+				subject.outerHTML = "";
+				email.querySelectorAll(".Zt").forEach(node => node.outerHTML = "");
+				email.querySelectorAll(".y2").forEach(node => node.style.color = "#202124");
+			}
+			
 			email.querySelectorAll(".yP,.zF").forEach(node => { node.innerHTML = "Reminder";});
 			email.classList.add(REMINDER_EMAIL_CLASS);
 		}
-
 
 		if(isCalendarEvent(email) && !email.querySelector("." + CALENDAR_ATTACHMENT_CLASS)) {
 			email.classList.add(CALENDAR_EMAIL_CLASS);
