@@ -891,19 +891,23 @@ li.bqX.brv {
 	visibility: hidden;
 }
 
-/* Firefox overflow fix emails list */
-.AO {
-	overflow-y: auto;
-}
+/* Firefox-specific fixes */
+@-moz-document url-prefix() {
+	/* overflow fix emails list */
+	.AO {
+		overflow-y: auto;
+	}
 
-/* Firefox overflow fix left sidebar */
-.oy8Mbf {
-	overflow-y: hidden;
-}
+	/* overflow fix left sidebar */
+	.oy8Mbf {
+		overflow-y: hidden;
+	}
 
-/* Firefox overflow fix right sidebar */
-.brC-aT5-aOt-bsf-Jw, brC-bsf-aT5-aOt {
-	overflow-y: hidden;
+	/* overflow fix right sidebar */
+	.brC-aT5-aOt-bsf-Jw, .brC-bsf-aT5-aOt {
+		overflow-y: hidden;
+	}
+}
 
 /* Right side Hangouts */
 div[aria-label="Hangouts"][role="complementary"] {
@@ -912,4 +916,24 @@ div[aria-label="Hangouts"][role="complementary"] {
 
 .nH.bkK.nn + .nH.nn {
 	background-color: #e5e5e5 !important;
+}
+
+/* Email subject padding */
+.if > .byY, .iC .byY {
+	padding-left: 20px !important;
+}
+
+/* Hide labels next to email subject */
+.nH > .ha > .J-J5-Ji {
+	display: none;
+}
+
+/* Hide buttons next to email subject */
+.nH > .nH > .hj > .ade {
+	display: none;
+}
+
+/* Hide full length email address */
+.iw > .qu > .go {
+	display: none;
 }
