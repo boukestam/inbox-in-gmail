@@ -43,6 +43,10 @@ header {
 	padding: 0 10px;
 }
 
+/* Attachment icon */
+.yE {
+	display: none !important;
+}
 
 /* Star email */
 td.apU.xY {
