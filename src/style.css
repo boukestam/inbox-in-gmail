@@ -716,7 +716,7 @@ li.bqX.brv {
 
 /* Inbox: email rows */
 .zA {
-	padding: 13px 12px 13px 5px !important;
+	padding: 13px 12px 13px 10px !important;
 }
 
 /* Inbox: email row contents */
@@ -783,12 +783,6 @@ li.bqX.brv {
     font-weight: normal !important;
     font-size: 13px;
     margin-left: 0px !important;
-}
-
-/* Reminder Icon */
-.zA.reminder .pH.a9q {
-    opacity: 1;
-    background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_reminder_blue_24dp_r2_2x.png');
 }
 
 /* --------------------------------------------- */
@@ -866,12 +860,25 @@ li.bqX.brv {
 	height: 32px;
 	text-align: center;
 	line-height: 32px;
+	background-size: 75% 75% !important;
+	background-repeat: no-repeat !important;
+	background-position: center !important;
 }
 
 .email-with-avatar:hover .avatar {
 	display: none;
 }
 
-.email-with-avatar > .aid > div[aria-checked="true"] + .avatar {
+.email-with-avatar > .oZ-x3 > div[aria-checked="true"] + .avatar {
 	display: none;
+}
+
+/* Alignment of calendar icon */
+.zA>.yf {
+	padding-right: 32px !important;
+}
+
+/* Hide important indicator on reminders */
+.reminder .WA.xY {
+	visibility: hidden;
 }

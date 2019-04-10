@@ -140,8 +140,10 @@ const addEventAttachment = function(email) {
 	if(titleNode) {
 		const titleFullText = titleNode.innerText;
 		let matches = Array.from(titleFullText.matchAll(/[^:]*: ([^@]*)@(.*)/g))[0];
-		title = matches[1].trim();
-		time = matches[2].trim();
+		if (matches) {
+			title = matches[1].trim();
+			time = matches[2].trim();
+		}
 	}
 
 	//build calendar attachment, this is based on regular attachments we no longer
@@ -208,6 +210,14 @@ const updateReminders = function () {
 
 			email.querySelectorAll(".yP,.zF").forEach(node => { node.innerHTML = "Reminder";});
 
+			const targetElement = email.querySelector(".oZ-x3");
+			if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
+				const avatarElement = document.createElement("div");
+				avatarElement.className = AVATAR_CLASS;
+				avatarElement.style.background = "url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_reminder_blue_24dp_r2_2x.png')";
+				targetElement.appendChild(avatarElement);
+			}
+
 			email.classList.add(REMINDER_EMAIL_CLASS);
 		} else if (!email.classList.contains(REMINDER_EMAIL_CLASS) && !email.classList.contains(AVATAR_EMAIL_CLASS)) {
 			const participants = [...getEmailParticipants(email)];	// convert to array to filter
@@ -219,11 +229,10 @@ const updateReminders = function () {
 			if (excludingMe.length > 0) {
 				const name = excludingMe[0].getAttribute("name").toUpperCase();
 				const first = name.charCodeAt(0);
-				
 				if (first >= 65 && first <= 90) { // between A and Z
-					const targetElement = email.querySelector(".aid");
+					const targetElement = email.querySelector(".oZ-x3");
 				
-					if (targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
+					if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
 						const avatarElement = document.createElement("div");
 						avatarElement.className = AVATAR_CLASS;
 						avatarElement.style.background = "#" + nameColors[first - 65];
