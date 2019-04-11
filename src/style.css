@@ -42,7 +42,12 @@ header {
 	max-width: 1200px;
 	padding: 0 10px;
 }
-
+/*email size to mail size of email box*/
+.Bs.nH.iY.bAt{
+	margin: auto !important;
+	max-width: 1200px;
+	padding: 0 10px;
+}
 /* Attachment icon */
 .yE {
 	display: none !important;
