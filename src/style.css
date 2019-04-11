@@ -44,7 +44,10 @@ header {
 }
 /*email size to mail size of email box*/
 .Bs.nH.iY.bAt{
-	margin: auto !important;
+	margin-top:10px !important;
+	margin-bottom:0;
+	margin-left:auto !important;
+	margin-right:auto !important;
 	max-width: 1200px;
 	padding: 0 10px;
 }
