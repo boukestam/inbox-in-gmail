@@ -42,15 +42,35 @@ header {
 	max-width: 1200px;
 	padding: 0 10px;
 }
-/*email size to mail size of email box*/
-.Bs.nH.iY.bAt{
-	margin-top:10px !important;
-	margin-bottom:0;
-	margin-left:auto !important;
-	margin-right:auto !important;
+
+/* Set opened email width to same as email list */
+.Bs.nH.iY.bAt {
+	margin: 10px auto 10px auto !important;
 	max-width: 1180px;
 	padding: 0 10px;
 }
+
+/* Align toolbar with email width */
+.aeH > .G-atb {
+	margin: auto !important;
+	max-width: 1180px;
+}
+
+@media only screen and (min-width: 1420px) {
+	.aeH > .G-atb {
+		padding-left: 0;
+	}
+}
+
+.aeH {
+	margin-right: 7vw;
+}
+
+/* Enforce background color behind emails */
+.ar4 {
+	background: #f2f2f2;
+}
+
 /* Attachment icon */
 .yE {
 	display: none !important;
