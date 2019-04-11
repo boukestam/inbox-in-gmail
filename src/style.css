@@ -376,6 +376,13 @@ td.apU.xY .T-KT.xf::before {
 /* Category */
 .aHS-bnr .qj {
 	background-image: url("https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png") !important;
+	background-repeat: repeat-x;
+	padding: 12px;
+	width: 48px;
+	length: 48px;
+	border: 3px solid #F2F2F2;
+  	box-sizing: border-box;
+	border-radius: 30%;
 }
 /* Spam */
 .aHS-bnv .qj {
