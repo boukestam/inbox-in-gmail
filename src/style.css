@@ -891,19 +891,23 @@ li.bqX.brv {
 	visibility: hidden;
 }
 
-/* Firefox overflow fix emails list */
-.AO {
-	overflow-y: auto;
-}
+/* Firefox-specific fixes */
+@-moz-document url-prefix() {
+	/* overflow fix emails list */
+	.AO {
+		overflow-y: auto;
+	}
 
-/* Firefox overflow fix left sidebar */
-.oy8Mbf {
-	overflow-y: hidden;
-}
+	/* overflow fix left sidebar */
+	.oy8Mbf {
+		overflow-y: hidden;
+	}
 
-/* Firefox overflow fix right sidebar */
-.brC-aT5-aOt-bsf-Jw, brC-bsf-aT5-aOt {
-	overflow-y: hidden;
+	/* overflow fix right sidebar */
+	.brC-aT5-aOt-bsf-Jw, .brC-bsf-aT5-aOt {
+		overflow-y: hidden;
+	}
+}
 
 /* Right side Hangouts */
 div[aria-label="Hangouts"][role="complementary"] {
