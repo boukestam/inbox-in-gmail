@@ -920,7 +920,7 @@ div[aria-label="Hangouts"][role="complementary"] {
 
 /* Email subject padding */
 .if > .byY, .iC .byY {
-	padding-left: 20px !important;
+	padding: 20px 4px 8px 20px !important;
 }
 
 /* Hide labels next to email subject */
