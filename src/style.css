@@ -917,3 +917,23 @@ div[aria-label="Hangouts"][role="complementary"] {
 .nH.bkK.nn + .nH.nn {
 	background-color: #e5e5e5 !important;
 }
+
+/* Email subject padding */
+.if > .byY, .iC .byY {
+	padding: 20px 4px 8px 20px !important;
+}
+
+/* Hide labels next to email subject */
+.nH > .ha > .J-J5-Ji {
+	display: none;
+}
+
+/* Hide buttons next to email subject */
+.nH > .nH > .hj > .ade {
+	display: none;
+}
+
+/* Hide full length email address */
+.iw > .qu > .go {
+	display: none;
+}
