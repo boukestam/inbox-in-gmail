@@ -17,7 +17,7 @@ header {
 
 /* Sidebar: hide the label email counters */
 .bsU {
-	display: none;
+	display: none !important;
 }
 
 /* Sidebar: labels */
@@ -43,6 +43,38 @@ header {
 	padding: 0 10px;
 }
 
+/* Set opened email width to same as email list */
+.Bs.nH.iY.bAt {
+	margin: 10px auto 10px auto !important;
+	max-width: 1180px;
+	padding: 0 10px;
+}
+
+/* Align toolbar with email width */
+.aeH > .G-atb {
+	margin: auto !important;
+	max-width: 1180px;
+}
+
+@media only screen and (min-width: 1420px) {
+	.aeH > .G-atb {
+		padding-left: 0;
+	}
+}
+
+.aeH {
+	margin-right: 7vw;
+}
+
+/* Enforce background color behind emails */
+.ar4 {
+	background: #f2f2f2;
+}
+
+/* Attachment icon */
+.yE {
+	display: none !important;
+}
 
 /* Star email */
 td.apU.xY {
@@ -156,10 +188,10 @@ td.apU.xY .T-KT.xf::before {
 /* Time */
 .time {
 	color: #666;
-    font-size: 14px;
-    padding-bottom: 10px;
-    padding-top: 20px;
-    padding-left: 20px;
+	font-size: 14px;
+	padding-bottom: 10px;
+	padding-top: 20px;
+	padding-left: 20px;
 }
 
 /* Email */
@@ -171,33 +203,46 @@ td.apU.xY .T-KT.xf::before {
 	background: #FFF !important;
 }
 
-/* Compose email */
+/* Compose email button */
 .T-I.J-J5-Ji.T-I-KE.L3 {
-    position: fixed;
-    right: 40px;
-    bottom: 20px;
-    z-index: 3;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    padding: 0;
-    background: #d23f31;
+	position: fixed;
+	right: 40px;
+	bottom: 20px;
+	z-index: 1000;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+	padding: 0;
+	background: #d23f31;
 	overflow: hidden;
 }
 
 /* Inbox Email is Empty show Sun */
-.TD>.TC {
-  background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/2x/ic_zero_inbox_2x.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  color: transparent;
-  height: 618px;
-  width: 456px;
-  background-color: #F2F2F2;
+.ar4.z .TD > .TC {
+	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/2x/ic_zero_inbox_2x.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	padding-top: 30px;
+	height: 618px;
+	width: 456px;
+	background-color: #F2F2F2;
+	color: transparent;
+	font-size: 14px;
 }
+
+/* Fix for weird white space */
+.eb.TD {
+	display:none;
+}
+
+/* Fix padding on search */
+.BltHke.nH.oy8Mbf {
+	margin-top: 10px;
+}
+
 /* Hide border at bottom of empty inbox background */
 .cf.TB {
-  border-bottom: none !important;
+	border-bottom: none !important;
 }
 
 /*
@@ -207,18 +252,18 @@ td.apU.xY .T-KT.xf::before {
 */
 
 .aim {
-  padding-left: 4px !important;
+	padding-left: 4px !important;
 }
 
 /* Menu item row */
 .TK .TO {
-  border-radius: 2px !important;
+	border-radius: 2px !important;
 }
 
 /* Menu item row, hover */
 .TK .TO:hover {
-  background-color: rgba(0,0,0,.05) !important;
-  cursor: pointer;
+	background-color: rgba(0,0,0,.05) !important;
+	cursor: pointer;
 }
 
 /* Menu item row active */
@@ -228,23 +273,23 @@ td.apU.xY .T-KT.xf::before {
 .TO.nZ,
 .TO.NQ,
 .TO.ol {
-  background-color: rgba(0,0,0,.05) !important; 
+	background-color: rgba(0,0,0,.05) !important;
 }
 
-/* Left sidebar collapsed 
+/* Left sidebar collapsed
 .aeN.bhZ {
-  display: none !important;
+	display: none !important;
 }*/
 
 /* Compose email image */
 .z0>.L3::before {
 	background-image: url('https://i.ibb.co/y09xqPH/btw-ic-speeddial-white-24dp-2x.png') !important;
-    background-size: 24px !important;
+	background-size: 24px !important;
 }
 
 .z0>.L3:hover::before {
 	background-image: url('https://i.ibb.co/x6n7nSQ/btw-ic-speeddial-compose-white-24dp-2x.png') !important;
-    background-size: 24px !important;
+	background-size: 24px !important;
 }
 
 /* Compose email old place */
@@ -254,28 +299,33 @@ td.apU.xY .T-KT.xf::before {
 }
 
 /* Compose email boxes wrapper */
-.no {
-	padding-right: 40px;
+.nH.Hd {
+	margin-right: 40px;
+}
+
+/* Hangout chat box wrapper */
+.nH.aJl.nn {
+	margin-right: 40px;
 }
 
 /* Menu container */
 .aeN {
-  width: 232px !important;
-  max-width: unset !important;
-  min-width: unset !important;
-  left: 0;
+	width: 232px !important;
+	max-width: unset !important;
+	min-width: unset !important;
+	left: 0;
 }
 .wT {
-  margin-top: -20px;
-  max-width: unset;
-  min-width: unset;
-  width: 224px;
-  padding: 12px 8px 52px;
+	margin-top: -20px;
+	max-width: unset;
+	min-width: unset;
+	width: 224px;
+	padding: 12px 8px 52px;
 }
 
 /* Menu item sections */
 .TK {
-    padding: 8px 0;
+	padding: 8px 0;
 }
 
 /* Menu item row inner */
@@ -290,87 +340,94 @@ td.apU.xY .T-KT.xf::before {
 
 /* Menu item link */
 .TO .nU > .n0 {
-  font-weight: normal;
+	font-weight: normal;
 }
 
 /* Menu item link */
 .TO .nU > .n0 {
-  font-weight: normal;
+	font-weight: normal;
 }
 
 .wT > .n3 .byl:first-child .aim:first-child .nZ {
-  background-color: rgba(0,0,0,.05) !important; 
+	background-color: rgba(0,0,0,.05) !important;
 }
 .qj {
-  width: 24px !important;
-  height: 24px !important;
-  opacity: 1 !important;
-  margin-right: 24px !important;
-  background-size: 24px !important;
+	width: 24px !important;
+	height: 24px !important;
+	opacity: 1 !important;
+	margin-right: 24px !important;
+	background-size: 24px !important;
 }
 .qj::before {
-  content: none !important;
+	content: none !important;
 }
 .qj::after {
-  content: none !important;
+	content: none !important;
 }
 /* Inbox */
 .aHS-bnt .qj {
-  background-image: url("https://i.ibb.co/fn7MyRG/inbox-googblue-24dp.png") !important;
+	background-image: url("https://i.ibb.co/fn7MyRG/inbox-googblue-24dp.png") !important;
 }
 /* Dropdown arrow */
 .aHS-bnt .afM {
-  background-image: url("https://i.ibb.co/R7pYSLZ/arrow-drop-down-black-20dp.png") !important;
+	background-image: url("https://i.ibb.co/R7pYSLZ/arrow-drop-down-black-20dp.png") !important;
 }
 /* Starred, Important, Chats */
 .aHS-bnw .qr,
 .aHS-bns .qr,
 .aHS-aHP .qr {
-  opacity: 0.6 !important;
+	opacity: 0.6 !important;
 }
 /* Starred */
 .aHS-bnw .qj {
-  background-image: url("https://i.ibb.co/mXkG5ff/grade-black-24dp.png") !important;
+	background-image: url("https://i.ibb.co/mXkG5ff/grade-black-24dp.png") !important;
 }
 /* Important */
 .aHS-bns .qj {
-  background-image: url("https://i.ibb.co/rw73YY4/label-important-black-24dp.png") !important;
+	background-image: url("https://i.ibb.co/rw73YY4/label-important-black-24dp.png") !important;
 }
 /* Chats */
 .aHS-aHP .qj {
-  background-image: url("https://i.ibb.co/RHqK4MB/hangout-black-24dp.png") !important;
+	background-image: url("https://i.ibb.co/RHqK4MB/hangout-black-24dp.png") !important;
 }
 /* Snoozed */
 .aHS-bu1 .qj {
-  background-image: url("https://i.ibb.co/KL9Wm2J/ic-upcoming-clr-24dp-r5-2x.png") !important;
+	background-image: url("https://i.ibb.co/KL9Wm2J/ic-upcoming-clr-24dp-r5-2x.png") !important;
 }
 /* Sent */
 .aHS-bnu .qj {
-  background-image: url("https://i.ibb.co/0fYwQYN/ic-sent-right-g60-24dp-r1-2x.png") !important;
+	background-image: url("https://i.ibb.co/0fYwQYN/ic-sent-right-g60-24dp-r1-2x.png") !important;
 }
 /* Drafts */
 .aHS-bnq .qj {
-  background-image: url("https://i.ibb.co/St5mfzv/ic-draft-g60-24dp-r2-2x.png") !important;
+	background-image: url("https://i.ibb.co/St5mfzv/ic-draft-g60-24dp-r2-2x.png") !important;
 }
 /* Trash */
 .aHS-bnx .qj {
-  background-image: url("https://i.ibb.co/RQp6mnM/ic-trash-g60-24dp-r2-2x.png") !important;
+	background-image: url("https://i.ibb.co/RQp6mnM/ic-trash-g60-24dp-r2-2x.png") !important;
 }
 /* Category */
 .aHS-bnr .qj {
-  background-image: url("https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png") !important;
+	background-image: url("https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png") !important;
+	background-repeat: repeat-x;
+	padding: 12px;
+	width: 48px;
+	length: 48px;
+	border: 3px solid #F2F2F2;
+  	box-sizing: border-box;
+	border-radius: 30%;
 }
 /* Spam */
 .aHS-bnv .qj {
-  background-image: url("https://i.ibb.co/CJm8B4X/ic-spam-g60-24dp-r2-2x.png") !important;
+	background-image: url("https://i.ibb.co/CJm8B4X/ic-spam-g60-24dp-r2-2x.png") !important;
 }
 .TO.nZ .n0 {
-  color: #212121 !important;
-  outline: none;
+	color: #212121 !important;
+	outline: none;
 }
 .TO .n0 {
-  color: #616161 !important;
-  outline: none;
+	color: #616161 !important;
+	outline: none;
 }
 
 /* padding for inbox, starred, sent, drafts, snooze */
@@ -385,7 +442,7 @@ td.apU.xY .T-KT.xf::before {
 
 /* padding for inbox, stared, sent, drafts */
 .aim {
-  margin-left: -14px;
+	margin-left: -14px;
 }
 
 /* left menu border under trash */
@@ -514,8 +571,8 @@ button.gb_lf {
 
 /* Gmail icon (old, new) */
 a[href='#inbox'] {
-    width: 120px;
-    overflow: hidden;
+	width: 120px;
+	overflow: hidden;
 	text-decoration: none;
 }
 a[href='#inbox'] img {
@@ -524,11 +581,11 @@ a[href='#inbox'] img {
 
 /* Gmail text */
 a[href='#inbox']::after {
-    content: 'Inbox';
-    font-size: 20px;
-    color: #FFF;
-    position: relative;
-    top: -2px;
+	content: 'Inbox';
+	font-size: 20px;
+	color: #FFF;
+	position: relative;
+	top: -2px;
 	padding-left: 7px;
 }
 
@@ -570,15 +627,15 @@ header form input {
 /* Add reminder */
 .add-reminder {
 	user-select: none;
-    position: fixed;
-    right: 48px;
-    bottom: 90px;
-    z-index: 3;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    padding: 0;
-    background: #4285f4;
+	position: fixed;
+	right: 48px;
+	bottom: 90px;
+	z-index: 1000;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	padding: 0;
+	background: #4285f4;
 	overflow: hidden;
 	box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
 	cursor: pointer;
@@ -589,12 +646,12 @@ header form input {
 	background-image: url("https://i.ibb.co/ZXjKTgc/btw-ic-speeddial-reminders-white-24dp-2x.png") !important;
 	background-size: 24px !important;
 	background-position: center;
-  background-repeat: no-repeat;
-  background-size: 32px;
-  content: '';
-  display: block;
-  height: 40px;
-  width: 40px;
+	background-repeat: no-repeat;
+	background-size: 32px;
+	content: '';
+	display: block;
+	height: 40px;
+	width: 40px;
 }
 
 .add-reminder:hover {
@@ -621,14 +678,14 @@ li.bqX.brv {
 /* Opened email */
 .Bs.nH.iY.bAt {
 	margin: 10px;
-  box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24) !important;
+	box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24) !important;
 	width: calc(100% - 62px);
 	background: #FFF;
 }
 
 /* Fixed border on email */
-.Bu > .nH > .no { 
-	display: none; 
+.Bu > .nH > .no {
+	display: none;
 }
 
 /* Left toolbar when collapsed (this is done to fix hidden compose button when collapsed) */
@@ -785,17 +842,17 @@ li.bqX.brv {
 	margin-right: 0px;
 }
 
-
 /* Snoozed notification styling */
 .cL {
-    font-weight: normal !important;
-    font-size: 13px;
-    margin-left: 0px !important;
+	font-weight: normal !important;
+	font-size: 13px;
+	margin-left: 0px !important;
 }
 
 /* --------------------------------------------- */
 /* Calendar event as attachment                  */
 /* --------------------------------------------- */
+
 .calendar-attachment {
 	height: 80px !important;
 	width: 400px !important;

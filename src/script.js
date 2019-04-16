@@ -79,9 +79,9 @@ const isCalendarEvent = function(email) {
 };
 
 const addDateLabel = function (email, label) {
-    if (email.previousSibling && email.previousSibling.className === "time-row") {
-    	if(email.previousSibling.innerText === label) {
-    		return;
+	if (email.previousSibling && email.previousSibling.className === "time-row") {
+		if(email.previousSibling.innerText === label) {
+			return;
 		}
 		email.previousSibling.remove();
 	}
@@ -104,24 +104,24 @@ const getDate = function(email) {
 };
 
 const buildDateLabel = function(email) {
-    let now = new Date();
-    let date = getDate(email);
+	let now = new Date();
+	let date = getDate(email);
 
-    if(date === undefined) {
-    	return;
+	if(date === undefined) {
+		return;
 	}
 
-    if(now.getFullYear() == date.getFullYear()) {
+	if(now.getFullYear() == date.getFullYear()) {
 		if(now.getMonth() == date.getMonth()) {
 			if(now.getDate() == date.getDate()) { return "Today"; }
 			if(now.getDate()-1 == date.getDate()) { return "Yesterday"; }
 			return "This month";
 		}
-    	return months[date.getMonth()];
-    }
-    if(now.getFullYear()-1 == date.getFullYear()) { return "Last year"; }
+		return months[date.getMonth()];
+	}
+	if(now.getFullYear()-1 == date.getFullYear()) { return "Last year"; }
 
-    return date.getFullYear().toString();
+	return date.getFullYear().toString();
 };
 
 const cleanupDateLabels =  function() {
@@ -228,19 +228,25 @@ const updateReminders = function () {
 			if (excludingMe.length > 0) {
 				const name = excludingMe[0].getAttribute("name").toUpperCase();
 				const first = name.charCodeAt(0);
-				if (first >= 65 && first <= 90) { // between A and Z
-					const targetElement = email.querySelector(".oZ-x3");
-				
-					if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
-						const avatarElement = document.createElement("div");
-						avatarElement.className = AVATAR_CLASS;
+				const targetElement = email.querySelector(".oZ-x3");
+			
+				if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
+					const avatarElement = document.createElement("div");
+					avatarElement.className = AVATAR_CLASS;
+					if (first >= 65 && first <= 90) {
 						avatarElement.style.background = "#" + nameColors[first - 65];
-						avatarElement.innerText = name[0];
-						targetElement.appendChild(avatarElement);
+					} else {
+						avatarElement.style.background = "#000000";
+						// Some unicode characters are not affected by 'color: white', hence this alternative
+						avatarElement.style.color = "transparent";
+						avatarElement.style.textShadow = "0 0 0 #ffffff";
 					}
-				
-					email.classList.add(AVATAR_EMAIL_CLASS);
+
+					avatarElement.innerText = name[0];
+					targetElement.appendChild(avatarElement);
 				}
+			
+				email.classList.add(AVATAR_EMAIL_CLASS);
 			}
 		}
 
