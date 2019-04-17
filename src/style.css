@@ -999,3 +999,8 @@ div[aria-label="Hangouts"][role="complementary"] {
 .BltHke.oy8Mbf {
 	margin-bottom: 40px;
 }
+
+/* Hide inline ads/promotions */
+.aKB {
+	display: none;
+}
