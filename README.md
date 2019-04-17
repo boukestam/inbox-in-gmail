@@ -1,8 +1,10 @@
 # inbox-in-gmail
 Web extension that adds features of Google Inbox to Gmail
 
-![alt text](https://i.ibb.co/6D7Ppv9/inboxingmail.jpg)
+![alt text](https://i.ibb.co/t8d207h/inbox-v0-4-4.png)
 
-Downloadable version located in Chrome Web Store <br>
-https://chrome.google.com/webstore/detail/inbox-in-gmail/foceiplcmbcdoggojeegeelhkaebhjoo
+Downloadable versions are available at:
 
+[Chrome Web Store: Inbox in Gmail](https://chrome.google.com/webstore/detail/inbox-in-gmail/foceiplcmbcdoggojeegeelhkaebhjoo)
+
+[Firefox Add-ons: Inbox in Gmail](https://addons.mozilla.org/firefox/addon/inbox-in-gmail)
