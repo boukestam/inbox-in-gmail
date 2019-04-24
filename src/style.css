@@ -919,7 +919,7 @@ li.bqX.brv {
 	border-radius: 50%;
 	font-weight: 300;
 	position: relative;
-	left: -10px;
+	left: -6px;
 	flex: 32px 0 0;
 	width: 32px;
 	height: 32px;
@@ -975,9 +975,14 @@ div[aria-label="Hangouts"][role="complementary"] {
 	background-color: #e5e5e5 !important;
 }
 
-/* Email subject padding */
+/* Subject padding in opened email */
 .if > .byY, .iC .byY {
 	padding: 20px 4px 8px 20px !important;
+}
+
+/* Subject padding in email list */
+.zA > .yX {
+	padding: 0 16px !important;
 }
 
 /* Hide labels next to email subject */
