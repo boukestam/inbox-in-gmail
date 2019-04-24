@@ -73,7 +73,7 @@ const isReminder = function(email, myEmailAddress) {
 		return allNamesMe;
 	} else if(options.reminderTreatment === "containing-word") {
 		const titleNode = email.querySelector(".bqe");
-		return allNamesMe && titleNode.innerHTML.match(/reminder/i);
+		return allNamesMe && titleNode && titleNode.innerText.match(/reminder/i);
 	}
 
 	return false;
