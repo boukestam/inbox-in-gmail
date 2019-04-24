@@ -52,7 +52,7 @@ const waitForElement = function (selector, callback, tries) {
 };
 
 const getEmailParticipants = function (email) {
-	return email.querySelectorAll(".yP,.zF");
+	return email.querySelectorAll(".yW span[email]");
 };
 
 const isReminder = function(email, myEmailAddress) {
