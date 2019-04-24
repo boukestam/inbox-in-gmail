@@ -238,29 +238,32 @@ const updateReminders = function () {
 				node.getAttribute("name")
 			);
 
-			if (excludingMe.length > 0) {
-				const name = excludingMe[0].getAttribute("name").toUpperCase();
-				const first = name.charCodeAt(0);
-				const targetElement = email.querySelector(".oZ-x3");
-			
-				if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
-					const avatarElement = document.createElement("div");
-					avatarElement.className = AVATAR_CLASS;
-					if (first >= 65 && first <= 90) {
-						avatarElement.style.background = "#" + nameColors[first - 65];
-					} else {
-						avatarElement.style.background = "#000000";
-						// Some unicode characters are not affected by 'color: white', hence this alternative
-						avatarElement.style.color = "transparent";
-						avatarElement.style.textShadow = "0 0 0 #ffffff";
-					}
-
-					avatarElement.innerText = name[0];
-					targetElement.appendChild(avatarElement);
-				}
-			
-				email.classList.add(AVATAR_EMAIL_CLASS);
+			let firstParticipant = participants[0];
+			if (excludingMe.length > 0) { // if there are others in the participant, use one of their initials instead
+				firstParticipant = excludingMe[0];
 			}
+
+			const name = firstParticipant.getAttribute("name");
+			const first = (name && name.toUpperCase().charCodeAt(0)) || 65;
+			const targetElement = email.querySelector(".oZ-x3");
+
+			if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
+				const avatarElement = document.createElement("div");
+				avatarElement.className = AVATAR_CLASS;
+				if (first >= 65 && first <= 90) {
+					avatarElement.style.background = "#" + nameColors[first - 65];
+				} else {
+					avatarElement.style.background = "#000000";
+					// Some unicode characters are not affected by 'color: white', hence this alternative
+					avatarElement.style.color = "transparent";
+					avatarElement.style.textShadow = "0 0 0 #ffffff";
+				}
+
+				avatarElement.innerText = (name && name[0]) || "-";
+				targetElement.appendChild(avatarElement);
+			}
+
+			email.classList.add(AVATAR_EMAIL_CLASS);
 		}
 
 		if(isCalendarEvent(email) && !email.querySelector("." + CALENDAR_ATTACHMENT_CLASS)) {
