@@ -12,6 +12,7 @@ const CALENDAR_EMAIL_CLASS = "calendar-event";
 const CALENDAR_ATTACHMENT_CLASS = "calendar-attachment";
 const AVATAR_EMAIL_CLASS = "email-with-avatar";
 const AVATAR_CLASS = "avatar";
+let options = {};
 
 const nameColors = ["1bbc9b","16a086","f1c40f","f39c11","2dcc70","27ae61","d93939","d25400","3598db","297fb8","e84c3d","c1392b","9a59b5","8d44ad","bec3c7","34495e","2d3e50","95a5a4","7e8e8e","ec87bf","d870ad","f69785","9ba37e","b49255","b49255","a94136"];
 
@@ -55,10 +56,8 @@ const getEmailParticipants = function (email) {
 };
 
 const isReminder = function(email, myEmailAddress) {
-	const titleNode = email.querySelector(".bqe");
-
-	if (titleNode && titleNode.innerText.toLowerCase().trim() === "reminder") {
-		return true;
+	if(options.reminderTreatment === "none") {
+		return false; // if user doesn't want reminders treated special, then just return as though current email is not a reminder
 	}
 
 	const nameNodes = getEmailParticipants(email);
@@ -70,7 +69,15 @@ const isReminder = function(email, myEmailAddress) {
 		}
 	}
 
-	return allNamesMe;
+	if(options.reminderTreatment === "all") {
+		return allNamesMe;
+	} else if(options.reminderTreatment === "containing-word") {
+		const titleNode = email.querySelector(".bqe");
+		return allNamesMe && titleNode.innerHTML.match(/reminder/i);
+	}
+
+	return false;
+};
 };
 
 const isCalendarEvent = function(email) {
@@ -192,7 +199,14 @@ const addEventAttachment = function(email) {
 	}
 };
 
+function reloadOptions() {
+	chrome.runtime.sendMessage({method: "getOptions"}, function(ops) {
+		options = ops;
+	});
+}
+
 const updateReminders = function () {
+	reloadOptions();
 	const emails = document.querySelectorAll(".zA");
 	const myEmail = getMyEmailAddress();
 	let lastLabel = null;
