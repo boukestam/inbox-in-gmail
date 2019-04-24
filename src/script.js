@@ -72,12 +72,11 @@ const isReminder = function(email, myEmailAddress) {
 	if(options.reminderTreatment === "all") {
 		return allNamesMe;
 	} else if(options.reminderTreatment === "containing-word") {
-		const titleNode = email.querySelector(".bqe");
+		const titleNode = email.querySelector(".y6");
 		return allNamesMe && titleNode && titleNode.innerText.match(/reminder/i);
 	}
 
 	return false;
-};
 };
 
 const isCalendarEvent = function(email) {
