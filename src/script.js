@@ -262,7 +262,7 @@ const updateReminders = function () {
 
 		// This is a hack for snoozed emails. If the snoozed email is the
 		// first email, we just assume it arrived 'Today', any other snoozed email
-		// joins whichever label the previous email had. See #
+		// joins whichever label the previous email had.
 		if(isSnoozed(email)) {
 			label = (lastLabel == null) ? 'Today' : lastLabel;
 		}
