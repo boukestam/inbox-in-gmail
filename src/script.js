@@ -257,7 +257,17 @@ const updateReminders = function () {
 			email.querySelector(".yf img").remove();
 		}
 
+
 		let label = buildDateLabel(email);
+
+		// This is a hack for snoozed emails. If the snoozed email is the
+		// first email, we just assume it arrived 'Today', any other snoozed email
+		// joins whichever label the previous email had. See #
+		if(isSnoozed(email)) {
+			label = (lastLabel == null) ? 'Today' : lastLabel;
+		}
+
+		// Add date label if it's a new label
 		if (label !== lastLabel) {
 			addDateLabel(email, label);
 			lastLabel = label;
@@ -265,6 +275,12 @@ const updateReminders = function () {
 	}
 
 	setTimeout(updateReminders, 100);
+};
+
+
+const isSnoozed = function(email) {
+	const node = email.querySelector(".by1.cL");
+	return node && node.innerText !== "";
 };
 
 /*
