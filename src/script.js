@@ -12,6 +12,12 @@ const CALENDAR_EMAIL_CLASS = "calendar-event";
 const CALENDAR_ATTACHMENT_CLASS = "calendar-attachment";
 const AVATAR_EMAIL_CLASS = "email-with-avatar";
 const AVATAR_CLASS = "avatar";
+const DateLabels = {
+	Today: "Today",
+	Yesterday: "Yesterday",
+	ThisMonth: "This month",
+	LastYear: "Last year"
+};
 
 const nameColors = ["1bbc9b","16a086","f1c40f","f39c11","2dcc70","27ae61","d93939","d25400","3598db","297fb8","e84c3d","c1392b","9a59b5","8d44ad","bec3c7","34495e","2d3e50","95a5a4","7e8e8e","ec87bf","d870ad","f69785","9ba37e","b49255","b49255","a94136"];
 
@@ -113,13 +119,13 @@ const buildDateLabel = function(email) {
 
 	if(now.getFullYear() == date.getFullYear()) {
 		if(now.getMonth() == date.getMonth()) {
-			if(now.getDate() == date.getDate()) { return "Today"; }
-			if(now.getDate()-1 == date.getDate()) { return "Yesterday"; }
-			return "This month";
+			if(now.getDate() == date.getDate()) { return DateLabels.Today; }
+			if(now.getDate()-1 == date.getDate()) { return DateLabels.Yesterday; }
+			return DateLabels.ThisMonth;
 		}
 		return months[date.getMonth()];
 	}
-	if(now.getFullYear()-1 == date.getFullYear()) { return "Last year"; }
+	if(now.getFullYear()-1 == date.getFullYear()) { return DateLabels.LastYear; }
 
 	return date.getFullYear().toString();
 };
@@ -264,7 +270,7 @@ const updateReminders = function () {
 		// first email, we just assume it arrived 'Today', any other snoozed email
 		// joins whichever label the previous email had.
 		if(isSnoozed(email)) {
-			label = (lastLabel == null) ? 'Today' : lastLabel;
+			label = (lastLabel == null) ? DateLabels.Today : lastLabel;
 		}
 
 		// Add date label if it's a new label
