@@ -800,6 +800,15 @@ li.bqX.brv {
 	display: none;
 }
 
+.zA .oZ-jc.T-Jo.J-J5-Ji {
+	margin-left: -5px;
+}
+
+/* hide the drag icon next to checkbox */
+.aqw>td.oZ-x3:before {
+	display: none;
+}
+
 /* Unhides the checkbox when checked */
 .zA.aqw .oZ-x3.xY .T-Jo {
 	display: inline;
@@ -917,7 +926,7 @@ li.bqX.brv {
 .avatar {
 	color: #fff;
 	border-radius: 50%;
-	font-weight: 300;
+	font-weight: 400;
 	position: relative;
 	left: -10px;
 	flex: 32px 0 0;
