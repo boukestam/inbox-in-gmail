@@ -903,6 +903,11 @@ li.bqX.brv {
 	margin-right: 16px;
 }
 
+/* Remove gmail calendar icon */
+.yf img.xL {
+	display: none;
+}
+
 /* Labels inline in email list */
 .ar {
 	height: 22px !important;

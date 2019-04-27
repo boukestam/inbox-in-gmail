@@ -10,6 +10,7 @@ let loadedMenu = false;
 const REMINDER_EMAIL_CLASS = "reminder";
 const CALENDAR_EMAIL_CLASS = "calendar-event";
 const CALENDAR_ATTACHMENT_CLASS = "calendar-attachment";
+const BUNDLE_WRAPPER_CLASS = "bundle-wrapper";
 const AVATAR_EMAIL_CLASS = "email-with-avatar";
 const AVATAR_CLASS = "avatar";
 
@@ -192,14 +193,75 @@ const addEventAttachment = function(email) {
 	}
 };
 
+const getLabels = function(email) {
+	return Array.from(email.querySelectorAll(".ar")).map(el => el.innerText);
+};
+
+const preProcessEmailBundles = function(emails) {
+	const emailBundles = {};
+	emails.forEach(email => {
+		getLabels(email).forEach(label => {
+			emailBundles[label] = emailBundles[label] || [];
+			emailBundles[label].push(email);
+		});
+	});
+};
+
+const htmlToElements = function(html) {
+	var template = document.createElement('template');
+	template.innerHTML = html;
+	return template.content.firstElementChild;
+};
+
+const buildBundleWrapper = function(email, bundleEmail, label) {
+	const bundleWrapper = htmlToElements(
+			`<tr class=\" yO ${BUNDLE_WRAPPER_CLASS} " tabindex=\"-1\">` +
+			"	<td class=\"PF xY\"></td>" +
+			"	<td class=\"oZ-x3 xY aid\"></td>" +
+			"	<td class=\"apU xY\"></td>" +
+			"	<td class=\"WA xY\"></td>" +
+			`	<td class=\"yX xY \"><div id=\":22\" class=\"yW\"><span class=\"bA4\">${label}</span></div></td>` +
+			"	<td class=\"xY a4W\"><div class=\"xS\" role=\"link\">subject</div></td>" +
+			`	<td class=\"bundle-emails label-${label}\"></td>` +
+			"</tr>");
+
+	bundleEmail.insertAdjacentElement("afterend", bundleWrapper)
+	addEmailToBundleWrapper(bundleEmail, bundleWrapper);
+	addEmailToBundleWrapper(email, bundleWrapper);
+};
+
+const addEmailToBundleWrapper = function(email, bundleWrapper) {
+	if(bundleWrapper.classList.contains("bundle-emails")) {
+		bundleWrapper.appendChild(email);
+	} else {
+		bundleWrapper.querySelector(".bundle-emails").appendChild(email);
+	}
+};
+
+const addEmailToBundle = function(email, bundleEmail, label) {
+	if(bundleEmail.parentElement.classList.contains("bundle-emails")) {
+		addEmailToBundleWrapper(email, bundleEmail.parentElement);
+	} else {
+		buildBundleWrapper(email, bundleEmail, label);
+	}
+};
+
 const updateReminders = function () {
 	const emails = document.querySelectorAll(".zA");
 	const myEmail = getMyEmailAddress();
 	let lastLabel = null;
 
 	cleanupDateLabels();
+	const emailBundles = {};
 
 	for (const email of emails) {
+		if(email.classList.contains(BUNDLE_WRAPPER_CLASS)){
+			continue;
+		}
+
+		if(email.parentElement.classList.contains("bundle-emails")) {
+		}
+
 		if (isReminder(email, myEmail) && !email.classList.contains(REMINDER_EMAIL_CLASS)) { // skip if already added class
 			const subject = email.querySelector(".y6");
 			if (subject && subject.innerText.toLowerCase().trim() == "reminder") {
@@ -220,8 +282,8 @@ const updateReminders = function () {
 			email.classList.add(REMINDER_EMAIL_CLASS);
 		} else if (!email.classList.contains(REMINDER_EMAIL_CLASS) && !email.classList.contains(AVATAR_EMAIL_CLASS)) {
 			const participants = [...getEmailParticipants(email)];	// convert to array to filter
-			const excludingMe = participants.filter(node => 
-				node.getAttribute("email") !== myEmail && 
+			const excludingMe = participants.filter(node =>
+				node.getAttribute("email") !== myEmail &&
 				node.getAttribute("name")
 			);
 
@@ -229,7 +291,7 @@ const updateReminders = function () {
 				const name = excludingMe[0].getAttribute("name").toUpperCase();
 				const first = name.charCodeAt(0);
 				const targetElement = email.querySelector(".oZ-x3");
-			
+
 				if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
 					const avatarElement = document.createElement("div");
 					avatarElement.className = AVATAR_CLASS;
@@ -245,7 +307,7 @@ const updateReminders = function () {
 					avatarElement.innerText = name[0];
 					targetElement.appendChild(avatarElement);
 				}
-			
+
 				email.classList.add(AVATAR_EMAIL_CLASS);
 			}
 		}
@@ -258,13 +320,42 @@ const updateReminders = function () {
 		}
 
 		let label = buildDateLabel(email);
+
+		// This is a hack for snoozed emails. If the snoozed email is the
+		// first email, we just assume it arrived 'Today', any other snoozed email
+		// joins whichever label the previous email had. See issue #59
+		if(isSnoozed(email)) {
+			label = (lastLabel == null) ? 'Today' : lastLabel;
+		}
+
+		// Add date label if it's a new label
 		if (label !== lastLabel) {
 			addDateLabel(email, label);
 			lastLabel = label;
 		}
+
+		// Bundle emails. Must be done after Date labels to make sure there is always
+		// a previousSibling.
+		const labels = getLabels(email);
+		if(labels.length > 0) {
+			labels.forEach(label => {
+				if(label in emailBundles && (!emailBundles[label].parentElement.classList.contains("bundle-emails")
+					|| emailBundles[label].parentElement.classList.contains(`label-${label}`))) {
+					addEmailToBundle(email, emailBundles[label], label);
+				} else {
+					emailBundles[label] = email;
+				}
+			});
+		}
 	}
 
 	setTimeout(updateReminders, 100);
+};
+
+
+const isSnoozed = function(email) {
+	const node = email.querySelector(".by1.cL");
+	return node && node.innerText !== "";
 };
 
 /*
