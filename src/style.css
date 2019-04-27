@@ -982,7 +982,12 @@ div[aria-label="Hangouts"][role="complementary"] {
 
 /* Subject padding in email list */
 .zA > .yX {
-	padding: 0 16px !important;
+	padding: 0 15px !important;
+}
+
+/* Hide the drag icon next to checkbox */
+.aqw > td.oZ-x3:before {
+	display: none;
 }
 
 /* Hide labels next to email subject */
