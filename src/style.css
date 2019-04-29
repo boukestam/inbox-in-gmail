@@ -534,7 +534,22 @@ button.gb_lf {
 **
 */
 
+/* Inbox tabs align center */
+.aAA {
+	max-width: 1200px !important;
+}
 
+.aKk>tbody, .aAA, .aRz.J-KU {
+	justify-content: center !important;
+}
+
+.J-KU-Jg-K9.aAA > .aRz > .aAy {
+  justify-content: center;
+}
+
+.aAy > .aKp {
+  margin-left: 0;
+}
 
 /* behind emails */
 .AO, .Tm.aeJ,
