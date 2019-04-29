@@ -12,8 +12,16 @@ const CALENDAR_EMAIL_CLASS = "calendar-event";
 const CALENDAR_ATTACHMENT_CLASS = "calendar-attachment";
 const AVATAR_EMAIL_CLASS = "email-with-avatar";
 const AVATAR_CLASS = "avatar";
+const DateLabels = {
+	Today: "Today",
+	Yesterday: "Yesterday",
+	ThisMonth: "This month",
+	LastYear: "Last year"
+};
+let options = {};
 
 const nameColors = ["1bbc9b","16a086","f1c40f","f39c11","2dcc70","27ae61","d93939","d25400","3598db","297fb8","e84c3d","c1392b","9a59b5","8d44ad","bec3c7","34495e","2d3e50","95a5a4","7e8e8e","ec87bf","d870ad","f69785","9ba37e","b49255","b49255","a94136"];
+const faviconDataUri = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAA8FBMVEVHcExGbcdPds/h4eJCas01r/BVe9KCz/R/m9PY2+E/acxGbs9af9Ta290wS4x/zPXt7e9HabqYor1dt+wvU6zp6ehEar40WK1Gabfv7u3R1d1Oaaexv95iw/E6su6Bz/SBzfOE1fsxufY0uvY7ZMs4Yco1X8k9btjl5eTj4+NAcdlCc9o1u/gwWrcuV7EnR5c9Z82B0/kvuPcoTaktU6MvVqsnSqBYfs8zXrzJz988d9aqttIlRI85kOBIccu6wtVrzPdEvvV4wfBAbcJvi9A4n+c+gttioN1FXZdYxfZciNJ/l9V/ja5tr+gnQoZUkt+J5e8pAAAAIXRSTlMAq3f96P1Kvw/9+s4oiP76FJH9c+ilUdMpUjv9v8CwwLBmLZScAAACG0lEQVRIx43SaXeaQBQGYFywqFm0Jt3bdFhGoEalqGisZtGaxqTp//83vZcZYIBBec/x2zN33juiKLI0ut2GUjZatW5Z9apWTp9UWhaltFU5KaMbbdNCTq12VKjzsXOoiMU85YU6l7VTrbCIlXgTC3UuHUfuG+2xKXJK2w3ttOY4TvOTrIhpZjitfwl1fjoUMfP8uSnXWMRMfKTls6HIWMLZ7Jeulisy5lwsw/XrWeVDtgjX6yDhW9S1l9dfo9H7d+kX4U3Wy+aWci7o0ewiKsRfhGvHZh61DfrtWahnsykrFL8IZluzHXuxB0/3i5T2fR8LwTeSaJzugA8oDVA7ovb9i6oSflExtzbcyzR45Wacznppow/1EnRkh5iNoq5u3B9C3OAWPf6Wf0aTyWQ6HF5D5vP55vFcGQzUneBdtx96nM0046CDB0KAD4zf8QWuG3n7Nq03jx5hHC5YuS6zyNGn9fV8D6ORG8YgvGDXjzX4RVqv/3ok4uwArswx+s+ChhUJETg7ASv349BppMMVsxxPwMqJN6dMsxUlHKKuBA9/S7yinBviBaawYhHHlSPfSlYs4njBjul/DyQXRdczWtd1vGCX7RFxPTmh86gr2eiYZ3N/55HS3HgqwDJu3N8RUpoX9pDxAz0k/FCPHD82GvnPUiuyeMDDHFuRac/jvEQPxlWcfbwH0+dKTy03OtQ9Ret9+/qmVK6+97T/W3MEXFqJ8TYAAAAASUVORK5CYII=";
 
 /* remove element */
 Element.prototype.remove = function() {
@@ -51,14 +59,12 @@ const waitForElement = function (selector, callback, tries) {
 };
 
 const getEmailParticipants = function (email) {
-	return email.querySelectorAll(".yP,.zF");
+	return email.querySelectorAll(".yW span[email]");
 };
 
 const isReminder = function(email, myEmailAddress) {
-	const titleNode = email.querySelector(".bqe");
-
-	if (titleNode && titleNode.innerText.toLowerCase().trim() === "reminder") {
-		return true;
+	if(options.reminderTreatment === "none") {
+		return false; // if user doesn't want reminders treated special, then just return as though current email is not a reminder
 	}
 
 	const nameNodes = getEmailParticipants(email);
@@ -70,7 +76,14 @@ const isReminder = function(email, myEmailAddress) {
 		}
 	}
 
-	return allNamesMe;
+	if(options.reminderTreatment === "all") {
+		return allNamesMe;
+	} else if(options.reminderTreatment === "containing-word") {
+		const titleNode = email.querySelector(".y6");
+		return allNamesMe && titleNode && titleNode.innerText.match(/reminder/i);
+	}
+
+	return false;
 };
 
 const isCalendarEvent = function(email) {
@@ -113,13 +126,13 @@ const buildDateLabel = function(email) {
 
 	if(now.getFullYear() == date.getFullYear()) {
 		if(now.getMonth() == date.getMonth()) {
-			if(now.getDate() == date.getDate()) { return "Today"; }
-			if(now.getDate()-1 == date.getDate()) { return "Yesterday"; }
-			return "This month";
+			if(now.getDate() == date.getDate()) { return DateLabels.Today; }
+			if(now.getDate()-1 == date.getDate()) { return DateLabels.Yesterday; }
+			return DateLabels.ThisMonth;
 		}
 		return months[date.getMonth()];
 	}
-	if(now.getFullYear()-1 == date.getFullYear()) { return "Last year"; }
+	if(now.getFullYear()-1 == date.getFullYear()) { return DateLabels.LastYear; }
 
 	return date.getFullYear().toString();
 };
@@ -192,7 +205,14 @@ const addEventAttachment = function(email) {
 	}
 };
 
+function reloadOptions() {
+	chrome.runtime.sendMessage({method: "getOptions"}, function(ops) {
+		options = ops;
+	});
+}
+
 const updateReminders = function () {
+	reloadOptions();
 	const emails = document.querySelectorAll(".zA");
 	const myEmail = getMyEmailAddress();
 	let lastLabel = null;
@@ -225,29 +245,33 @@ const updateReminders = function () {
 				node.getAttribute("name")
 			);
 
-			if (excludingMe.length > 0) {
-				const name = excludingMe[0].getAttribute("name").toUpperCase();
-				const first = name.charCodeAt(0);
-				const targetElement = email.querySelector(".oZ-x3");
-			
-				if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
-					const avatarElement = document.createElement("div");
-					avatarElement.className = AVATAR_CLASS;
-					if (first >= 65 && first <= 90) {
-						avatarElement.style.background = "#" + nameColors[first - 65];
-					} else {
-						avatarElement.style.background = "#000000";
-						// Some unicode characters are not affected by 'color: white', hence this alternative
-						avatarElement.style.color = "transparent";
-						avatarElement.style.textShadow = "0 0 0 #ffffff";
-					}
-
-					avatarElement.innerText = name[0];
-					targetElement.appendChild(avatarElement);
-				}
-			
-				email.classList.add(AVATAR_EMAIL_CLASS);
+			let firstParticipant = participants[0];
+			if (excludingMe.length > 0) { // if there are others in the participant, use one of their initials instead
+				firstParticipant = excludingMe[0];
 			}
+
+			const name = firstParticipant.getAttribute("name");
+			const firstLetter = (name && name.toUpperCase()[0]) || "-";
+			const targetElement = email.querySelector(".oZ-x3");
+
+			if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
+				const avatarElement = document.createElement("div");
+				avatarElement.className = AVATAR_CLASS;
+				const firstLetterCode = firstLetter.charCodeAt(0);
+				if (firstLetterCode >= 65 && firstLetterCode <= 90) {
+					avatarElement.style.background = "#" + nameColors[firstLetterCode - 65];
+				} else {
+					avatarElement.style.background = "#000000";
+					// Some unicode characters are not affected by 'color: white', hence this alternative
+					avatarElement.style.color = "transparent";
+					avatarElement.style.textShadow = "0 0 0 #ffffff";
+				}
+
+				avatarElement.innerText = firstLetter;
+				targetElement.appendChild(avatarElement);
+			}
+
+			email.classList.add(AVATAR_EMAIL_CLASS);
 		}
 
 		if(isCalendarEvent(email) && !email.querySelector("." + CALENDAR_ATTACHMENT_CLASS)) {
@@ -257,7 +281,17 @@ const updateReminders = function () {
 			email.querySelector(".yf img").remove();
 		}
 
+
 		let label = buildDateLabel(email);
+
+		// This is a hack for snoozed emails. If the snoozed email is the
+		// first email, we just assume it arrived 'Today', any other snoozed email
+		// joins whichever label the previous email had.
+		if(isSnoozed(email)) {
+			label = (lastLabel == null) ? DateLabels.Today : lastLabel;
+		}
+
+		// Add date label if it's a new label
 		if (label !== lastLabel) {
 			addDateLabel(email, label);
 			lastLabel = label;
@@ -265,6 +299,12 @@ const updateReminders = function () {
 	}
 
 	setTimeout(updateReminders, 100);
+};
+
+
+const isSnoozed = function(email) {
+	const node = email.querySelector(".by1.cL");
+	return node && node.innerText !== "";
 };
 
 /*
@@ -402,7 +442,10 @@ const setupClickEventForNodes = (nodes) => {
   );
 };
 
+const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = faviconDataUri;
+
 const init = () => {
+	setFavicon();
 	setupNodes();
 	reorderMenuItems();
 };

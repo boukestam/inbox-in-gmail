@@ -5,6 +5,13 @@
 	letter-spacing: normal;
 }
 
+@font-face {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	src: url('chrome-extension://__MSG_@@extension_id__/fonts/Roboto-Medium.ttf'); 
+}
+
 /* Email subject colour */
 .zA {
 	color: #040404;
@@ -815,6 +822,15 @@ li.bqX.brv {
 	display: none;
 }
 
+.zA .oZ-jc.T-Jo.J-J5-Ji {
+	margin-left: -4px;
+}
+
+/* hide the drag icon next to checkbox */
+.aqw>td.oZ-x3:before {
+	display: none;
+}
+
 /* Unhides the checkbox when checked */
 .zA.aqw .oZ-x3.xY .T-Jo {
 	display: inline;
@@ -930,11 +946,13 @@ li.bqX.brv {
 
 /* Name avatar */
 .avatar {
-	color: #fff;
+	color: rgba(255, 255, 255, 0.65);
 	border-radius: 50%;
-	font-weight: 300;
+	font-weight: 400;
+	font-size: 18px;
+	font-family: 'Roboto', sans-serif;
 	position: relative;
-	left: -10px;
+	left: -6px;
 	flex: 32px 0 0;
 	width: 32px;
 	height: 32px;
@@ -990,9 +1008,24 @@ div[aria-label="Hangouts"][role="complementary"] {
 	background-color: #e5e5e5 !important;
 }
 
-/* Email subject padding */
+/* Subject padding in opened email */
 .if > .byY, .iC .byY {
 	padding: 20px 4px 8px 20px !important;
+}
+
+/* Subject padding in email list */
+.zA > .yX {
+	padding: 0 15px !important;
+}
+
+/* Align the checkbox with first letter avatar */
+.zA .oZ-jc.T-Jo.J-J5-Ji {
+	margin-left: 1px;
+}
+
+/* Hide the drag icon next to checkbox */
+.aqw > td.oZ-x3:before {
+	display: none;
 }
 
 /* Hide labels next to email subject */
@@ -1013,4 +1046,9 @@ div[aria-label="Hangouts"][role="complementary"] {
 /* Spacing on bottom of email list */
 .BltHke.oy8Mbf {
 	margin-bottom: 40px;
+}
+
+/* Hide inline ads/promotions */
+.aKB {
+	display: none;
 }
