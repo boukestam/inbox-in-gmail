@@ -993,6 +993,11 @@ div[aria-label="Hangouts"][role="complementary"] {
 	padding: 0 15px !important;
 }
 
+/* Align the checkbox with first letter avatar */
+.zA .oZ-jc.T-Jo.J-J5-Ji {
+	margin-left: 1px;
+}
+
 /* Hide the drag icon next to checkbox */
 .aqw > td.oZ-x3:before {
 	display: none;
