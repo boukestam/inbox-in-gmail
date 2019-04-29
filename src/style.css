@@ -692,9 +692,19 @@ header form input {
 	background-size: 24px !important;
 }
 
-/* Snooze button */
-li.bqX.brv {
-	margin-right: 20px;
+/* action buttons on email row */
+.bqX {
+	margin: 0 5px !important;
+}
+
+/* Done button on email row */
+.bqX.brq {
+	order: 3;
+	margin-right: 10px !important;
+}
+/* Delete button on email row */
+.bqX.bru {
+    order: 2;
 }
 
 /* Opened email */
