@@ -253,11 +253,17 @@ const buildBundleWrapper = function(email, label) {
 			"</tr>");
 
 	bundleWrapper.onclick = () => {
-		location.href = "#search/in%3Ainbox+label%3A\"" + label + "\"";
+		location.href = "#search/in%3Ainbox+label%3A\"" + fixLabel(label) + "\"";
 	};
 
-	email.parentNode.replaceChild(bundleWrapper, email);
+	if(email && email.parentNode) {
+		email.parentElement.insertBefore(bundleWrapper, email);
+	}
 };
+
+const fixLabel = function(label) {
+	return encodeURI(label.replace(/[^a-zA-Z]/, "-"));
+}
 
 function isInInbox() {
 	return document.querySelector(".nZ a[title=Inbox]") != null;
@@ -353,10 +359,8 @@ const updateReminders = function () {
 		const labels = getLabels(email);
 		if(isInInbox() && labels.length > 0 && !email.classList.contains("bundled-email")) {
 			labels.forEach(label => {
-				//email.parentNode.removeChild(email);
-				if(label in emailBundles) {
-					email.classList.add("bundled-email");
-				} else {
+				email.classList.add("bundled-email");
+				if(!(label in emailBundles)) {
 					buildBundleWrapper(email, label);
 					emailBundles[label] = true;
 				}
