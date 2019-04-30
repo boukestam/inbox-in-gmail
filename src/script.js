@@ -239,7 +239,7 @@ const htmlToElements = function(html) {
 
 const buildBundleWrapper = function(email, label) {
 	const bundleWrapper = htmlToElements(
-			`<tr class=\"zA yO ${BUNDLE_WRAPPER_CLASS} " tabindex=\"-1\">` +
+			`<div><tr class=\"zA yO ${BUNDLE_WRAPPER_CLASS} " tabindex=\"-1\">` +
 			"	<td class=\"PF xY\"></td>" +
 			"	<td class=\"oZ-x3 xY aid\"><img class=\"bundle-image\" src=\"https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png\"></td>" +
 			"	<td class=\"apU xY\"></td>" +
@@ -250,10 +250,10 @@ const buildBundleWrapper = function(email, label) {
 			"	<td class=\"xY a4W\"><div class=\"xS\" role=\"link\"><!-- subject --></div></td>" +
 			`<td class=\"xW xY \"><span title=\"${getRawDate(email)}\"><span>&nbsp;</span></span></td>` +
 			`	<td class=\"bundle-emails label-${label}\"></td>` +
-			"</tr>");
+			"</tr></div>");
 
 	bundleWrapper.onclick = () => {
-		location.href = "#search/in%3Ainbox+label%3A\"" + fixLabel(label) + "\"";
+		location.href = "#search/in%3Ainbox+label%3A\"" + fixLabel(label.toLowerCase()) + "\"";
 	};
 
 	if(email && email.parentNode) {
@@ -268,6 +268,20 @@ const fixLabel = function(label) {
 function isInInbox() {
 	return document.querySelector(".nZ a[title=Inbox]") != null;
 }
+function executeCode() {
+	var actualCode = `
+		document.querySelectorAll(".zA").forEach(function(email){
+		email.onclick = (e) => {
+			debugger;	
+			let a = 1;
+		};});
+		var someFixedRandomValue = ${ Math.random() };
+	`;
+
+	var script = document.createElement('script');
+	script.textContent = actualCode;
+	(document.head||document.documentElement).appendChild(script);
+};
 
 const updateReminders = function () {
 	reloadOptions();
@@ -279,6 +293,9 @@ const updateReminders = function () {
 	const emailBundles = getBundledLabels();
 
 	for (const email of emails) {
+
+
+
 		if (isReminder(email, myEmail) && !email.classList.contains(REMINDER_EMAIL_CLASS)) { // skip if already added class
 			const subject = email.querySelector(".y6");
 			if (subject && subject.innerText.toLowerCase().trim() == "reminder") {
@@ -355,6 +372,7 @@ const updateReminders = function () {
 			addDateLabel(email, label);
 			lastLabel = label;
 		}
+
 
 		const labels = getLabels(email);
 		if(isInInbox() && labels.length > 0 && !email.classList.contains("bundled-email")) {
@@ -568,4 +586,5 @@ document.addEventListener("DOMContentLoaded", function(event) {
 	document.body.appendChild(addReminder);
 
 	updateReminders();
+	executeCode();
 });
