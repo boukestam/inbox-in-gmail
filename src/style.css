@@ -68,7 +68,7 @@ header {
 
 /* Enforce background color behind emails */
 .ar4 {
-	background: #f2f2f2;
+	/* background: #f2f2f2; */
 }
 
 /* Attachment icon */
@@ -273,7 +273,7 @@ td.apU.xY .T-KT.xf::before {
 	padding-top: 30px;
 	height: 618px;
 	width: 456px;
-	background-color: #F2F2F2;
+	/* background-color: #F2F2F2; */
 	color: transparent;
 	font-size: 14px;
 }
@@ -614,7 +614,7 @@ button.gb_lf {
 
 /* colapsed main menu */
 .no {
-	background-color: #F2F2F2;
+	/* background-color: #F2F2F2; */
 }
 
 
@@ -667,7 +667,7 @@ button.gb_lf {
 /* Empty inbox tab */
 .aRs
 {
-	background: #F2F2F2 !important;
+	/* background: #F2F2F2 !important; */
 }
 
 /* Border under toolbar */
@@ -1216,7 +1216,7 @@ div[aria-label="Hangouts"][role="complementary"] {
 }
 
 .nH.bkK.nn + .nH.nn {
-	background-color: #e5e5e5 !important;
+	/* background-color: #e5e5e5 !important; */
 }
 
 /* Subject padding in opened email */
