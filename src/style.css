@@ -1216,7 +1216,7 @@ div[aria-label="Hangouts"][role="complementary"] {
 }
 
 .nH.bkK.nn + .nH.nn {
-	background-color: #e5e5e5 !important;
+	/* background-color: #e5e5e5 !important; */
 }
 
 /* Subject padding in opened email */
