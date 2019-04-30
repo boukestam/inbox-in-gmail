@@ -225,16 +225,6 @@ const getLabels = function(email) {
 	return Array.from(email.querySelectorAll(".ar")).map(el => el.innerText);
 };
 
-const preProcessEmailBundles = function(emails) {
-	const emailBundles = {};
-	emails.forEach(email => {
-		getLabels(email).forEach(label => {
-			emailBundles[label] = emailBundles[label] || [];
-			emailBundles[label].push(email);
-		});
-	});
-};
-
 const htmlToElements = function(html) {
 	var template = document.createElement('template');
 	template.innerHTML = html;
@@ -255,16 +245,11 @@ const buildBundleWrapper = function(email, label) {
 			`	<td class=\"bundle-emails label-${label}\"></td>` +
 			"</tr>");
 	bundleWrapper.onclick = () => {
-		jump("search/in%3Ainbox+label%3A" + label)
+		location.href = "#search/in%3Ainbox+label%3A" + label;
 	};
 
 	email.insertAdjacentElement("afterend", bundleWrapper);
-	email.classList.add("bundled-email");
 };
-
-function jump(h){
-	location.href = "#" + h;                 //Go to the target element.
-}
 
 function isInInbox() {
 	return document.querySelector(".nZ a[title=Inbox]") != null;
@@ -361,14 +346,11 @@ const updateReminders = function () {
 			lastLabel = label;
 		}
 
-		// Bundle emails. Must be done after Date labels to make sure there is always
-		// a previousSibling.
 		const labels = getLabels(email);
 		if(isInInbox() && labels.length > 0 && !email.classList.contains("bundled-email")) {
 			labels.forEach(label => {
-				if(label in emailBundles) {
-					email.classList.add("bundled-email");
-				} else {
+				email.classList.add("bundled-email");
+				if(!(label in emailBundles)) {
 					buildBundleWrapper(email, label);
 					emailBundles[label] = true;
 				}
