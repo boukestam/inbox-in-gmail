@@ -1383,3 +1383,8 @@ body.email-bundling-enabled.bundle-page .nH.ar4.B .yi {
 .TD {
 	background: transparent !important;
 }
+
+/* Remove default background color behind category tabs */
+.aKh {
+	background: transparent !important;
+}
