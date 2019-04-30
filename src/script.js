@@ -148,13 +148,8 @@ const cleanupDateLabels =  function() {
 };
 
 const getBundledLabels = function() {
-	let labels = {};
-	document.querySelectorAll(".bundle-wrapper .label-link").forEach(row => {
-		labels[row.innerText] = true;
-	});
-
-	return labels;
-}
+	return Array.from(document.querySelectorAll(".BltHke[role=main] .bundle-wrapper .label-link")).map(el => el.innerText);
+};
 
 const addEventAttachment = function(email) {
 	let title = "Calendar Event";
