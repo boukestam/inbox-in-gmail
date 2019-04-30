@@ -1004,3 +1004,11 @@ div[aria-label="Hangouts"][role="complementary"] {
 .BltHke.oy8Mbf {
 	margin-bottom: 40px;
 }
+
+.bundled-email {
+	display: none !important;
+}
+.bundle-image {
+	width: 28px;
+	margin-left: -6px;
+}

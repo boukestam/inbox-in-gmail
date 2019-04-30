@@ -134,6 +134,15 @@ const cleanupDateLabels =  function() {
 	});
 };
 
+const getBundledLabels = function() {
+	let labels = {};
+	document.querySelectorAll(".bundle-wrapper .label-link").forEach(row => {
+		labels[row.innerText] = true;
+	});
+
+	return labels;
+}
+
 const addEventAttachment = function(email) {
 	let title = "Calendar Event";
 	let time = "";
@@ -213,53 +222,46 @@ const htmlToElements = function(html) {
 	return template.content.firstElementChild;
 };
 
-const buildBundleWrapper = function(email, bundleEmail, label) {
+const buildBundleWrapper = function(email, label) {
 	const bundleWrapper = htmlToElements(
-			`<tr class=\" yO ${BUNDLE_WRAPPER_CLASS} " tabindex=\"-1\">` +
+			`<tr class=\"zA yO ${BUNDLE_WRAPPER_CLASS} " tabindex=\"-1\">` +
 			"	<td class=\"PF xY\"></td>" +
-			"	<td class=\"oZ-x3 xY aid\"></td>" +
+			"	<td class=\"oZ-x3 xY aid\"><img class=\"bundle-image\" src=\"https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png\"></td>" +
 			"	<td class=\"apU xY\"></td>" +
 			"	<td class=\"WA xY\"></td>" +
-			`	<td class=\"yX xY \"><div id=\":22\" class=\"yW\"><span class=\"bA4\">${label}</span></div></td>` +
-			"	<td class=\"xY a4W\"><div class=\"xS\" role=\"link\">subject</div></td>" +
+			"	<td class=\"yX xY label-link\"><div class=\"yW\"><span class=\"bA4\">" +
+				`${label}` +
+				"</span></div></td>" +
+			"	<td class=\"xY a4W\"><div class=\"xS\" role=\"link\"><!-- subject --></div></td>" +
 			`	<td class=\"bundle-emails label-${label}\"></td>` +
 			"</tr>");
+	bundleWrapper.onclick = () => {
+		jump("search/in%3Ainbox+label%3A" + label)
+	};
 
-	bundleEmail.insertAdjacentElement("afterend", bundleWrapper)
-	addEmailToBundleWrapper(bundleEmail, bundleWrapper);
-	addEmailToBundleWrapper(email, bundleWrapper);
+	email.insertAdjacentElement("afterend", bundleWrapper);
+	email.classList.add("bundled-email");
 };
 
-const addEmailToBundleWrapper = function(email, bundleWrapper) {
-	if(bundleWrapper.classList.contains("bundle-emails")) {
-		bundleWrapper.appendChild(email);
-	} else {
-		bundleWrapper.querySelector(".bundle-emails").appendChild(email);
-	}
-};
+function jump(h){
+	location.href = "#" + h;                 //Go to the target element.
+}
 
-const addEmailToBundle = function(email, bundleEmail, label) {
-	if(bundleEmail.parentElement.classList.contains("bundle-emails")) {
-		addEmailToBundleWrapper(email, bundleEmail.parentElement);
-	} else {
-		buildBundleWrapper(email, bundleEmail, label);
-	}
-};
+function isInInbox() {
+	return document.querySelector(".nZ a[title=Inbox]") != null;
+}
 
 const updateReminders = function () {
-	const emails = document.querySelectorAll(".zA");
+	const emails = document.querySelectorAll(".BltHke[role=main] .zA");
 	const myEmail = getMyEmailAddress();
 	let lastLabel = null;
 
 	cleanupDateLabels();
-	const emailBundles = {};
+	const emailBundles = getBundledLabels();
 
 	for (const email of emails) {
 		if(email.classList.contains(BUNDLE_WRAPPER_CLASS)){
 			continue;
-		}
-
-		if(email.parentElement.classList.contains("bundle-emails")) {
 		}
 
 		if (isReminder(email, myEmail) && !email.classList.contains(REMINDER_EMAIL_CLASS)) { // skip if already added class
@@ -337,13 +339,13 @@ const updateReminders = function () {
 		// Bundle emails. Must be done after Date labels to make sure there is always
 		// a previousSibling.
 		const labels = getLabels(email);
-		if(labels.length > 0) {
+		if(isInInbox() && labels.length > 0 && !email.classList.contains("bundled-email")) {
 			labels.forEach(label => {
-				if(label in emailBundles && (!emailBundles[label].parentElement.classList.contains("bundle-emails")
-					|| emailBundles[label].parentElement.classList.contains(`label-${label}`))) {
-					addEmailToBundle(email, emailBundles[label], label);
+				if(label in emailBundles) {
+					email.classList.add("bundled-email");
 				} else {
-					emailBundles[label] = email;
+					buildBundleWrapper(email, label);
+					emailBundles[label] = true;
 				}
 			});
 		}
