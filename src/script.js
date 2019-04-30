@@ -148,7 +148,7 @@ const cleanupDateLabels =  function() {
 };
 
 const getBundledLabels = function() {
-	return Array.from(document.querySelectorAll(".BltHke[role=main] .bundle-wrapper .label-link")).map(el => el.innerText);
+	return Array.from(document.querySelectorAll(".BltHke[role=main] .bundle-wrapper .label-link")).reduce((acc, e) => {acc[e.innerText] = true; return acc;}, {});
 };
 
 const addEventAttachment = function(email) {
