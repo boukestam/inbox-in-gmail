@@ -71,6 +71,10 @@ const isReminder = function(email, myEmailAddress) {
 	const nameNodes = getEmailParticipants(email);
 	let allNamesMe = true;
 
+	if(nameNodes.length === 0) {
+		allNamesMe = false;
+	}
+
 	for (const nameNode of nameNodes) {
 		if (nameNode.getAttribute("email") !== myEmailAddress) {
 			allNamesMe = false;
@@ -110,10 +114,17 @@ const addDateLabel = function (email, label) {
 	email.parentElement.insertBefore(timeRow, email);
 };
 
+const getRawDate = function(email) {
+	const dateElement = email.querySelector(".xW.xY span");
+	if(dateElement) {
+		return dateElement.getAttribute("title");
+	}
+};
+
 const getDate = function(email) {
-    const dateElement = email.querySelector(".xW.xY span");
-    if(dateElement) {
-		return new Date(dateElement.getAttribute("title"));
+    const date = getRawDate(email);
+    if(date) {
+		return new Date(date);
 	}
 };
 
@@ -237,13 +248,15 @@ const buildBundleWrapper = function(email, label) {
 				`${label}` +
 				"</span></div></td>" +
 			"	<td class=\"xY a4W\"><div class=\"xS\" role=\"link\"><!-- subject --></div></td>" +
+			`<td class=\"xW xY \"><span title=\"${getRawDate(email)}\"><span>&nbsp;</span></span></td>` +
 			`	<td class=\"bundle-emails label-${label}\"></td>` +
 			"</tr>");
+
 	bundleWrapper.onclick = () => {
-		location.href = "#search/in%3Ainbox+label%3A" + label;
+		location.href = "#search/in%3Ainbox+label%3A\"" + label + "\"";
 	};
 
-	email.insertAdjacentElement("afterend", bundleWrapper);
+	email.parentNode.replaceChild(bundleWrapper, email);
 };
 
 function isInInbox() {
@@ -260,10 +273,6 @@ const updateReminders = function () {
 	const emailBundles = getBundledLabels();
 
 	for (const email of emails) {
-		if(email.classList.contains(BUNDLE_WRAPPER_CLASS)){
-			continue;
-		}
-
 		if (isReminder(email, myEmail) && !email.classList.contains(REMINDER_EMAIL_CLASS)) { // skip if already added class
 			const subject = email.querySelector(".y6");
 			if (subject && subject.innerText.toLowerCase().trim() == "reminder") {
@@ -282,8 +291,8 @@ const updateReminders = function () {
 			}
 
 			email.classList.add(REMINDER_EMAIL_CLASS);
-		} else if (!email.classList.contains(REMINDER_EMAIL_CLASS) && !email.classList.contains(AVATAR_EMAIL_CLASS)) {
-			const participants = [...getEmailParticipants(email)];	// convert to array to filter
+		} else if (!email.classList.contains(REMINDER_EMAIL_CLASS) && !email.classList.contains(AVATAR_EMAIL_CLASS) && !email.classList.contains(BUNDLE_WRAPPER_CLASS)) {
+			let participants = Array.from(getEmailParticipants(email));	// convert to array to filter
 			const excludingMe = participants.filter(node =>
 				node.getAttribute("email") !== myEmail &&
 				node.getAttribute("name")
@@ -344,8 +353,10 @@ const updateReminders = function () {
 		const labels = getLabels(email);
 		if(isInInbox() && labels.length > 0 && !email.classList.contains("bundled-email")) {
 			labels.forEach(label => {
-				email.classList.add("bundled-email");
-				if(!(label in emailBundles)) {
+				//email.parentNode.removeChild(email);
+				if(label in emailBundles) {
+					email.classList.add("bundled-email");
+				} else {
 					buildBundleWrapper(email, label);
 					emailBundles[label] = true;
 				}
