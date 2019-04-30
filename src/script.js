@@ -233,7 +233,6 @@ const updateReminders = function () {
 			if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length == 0) {
 				const avatarElement = document.createElement("div");
 				avatarElement.className = AVATAR_CLASS;
-				avatarElement.style.background = "url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_reminder_blue_24dp_r2_2x.png')";
 				targetElement.appendChild(avatarElement);
 			}
 
@@ -390,9 +389,6 @@ const reorderMenuItems = () => {
 			
       // Rewrite text from All Mail to Done
       done.querySelector('a').innerText = 'Done';
-
-      // Change icon to green checkmark
-      done.querySelector('.qj').style.backgroundImage = 'url("https://i.ibb.co/nbQZg5y/ic-done-clr-24dp-r4-2x.png")';
 
       // Add border seperator to bottom of Done
       const innerDone = done.querySelector('div');

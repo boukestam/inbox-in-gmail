@@ -97,93 +97,92 @@ td.apU.xY {
 
 /* Not starred image */
 td.apU.xY .T-KT::before {
-	background-image: url('https://i.ibb.co/L6F6nTk/btw-ic-pin-black-24dp-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_pin_black_24dp_2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Starred menu item */
 .aHS-bnw .qj {
-	background-image: url('https://i.ibb.co/L6F6nTk/btw-ic-pin-black-24dp-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_pin_black_24dp_2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Starred */
 td.apU.xY .T-KT.xl::before {
-	background-image: url('https://i.ibb.co/L6F6nTk/btw-ic-pin-black-24dp-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_pin_black_24dp_2x.png') !important;
 	background-size: 24px !important;
 }
 
-
 /* Starred - Yellow Star */
 td.apU.xY .T-KT.T-KT-Jp::before {
-	background-image: url('https://i.ibb.co/42t3zLT/ic-mark-pinned-yellow-24dp-r4-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic-mark-pinned-yellow-24dp-r4-2x.png') !important;
 	background-size: 24px !important;
 	opacity: 1;
 }
 
 /* Starred - Orange Star */
 td.apU.xY .T-KT.xl::before {
-	background-image: url('https://i.ibb.co/5MtMBt5/ic-mark-pinned-orange-24dp-r4-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic-mark-pinned-orange-24dp-r4-2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Starred - Red Star */
 td.apU.xY .T-KT.xn::before {
-	background-image: url('https://i.ibb.co/60stYpG/ic-mark-pinned-red-24dp-r4-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic-mark-pinned-red-24dp-r4-2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Starred - Purple Star */
 td.apU.xY .T-KT.xm::before {
-	background-image: url('https://i.ibb.co/f13zypb/ic-mark-pinned-purple-24dp-r4-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic-mark-pinned-purple-24dp-r4-2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Starred - Blue Star */
 td.apU.xY .T-KT.xj::before {
-	background-image: url('https://i.ibb.co/p3Hc9HV/ic-mark-pinned-blue-24dp-r4-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic-mark-pinned-blue-24dp-r4-2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Starred - Green Star */
 td.apU.xY .T-KT.xk::before {
-	background-image: url('https://i.ibb.co/BcktQdk/ic-mark-pinned-green-24dp-r4-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic-mark-pinned-green-24dp-r4-2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Starred - Red Bang */
 td.apU.xY .T-KT.xg::before {
-	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/cleardot.gif') !important;
 	background-size: 1px !important;
 }
 
 /* Starred - Orange Guillimet */
 td.apU.xY .T-KT.xe::before {
-	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/cleardot.gif') !important;
 	background-size: 1px !important;
 }
 
 /* Starred - Yellow Bang */
 td.apU.xY .T-KT.xh::before {
-	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/cleardot.gif') !important;
 	background-size: 1px !important;
 }
 
 /* Starred - Green Check */
 td.apU.xY .T-KT.xd::before {
-	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/cleardot.gif') !important;
 	background-size: 1px !important;
 }
 
 /* Starred - Blue Info */
 td.apU.xY .T-KT.xc::before {
-	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/cleardot.gif') !important;
 	background-size: 1px !important;
 }
 
 /* Starred - Purple Question */
 td.apU.xY .T-KT.xf::before {
-	background-image: url('https://mail.google.com/mail/u/0/images/cleardot.gif') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/cleardot.gif') !important;
 	background-size: 1px !important;
 }
 
@@ -226,7 +225,7 @@ td.apU.xY .T-KT.xf::before {
 
 /* Inbox Email is Empty show Sun */
 .ar4.z .TD > .TC {
-	background-image: url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/zero/2x/ic_zero_inbox_2x.png');
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_zero_inbox_2x.png') !important;
 	background-repeat: no-repeat;
 	background-position: center;
 	padding-top: 30px;
@@ -290,13 +289,18 @@ td.apU.xY .T-KT.xf::before {
 
 /* Compose email image */
 .z0>.L3::before {
-	background-image: url('https://i.ibb.co/y09xqPH/btw-ic-speeddial-white-24dp-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_white_24dp_2x.png') !important;
 	background-size: 24px !important;
 }
 
 .z0>.L3:hover::before {
-	background-image: url('https://i.ibb.co/x6n7nSQ/btw-ic-speeddial-compose-white-24dp-2x.png') !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_compose_white_24dp_2x.png') !important;
 	background-size: 24px !important;
+}
+
+/* Done icon (green checkmark) */
+.byl > .TK:nth-of-type(2) > .aim:nth-of-type(3) .qj {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_done_clr_24dp_r4_2x.png') !important;
 }
 
 /* Compose email old place */
@@ -373,11 +377,11 @@ td.apU.xY .T-KT.xf::before {
 }
 /* Inbox */
 .aHS-bnt .qj {
-	background-image: url("https://i.ibb.co/fn7MyRG/inbox-googblue-24dp.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/inbox_googblue_24dp.png') !important;
 }
 /* Dropdown arrow */
 .aHS-bnt .afM {
-	background-image: url("https://i.ibb.co/R7pYSLZ/arrow-drop-down-black-20dp.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/arrow_drop_down_black_20dp.png') !important;
 }
 /* Starred, Important, Chats */
 .aHS-bnw .qr,
@@ -387,35 +391,35 @@ td.apU.xY .T-KT.xf::before {
 }
 /* Starred */
 .aHS-bnw .qj {
-	background-image: url("https://i.ibb.co/mXkG5ff/grade-black-24dp.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/grade_black_24dp.png') !important;
 }
 /* Important */
 .aHS-bns .qj {
-	background-image: url("https://i.ibb.co/rw73YY4/label-important-black-24dp.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/label_important_black_24dp.png') !important;
 }
 /* Chats */
 .aHS-aHP .qj {
-	background-image: url("https://i.ibb.co/RHqK4MB/hangout-black-24dp.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/hangout_black_24dp.png') !important;
 }
 /* Snoozed */
 .aHS-bu1 .qj {
-	background-image: url("https://i.ibb.co/KL9Wm2J/ic-upcoming-clr-24dp-r5-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_upcoming_clr_24dp_r5_2x.png') !important;
 }
 /* Sent */
 .aHS-bnu .qj {
-	background-image: url("https://i.ibb.co/0fYwQYN/ic-sent-right-g60-24dp-r1-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_sent_right_g60_24dp_r1_2x.png') !important;
 }
 /* Drafts */
 .aHS-bnq .qj {
-	background-image: url("https://i.ibb.co/St5mfzv/ic-draft-g60-24dp-r2-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_draft_g60_24dp_r2_2x.png') !important;
 }
 /* Trash */
 .aHS-bnx .qj {
-	background-image: url("https://i.ibb.co/RQp6mnM/ic-trash-g60-24dp-r2-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_trash_g60_24dp_r2_2x.png') !important;
 }
 /* Category */
 .aHS-bnr .qj {
-	background-image: url("https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_custom-cluster_24px_g60_r3_2x.png') !important;
 	background-repeat: repeat-x;
 	padding: 12px;
 	width: 48px;
@@ -426,7 +430,7 @@ td.apU.xY .T-KT.xf::before {
 }
 /* Spam */
 .aHS-bnv .qj {
-	background-image: url("https://i.ibb.co/CJm8B4X/ic-spam-g60-24dp-r2-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_spam_g60_24dp_r2_2x.png') !important;
 }
 .TO.nZ .n0 {
 	color: #212121 !important;
@@ -665,7 +669,7 @@ header form input {
 
 /* Add reminder image */
 .add-reminder::before {
-	background-image: url("https://i.ibb.co/ZXjKTgc/btw-ic-speeddial-reminders-white-24dp-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_reminders_white_24dp_2x.png') !important;
 	background-size: 24px !important;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -682,13 +686,13 @@ header form input {
 
 /* Archive button (inbox email, opened email) */
 .brq, .ar8 {
-	background-image: url("https://i.ibb.co/yXwztKr/btw-ic-done-black-24dp-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_done_black_24dp_2x.png') !important;
 	background-size: 24px !important;
 }
 
 /* Snooze button (inbox email, opened email) */
 .brv, .brW {
-	background-image: url("https://i.ibb.co/3ptb3Tk/btw-ic-snooze-black-24dp-2x.png") !important;
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_snooze_black_24dp_2x.png') !important;
 	background-size: 24px !important;
 }
 
@@ -940,7 +944,7 @@ header form input {
 	height: 80px;
 	width: 100px;
 	background-position: center;
-	background-image: url('//i.ibb.co/2kB7DZk/calendar-event-attachment.png');
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/calendar_event_attachment.png') !important;
 	background-size: 200%;
 	margin-right: 16px;
 }
@@ -957,6 +961,7 @@ header form input {
 
 /* Name avatar */
 .avatar {
+	background: url('chrome-extension://__MSG_@@extension_id__/images/ic_reminder_blue_24dp_r2_2x.png');
 	color: rgba(255, 255, 255, 0.65);
 	border-radius: 50%;
 	font-weight: 400;
@@ -990,24 +995,6 @@ header form input {
 /* Hide important indicator on reminders */
 .reminder .WA.xY {
 	visibility: hidden;
-}
-
-/* Firefox-specific fixes */
-@-moz-document url-prefix() {
-	/* overflow fix emails list */
-	.AO {
-		overflow-y: auto;
-	}
-
-	/* overflow fix left sidebar */
-	.oy8Mbf {
-		overflow-y: hidden;
-	}
-
-	/* overflow fix right sidebar */
-	.brC-aT5-aOt-bsf-Jw, .brC-bsf-aT5-aOt {
-		overflow-y: hidden;
-	}
 }
 
 /* Right side Hangouts */
