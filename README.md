@@ -1,4 +1,4 @@
-# inbox-in-gmail
+# Inbox in Gmail
 Web extension that adds features of Google Inbox to Gmail
 
 ![alt text](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8.png?raw=true)
