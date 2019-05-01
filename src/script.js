@@ -437,7 +437,7 @@ const setupClickEventForNodes = (nodes) => {
   );
 };
 
-const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = chrome.extension.getURL("images/favicon.png");;
+const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = chrome.runtime.getURL('images/favicon.png');;
 
 const init = () => {
 	setFavicon();

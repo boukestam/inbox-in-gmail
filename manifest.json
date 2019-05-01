@@ -41,7 +41,6 @@
     }
   ],
   "web_accessible_resources": [
-    "fonts/Roboto-Medium.ttf",
     "images/*"
   ]
 }
