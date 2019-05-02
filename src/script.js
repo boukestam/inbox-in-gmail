@@ -267,9 +267,9 @@ const fixLabel = function (label) {
 	return encodeURI(label.replace(/ /g, '+'));
 };
 
-function isInInbox() {
-	return document.querySelector('.nZ a[title=Inbox]') != null;
-}
+const isInInbox = () => document.querySelector('.nZ a[title=Inbox]') !== null;
+
+const isInBundle = () => document.location.hash.match(/#search\/in%3Ainbox\+label%3A/g) !== null;
 
 function checkImportantMarkers() {
 	return document.querySelector('td.WA.xY');
@@ -282,6 +282,8 @@ const checkEmailUnbundledLabel = function (labels) {
 function getEmails() {
 	const emails = document.querySelectorAll('.BltHke[role=main] .zA');
 	let myEmailAddress = getMyEmailAddress();
+	let isInInboxFlag = isInInbox();
+	let isInBundleFlag = isInBundle();
 	let processedEmails = [];
 
 	let prevTimeStamp = null;
@@ -305,13 +307,18 @@ function getEmails() {
 		info.labels = getLabels(email);
 		info.labels.forEach(l => allLabels.add(l));
 
-		// Check for Unbundled parent label, mark row as unbundled, and remove 'Unbundled/' from display in the UI
+		info.unbundledAlreadyProcessed = () => checkEmailClass(email, UNBUNDLED_EMAIL_CLASS);
+		// Check for Unbundled parent label, mark row as unbundled
 		info.isUnbundled = checkEmailUnbundledLabel(info.labels);
-		if (info.isUnbundled) {
+		if ((isInInboxFlag || isInBundleFlag) && info.isUnbundled && !info.unbundledAlreadyProcessed()) {
 			addClassToEmail(email, UNBUNDLED_EMAIL_CLASS);
-			info.emailEl.querySelectorAll('.av').forEach(labelEl => {
+			info.emailEl.querySelectorAll('.ar.as').forEach(labelEl => {
 				if (labelEl.innerText.indexOf(UNBUNDLED_PARENT_LABEL) >= 0) {
-					labelEl.innerText = labelEl.innerText.replace(UNBUNDLED_PARENT_LABEL + '/', '');
+					// Remove 'Unbundled/' from display in the UI
+					labelEl.querySelector('.av').innerText = labelEl.innerText.replace(UNBUNDLED_PARENT_LABEL + '/', '');
+				} else {
+					// Hide labels that aren't nested under UNBUNDLED_PARENT_LABEL
+					labelEl.hidden = true;
 				}
 			});
 		}
