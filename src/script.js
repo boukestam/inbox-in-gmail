@@ -313,7 +313,7 @@ function getEmails() {
 		if ((isInInboxFlag || isInBundleFlag) && info.isUnbundled && !info.unbundledAlreadyProcessed()) {
 			addClassToEmail(email, UNBUNDLED_EMAIL_CLASS);
 			info.emailEl.querySelectorAll('.ar.as').forEach(labelEl => {
-				if (labelEl.innerText.indexOf(UNBUNDLED_PARENT_LABEL) >= 0) {
+				if (labelEl.querySelector('.at').title.indexOf(UNBUNDLED_PARENT_LABEL) >= 0) {
 					// Remove 'Unbundled/' from display in the UI
 					labelEl.querySelector('.av').innerText = labelEl.innerText.replace(UNBUNDLED_PARENT_LABEL + '/', '');
 				} else {
