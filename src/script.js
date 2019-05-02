@@ -221,11 +221,12 @@ function reloadOptions() {
 		options = ops;
 	});
 
-	// Add option classes to body for css styling
+	// Add option classes to body for css styling, removes avatars when disabled
 	if (options.showAvatar === 'enabled' && !document.body.classList.contains(AVATAR_OPTION_CLASS)) {
 		document.body.classList.add(AVATAR_OPTION_CLASS);
 	} else if (options.showAvatar === 'disabled' && document.body.classList.contains(AVATAR_OPTION_CLASS)) {
 		document.body.classList.remove(AVATAR_OPTION_CLASS);
+		document.querySelectorAll('.' + AVATAR_CLASS).forEach(avatarEl => avatarEl.remove());
 	}
 	
 	// Add option classes to body for css styling, and unbundle emails when disabled
@@ -235,9 +236,9 @@ function reloadOptions() {
 		document.body.classList.remove(BUNDLING_OPTION_CLASS);
 		
 		// Unbundle emails
-		document.querySelectorAll('.' + BUNDLED_EMAIL_CLASS).forEach(x => x.classList.remove(BUNDLED_EMAIL_CLASS));
+		document.querySelectorAll('.' + BUNDLED_EMAIL_CLASS).forEach(emailEl => emailEl.classList.remove(BUNDLED_EMAIL_CLASS));
 		// Remove bundle elements
-		document.querySelectorAll('.' + BUNDLE_WRAPPER_CLASS).forEach(x => x.remove());
+		document.querySelectorAll('.' + BUNDLE_WRAPPER_CLASS).forEach(bundleEl => bundleEl.remove());
 	}
 }
 
@@ -344,7 +345,6 @@ const updateReminders = function () {
 
 	cleanupDateLabels();
 	const emailBundles = getBundledLabels();
-
 
 	for (const emailInfo of emails) {
 		const emailEl = emailInfo.emailEl;
