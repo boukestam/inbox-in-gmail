@@ -229,7 +229,7 @@ function reloadOptions() {
 }
 
 const getLabels = function(email) {
-	return Array.from(email.querySelectorAll(".ar")).map(el => el.innerText);
+	return Array.from(email.querySelectorAll('.ar .at')).map(el => el.attributes.title.value);
 };
 
 const htmlToElements = function(html) {
