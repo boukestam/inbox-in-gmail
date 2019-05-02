@@ -1232,6 +1232,7 @@ div[aria-label="Hangouts"][role="complementary"] {
 }
 
 /* Hide labels on emails when bundling is enabled */
-body.email-bundling-enabled .yi {
+body.email-bundling-enabled .bundled-email .yi,
+body.email-bundling-enabled .nH.ar4.B .yi {
 	display: none !important;
 }

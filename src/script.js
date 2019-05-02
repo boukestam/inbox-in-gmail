@@ -14,6 +14,8 @@ const BUNDLE_WRAPPER_CLASS = 'bundle-wrapper';
 const UNREAD_BUNDLE_CLASS = 'contains-unread';
 const BUNDLED_EMAIL_CLASS = 'bundled-email';
 const BUNDLING_OPTION_CLASS = 'email-bundling-enabled';
+const UNBUNDLED_PARENT_LABEL = 'Unbundled';
+const UNBUNDLED_EMAIL_CLASS = 'unbundled-email';
 const AVATAR_EMAIL_CLASS = 'email-with-avatar';
 const AVATAR_CLASS = 'avatar';
 const AVATAR_OPTION_CLASS = 'show-avatar-enabled';
@@ -210,6 +212,7 @@ function reloadOptions() {
 	} else if (options.showAvatar === 'disabled' && document.body.classList.contains(AVATAR_OPTION_CLASS)) {
 		document.body.classList.remove(AVATAR_OPTION_CLASS);
 		document.querySelectorAll('.' + AVATAR_EMAIL_CLASS).forEach(avatarEl => avatarEl.classList.remove(AVATAR_EMAIL_CLASS));
+		// Remove avatar elements
 		document.querySelectorAll('.' + AVATAR_CLASS).forEach(avatarEl => avatarEl.remove());
 	}
 	
@@ -218,10 +221,9 @@ function reloadOptions() {
 		document.body.classList.add(BUNDLING_OPTION_CLASS);
 	} else if (options.emailBundling === 'disabled' && document.body.classList.contains(BUNDLING_OPTION_CLASS)) {
 		document.body.classList.remove(BUNDLING_OPTION_CLASS);
-		
 		// Unbundle emails
 		document.querySelectorAll('.' + BUNDLED_EMAIL_CLASS).forEach(emailEl => emailEl.classList.remove(BUNDLED_EMAIL_CLASS));
-		// Remove bundle elements
+		// Remove bundle wrapper rows
 		document.querySelectorAll('.' + BUNDLE_WRAPPER_CLASS).forEach(bundleEl => bundleEl.remove());
 	}
 }
@@ -273,6 +275,10 @@ function checkImportantMarkers() {
 	return document.querySelector('td.WA.xY');
 }
 
+const checkEmailUnbundledLabel = function (labels) {
+	return labels.filter(label => label.indexOf(UNBUNDLED_PARENT_LABEL) >= 0).length > 0;
+}
+
 function getEmails() {
 	const emails = document.querySelectorAll('.BltHke[role=main] .zA');
 	let myEmailAddress = getMyEmailAddress();
@@ -282,7 +288,7 @@ function getEmails() {
 	let allLabels = new Set();
 	let labelStats = {};
 
-	// start from end and go to beginning.
+	// Start from last email on page and head towards first
 	for (let i = emails.length - 1; i >= 0; i--) {
 		let email = emails[i];
 		let info = {};
@@ -293,11 +299,22 @@ function getEmails() {
 		info.date = getDate(info.dateString);
 		info.dateLabel = buildDateLabel(info.date);
 		info.isSnooze = isSnoozed(email, info.date, prevTimeStamp);
-		// Only update prevTimeStamp if not snoozed, because we might have multiple snoozes back to back.
+		// Only update prevTimeStamp if not snoozed, because we might have multiple snoozes back to back
 		if (!info.isSnooze && info.date) prevTimeStamp = info.date;
 		info.isCalendarEvent = isCalendarEvent(email);
 		info.labels = getLabels(email);
 		info.labels.forEach(l => allLabels.add(l));
+
+		// Check for Unbundled parent label, mark row as unbundled, and remove 'Unbundled/' from display in the UI
+		info.isUnbundled = checkEmailUnbundledLabel(info.labels);
+		if (info.isUnbundled) {
+			addClassToEmail(email, UNBUNDLED_EMAIL_CLASS);
+			info.emailEl.querySelectorAll('.av').forEach(labelEl => {
+				if (labelEl.innerText.indexOf(UNBUNDLED_PARENT_LABEL) >= 0) {
+					labelEl.innerText = labelEl.innerText.replace(UNBUNDLED_PARENT_LABEL + '/', '');
+				}
+			});
+		}
 
 		info.subjectEl = email.querySelector('.y6');
 		info.subject = info.subjectEl && info.subjectEl.innerText.trim();
@@ -356,6 +373,7 @@ const updateReminders = function () {
 			addClassToEmail(emailEl, REMINDER_EMAIL_CLASS);
 		} else if (options.showAvatar === 'enabled' && !emailInfo.reminderAlreadyProcessed() && !emailInfo.avatarAlreadyProcessed() && !emailInfo.bundleAlreadyProcessed()) {
 			let participants = Array.from(getEmailParticipants(emailEl));	// convert to array to filter
+			if (!participants.length) continue; // Prevents Drafts in Search or Drafts folder from causing errors
 			let firstParticipant = participants[0];
 
 			const excludingMe = participants.filter(node => node.getAttribute('email') !== myEmail && node.getAttribute('name'));
@@ -413,7 +431,7 @@ const updateReminders = function () {
 			}
 
 			const labels = emailInfo.labels;
-			if (isInInboxFlag && labels.length && !emailInfo.bundleAlreadyProcessed()) {
+			if (isInInboxFlag && labels.length && !emailInfo.isUnbundled && !emailInfo.bundleAlreadyProcessed()) {
 				labels.forEach(label => {
 					addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
 					if (!(label in emailBundles)) {
