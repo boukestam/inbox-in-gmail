@@ -359,9 +359,8 @@ const updateReminders = function () {
 			);
 
 			let firstParticipant = participants[0];
-			if (excludingMe.length > 0) { // if there are others in the participant, use one of their initials instead
-				firstParticipant = excludingMe[0];
-			}
+			// If there are others in the participants, use one of their initials instead
+			if (excludingMe.length > 0) firstParticipant = excludingMe[0];
 
 			const name = firstParticipant.getAttribute("name");
 			const firstLetter = (name && name.toUpperCase()[0]) || "-";
@@ -408,8 +407,11 @@ const updateReminders = function () {
 		}
 
 		if (options.emailBundling === 'enabled') {
-			// remove labels that no longer have associated emails
-			if (emailInfo.isBundleWrapper() && !allLabels.has(emailEl.getAttribute("bundleLabel"))) {
+			// Hide labels on emails in list
+			document.querySelector('body').setAttribute('emailBundling', true);
+
+			// Remove bundles that no longer have associated emails
+			if (emailInfo.isBundleWrapper() && !allLabels.has(emailEl.getAttribute('bundleLabel'))) {
 				emailEl.remove();
 				continue;
 			}
@@ -425,9 +427,7 @@ const updateReminders = function () {
 				});
 			}
 		}
-
 	}
-
 };
 
 
@@ -437,10 +437,8 @@ const updateReminders = function () {
  * also return true;
  */
 const isSnoozed = function(email, curDate, prevDate) {
-	const node = email.querySelector(".by1.cL");
-	if(node && node.innerText !== "") {
-		return true;
-	}
+	const node = email.querySelector('.by1.cL');
+	if (node && node.innerText !== '') return true;
 
 	return prevDate !== null && curDate < prevDate;
 };
