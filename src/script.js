@@ -136,7 +136,7 @@ const buildDateLabel = function(date) {
 };
 
 const cleanupDateLabels = function() {
-	document.querySelectorAll(".time-row").forEach(row => {
+	document.querySelectorAll('.time-row').forEach(row => {
 		// Delete any back to back date labels
 		if (row.nextSibling && row.nextSibling.className === 'time-row') row.remove();
 		// Check nextSibling recursively until reaching the next .time-row
