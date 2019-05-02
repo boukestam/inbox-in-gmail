@@ -23,7 +23,6 @@ const DateLabels = {
 let options = {};
 
 const nameColors = ["1bbc9b","16a086","f1c40f","f39c11","2dcc70","27ae61","d93939","d25400","3598db","297fb8","e84c3d","c1392b","9a59b5","8d44ad","bec3c7","34495e","2d3e50","95a5a4","7e8e8e","ec87bf","d870ad","f69785","9ba37e","b49255","b49255","a94136"];
-const faviconDataUri = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAuCAMAAABgZ9sFAAAA8FBMVEVHcExGbcdPds/h4eJCas01r/BVe9KCz/R/m9PY2+E/acxGbs9af9Ta290wS4x/zPXt7e9HabqYor1dt+wvU6zp6ehEar40WK1Gabfv7u3R1d1Oaaexv95iw/E6su6Bz/SBzfOE1fsxufY0uvY7ZMs4Yco1X8k9btjl5eTj4+NAcdlCc9o1u/gwWrcuV7EnR5c9Z82B0/kvuPcoTaktU6MvVqsnSqBYfs8zXrzJz988d9aqttIlRI85kOBIccu6wtVrzPdEvvV4wfBAbcJvi9A4n+c+gttioN1FXZdYxfZciNJ/l9V/ja5tr+gnQoZUkt+J5e8pAAAAIXRSTlMAq3f96P1Kvw/9+s4oiP76FJH9c+ilUdMpUjv9v8CwwLBmLZScAAACG0lEQVRIx43SaXeaQBQGYFywqFm0Jt3bdFhGoEalqGisZtGaxqTp//83vZcZYIBBec/x2zN33juiKLI0ut2GUjZatW5Z9apWTp9UWhaltFU5KaMbbdNCTq12VKjzsXOoiMU85YU6l7VTrbCIlXgTC3UuHUfuG+2xKXJK2w3ttOY4TvOTrIhpZjitfwl1fjoUMfP8uSnXWMRMfKTls6HIWMLZ7Jeulisy5lwsw/XrWeVDtgjX6yDhW9S1l9dfo9H7d+kX4U3Wy+aWci7o0ewiKsRfhGvHZh61DfrtWahnsykrFL8IZluzHXuxB0/3i5T2fR8LwTeSaJzugA8oDVA7ovb9i6oSflExtzbcyzR45Wacznppow/1EnRkh5iNoq5u3B9C3OAWPf6Wf0aTyWQ6HF5D5vP55vFcGQzUneBdtx96nM0046CDB0KAD4zf8QWuG3n7Nq03jx5hHC5YuS6zyNGn9fV8D6ORG8YgvGDXjzX4RVqv/3ok4uwArswx+s+ChhUJETg7ASv349BppMMVsxxPwMqJN6dMsxUlHKKuBA9/S7yinBviBaawYhHHlSPfSlYs4njBjul/DyQXRdczWtd1vGCX7RFxPTmh86gr2eiYZ3N/55HS3HgqwDJu3N8RUpoX9pDxAz0k/FCPHD82GvnPUiuyeMDDHFuRac/jvEQPxlWcfbwH0+dKTy03OtQ9Ret9+/qmVK6+97T/W3MEXFqJ8TYAAAAASUVORK5CYII=";
 
 /* remove element */
 Element.prototype.remove = function() {
@@ -345,7 +344,6 @@ const updateReminders = function () {
 			if (avatarWrapperEl && avatarWrapperEl.getElementsByClassName(AVATAR_CLASS).length === 0) {
 				const avatarElement = document.createElement("div");
 				avatarElement.className = AVATAR_CLASS;
-				avatarElement.style.background = "url('//ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/ic_reminder_blue_24dp_r2_2x.png')";
 				avatarWrapperEl.appendChild(avatarElement);
 			}
 			addClassToEmail(emailEl, REMINDER_EMAIL_CLASS);
@@ -520,9 +518,6 @@ const reorderMenuItems = () => {
       // Rewrite text from All Mail to Done
       done.querySelector('a').innerText = 'Done';
 
-      // Change icon to green checkmark
-      done.querySelector('.qj').style.backgroundImage = 'url("https://i.ibb.co/nbQZg5y/ic-done-clr-24dp-r4-2x.png")';
-
       // Add border seperator to bottom of Done
       const innerDone = done.querySelector('div');
       innerDone.style.borderBottom = '1px solid rgb(221, 221, 221)';
@@ -571,7 +566,7 @@ const setupClickEventForNodes = (nodes) => {
   );
 };
 
-const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = faviconDataUri;
+const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = chrome.runtime.getURL('images/favicon.png');;
 
 const init = () => {
 	setFavicon();
