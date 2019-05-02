@@ -252,7 +252,7 @@ const buildBundleWrapper = function(email, label, hasImportantMarkers) {
 	addClassToEmail(bundleWrapper, BUNDLE_WRAPPER_CLASS);
 
 	bundleWrapper.onclick = () => {
-		location.href = `#search/in%3Ainbox+label%3A"${fixLabel(label.toLowerCase())}"`;
+		location.href = `#search/in%3Ainbox+label%3A"${fixLabel(label)}"`;
 	};
 
 	if (email && email.parentNode) email.parentElement.insertBefore(bundleWrapper, email);
