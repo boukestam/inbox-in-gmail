@@ -301,6 +301,7 @@ function getEmails() {
 		info.date = getDate(info.dateString);
 		info.dateLabel = buildDateLabel(info.date);
 		info.isSnooze = isSnoozed(email, info.date, prevTimeStamp);
+		info.isStarred = isStarred(email);
 		// Only update prevTimeStamp if not snoozed, because we might have multiple snoozes back to back
 		if (!info.isSnooze && info.date) prevTimeStamp = info.date;
 		info.isCalendarEvent = isCalendarEvent(email);
@@ -436,6 +437,7 @@ const updateReminders = function () {
 				emailEl.remove();
 				continue;
 			}
+			if (emailInfo.isStarred) continue;
 
 			const labels = emailInfo.labels;
 			if (isInInboxFlag && labels.length && !emailInfo.isUnbundled && !emailInfo.bundleAlreadyProcessed()) {
@@ -471,6 +473,10 @@ const isSnoozed = function (email, curDate, prevDate) {
 	return prevDate !== null && curDate < prevDate;
 };
 
+const isStarred = function (email) {
+	const node = email.querySelector('.T-KT');
+	if (node && node.title !== 'Not starred') return true;
+};
 
 /*
 **
@@ -525,7 +531,7 @@ const reorderMenuItems = () => {
     const refer = document.querySelector('.wT .byl>.TK');
     const { inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats } = _nodes;
 
-    if ( parent && refer && loadedMenu && inbox && snoozed && done && drafts && sent && spam && trash && starred && important && chats) {
+    if (parent && refer && loadedMenu && inbox && snoozed && done && drafts && sent && spam && trash && starred && important && chats) {
       // Gmail will execute its script to add element to the first child, so
       // add one placeholder for it and do the rest in the next child.
       const placeholder = document.createElement('div');
@@ -558,10 +564,7 @@ const reorderMenuItems = () => {
       parent.insertBefore(placeholder, refer);
       parent.insertBefore(newNode, refer);
 
-      setupClickEventForNodes([
-        inbox, snoozed, done, drafts, sent,
-        spam, trash, starred, important, chats,
-      ]);
+      setupClickEventForNodes([inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats]);
 
       // Close More menu
       document.body.querySelector('.J-Ke.n4.ah9').click();
