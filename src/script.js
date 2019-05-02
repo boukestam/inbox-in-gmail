@@ -46,23 +46,6 @@ const getMyEmailAddress = function () {
 	return '';
 };
 
-const triggerMouseEvent = function (node, event) {
-	const mouseUpEvent = document.createEvent('MouseEvents');
-	mouseUpEvent.initEvent(event, true, true);
-	node.dispatchEvent(mouseUpEvent);
-};
-
-const waitForElement = function (selector, callback, tries) {
-	if (typeof tries == 'undefined') tries = 100;
-
-	const element = document.querySelector(selector);
-	if (element) {
-		callback(element);
-	} else if (tries > 0) {
-		setTimeout(() => waitForElement(selector, callback, tries - 1), 100);
-	}
-};
-
 const getEmailParticipants = function (email) {
 	return email.querySelectorAll('.yW span[email]');
 };
@@ -258,10 +241,14 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 
 	const bundleWrapper = htmlToElements(`
 			<div class="zA yO" bundleLabel="${label}">
-				<span class="oZ-x3 xY aid bundle-image"><img src="${chrome.runtime.getURL('images/ic_custom-cluster_24px_g60_r3_2x.png')}" /></span>
+				<span class="oZ-x3 xY aid bundle-image">
+					<img src="${chrome.runtime.getURL('images/ic_custom-cluster_24px_g60_r3_2x.png')}"/>
+				</span>
 				<span class="WA xY ${importantMarkerClass}"></span>
 				<span class="yX xY label-link .yW">${label}</span>
-				<span class="xW xY"><span title="${getRawDate(email)}"></span></span>
+				<span class="xW xY">
+					<span title="${getRawDate(email)}"/>
+				</span>
 			</div>
 	`);
 
@@ -306,7 +293,8 @@ function getEmails() {
 		info.date = getDate(info.dateString);
 		info.dateLabel = buildDateLabel(info.date);
 		info.isSnooze = isSnoozed(email, info.date, prevTimeStamp);
-		if (!info.isSnooze && info.date) prevTimeStamp = info.date; // only update prevTimeStamp if not snoozed, because we might have multiple snoozes back to back.
+		// Only update prevTimeStamp if not snoozed, because we might have multiple snoozes back to back.
+		if (!info.isSnooze && info.date) prevTimeStamp = info.date;
 		info.isCalendarEvent = isCalendarEvent(email);
 		info.labels = getLabels(email);
 		info.labels.forEach(l => allLabels.add(l));
@@ -368,12 +356,9 @@ const updateReminders = function () {
 			addClassToEmail(emailEl, REMINDER_EMAIL_CLASS);
 		} else if (options.showAvatar === 'enabled' && !emailInfo.reminderAlreadyProcessed() && !emailInfo.avatarAlreadyProcessed() && !emailInfo.bundleAlreadyProcessed()) {
 			let participants = Array.from(getEmailParticipants(emailEl));	// convert to array to filter
-			const excludingMe = participants.filter(node =>
-				node.getAttribute('email') !== myEmail &&
-				node.getAttribute('name')
-			);
-
 			let firstParticipant = participants[0];
+
+			const excludingMe = participants.filter(node => node.getAttribute('email') !== myEmail && node.getAttribute('name'));
 			// If there are others in the participants, use one of their initials instead
 			if (excludingMe.length > 0) firstParticipant = excludingMe[0];
 
@@ -385,6 +370,7 @@ const updateReminders = function () {
 				const avatarElement = document.createElement('div');
 				avatarElement.className = AVATAR_CLASS;
 				const firstLetterCode = firstLetter.charCodeAt(0);
+
 				if (firstLetterCode >= 65 && firstLetterCode <= 90) {
 					avatarElement.style.background = '#' + nameColors[firstLetterCode - 65];
 				} else {
@@ -485,14 +471,12 @@ const setupNodes = () => {
       { label: 'chats',     selector: '.aHS-aHP' },
     ].map(({ label, selector }) => {
       const node = queryParentSelector(document.querySelector(selector), '.aim');
-      if (node) {
-        _nodes[label] = node;
-      }
+      if (node) _nodes[label] = node;
     });
 
     // others
     [
-      { label: 'title',          selector: 'a[title="Gmail"]:not([aria-label])' },
+      { label: 'title',          selector: 'a[title=Gmail]:not([aria-label])' },
       { label: 'back',           selector: '.lS'     },
       { label: 'archive',        selector: '.lR'     },
       { label: 'resportSpam',    selector: '.nN'     },
@@ -504,9 +488,7 @@ const setupNodes = () => {
       { label: 'messageSection', selector: '.Bs'     },
     ].map(({ label, selector }) => {
       const node = document.querySelector(selector);
-      if (node) {
-        _nodes[label] = node;
-      }
+      if (node) _nodes[label] = node;
     });
   });
   observer.observe(document.body, { subtree: true, childList: true });
@@ -516,19 +498,11 @@ const reorderMenuItems = () => {
   const observer = new MutationObserver(() => {
     const parent = document.querySelector('.wT .byl');
     const refer = document.querySelector('.wT .byl>.TK');
-    const {
-      inbox, snoozed, done, drafts, sent,
-      spam, trash, starred, important, chats,
-    } = _nodes;
+    const { inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats } = _nodes;
 
-    if (
-      parent && refer && loadedMenu &&
-      inbox && snoozed && done && drafts && sent &&
-      spam && trash && starred && important && chats
-    ) {
-      /* Gmail will execute its script to add element to the first child, so
-       * add one placeholder for it and do the rest in the next child.
-       */
+    if ( parent && refer && loadedMenu && inbox && snoozed && done && drafts && sent && spam && trash && starred && important && chats) {
+      // Gmail will execute its script to add element to the first child, so
+      // add one placeholder for it and do the rest in the next child.
       const placeholder = document.createElement('div');
       placeholder.classList.add('TK');
       placeholder.style.cssText = 'padding: 0; border: 0;';
@@ -591,17 +565,6 @@ const setupClickEventForNodes = (nodes) => {
   );
 };
 
-const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = chrome.runtime.getURL('images/favicon.png');;
-
-const init = () => {
-	setFavicon();
-	setupNodes();
-	reorderMenuItems();
-};
-
-if (document.head) init();
-else document.addEventListener('DOMContentLoaded', init);
-
 const queryParentSelector = (elm, sel) => {
   if (!elm) return null;
   var parent = elm.parentElement;
@@ -618,18 +581,32 @@ const queryParentSelector = (elm, sel) => {
 **
 */
 
+const triggerMouseEvent = function (node, event) {
+	const mouseUpEvent = document.createEvent('MouseEvents');
+	mouseUpEvent.initEvent(event, true, true);
+	node.dispatchEvent(mouseUpEvent);
+};
+
+const waitForElement = function (selector, callback, tries = 100) {
+	const element = document.querySelector(selector);
+	if (element) callback(element);
+	else if (tries > 0) setTimeout(() => waitForElement(selector, callback, tries - 1), 100);
+};
+
 document.addEventListener('DOMContentLoaded', function () {
 	const addReminder = document.createElement('div');
 	addReminder.className = 'add-reminder';
 	addReminder.addEventListener('click', function () {
 		const myEmail = getMyEmailAddress();
 
+		// TODO: Replace all of the below with gmail.compose.start_compose() via the Gmail.js lib
 		const composeButton = document.querySelector('.T-I.J-J5-Ji.T-I-KE.L3');
 		triggerMouseEvent(composeButton, 'mousedown');
 		triggerMouseEvent(composeButton, 'mouseup');
 
-		waitForElement('textarea[name="to"]', to => {
-			const title = document.querySelector('input[name="subjectbox"]');
+		// TODO: Delete waitForElement() function, replace with gmail.observe.on('compose') via the Gmail.js lib
+		waitForElement('textarea[name=to]', to => {
+			const title = document.querySelector('input[name=subjectbox]');
 			const body = document.querySelector('div[aria-label="Message Body"]');
 
 			to.value = myEmail;
@@ -641,3 +618,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
 	setInterval(updateReminders, 250);
 });
+
+const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = chrome.runtime.getURL('images/favicon.png');;
+
+const init = () => {
+	setFavicon();
+	setupNodes();
+	reorderMenuItems();
+};
+
+if (document.head) init();
+else document.addEventListener('DOMContentLoaded', init);
