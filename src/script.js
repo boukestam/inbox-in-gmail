@@ -251,17 +251,17 @@ const buildBundleWrapper = function(email, label, hasImportantMarkers) {
 	const importantMarkerClass = hasImportantMarkers ? "" : "hide-important-markers";
 
 	const bundleWrapper = htmlToElements(
-			`<div class=\"zA yO\" bundleLabel=\"${label}\">` +
-			"	<span class=\"oZ-x3 xY aid bundle-image\"><img src=\"https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png\" /></span>" +
-			`	<span class='WA xY ${importantMarkerClass}'></span>` +
-			`	<span class=\"yX xY label-link .yW\">${label}</span>` +
-			`	<span class=\"xW xY \"><span title=\"${getRawDate(email)}\"></span></span>` +
+			`<div class="zA yO" bundleLabel="${label}">` +
+			`	<span class="oZ-x3 xY aid bundle-image"><img src="${chrome.runtime.getURL('images/ic_custom-cluster_24px_g60_r3_2x.png')}" /></span>` +
+			`	<span class="WA xY ${importantMarkerClass}"></span>` +
+			`	<span class="yX xY label-link .yW">${label}</span>` +
+			`	<span class="xW xY"><span title="${getRawDate(email)}"></span></span>` +
 			"</div>");
 
 	addClassToEmail(bundleWrapper, BUNDLE_WRAPPER_CLASS);
 
 	bundleWrapper.onclick = () => {
-		location.href = "#search/in%3Ainbox+label%3A\"" + fixLabel(label.toLowerCase()) + "\"";
+		location.href = `#search/in%3Ainbox+label%3A"${fixLabel(label.toLowerCase())}"`;
 	};
 
 	if(email && email.parentNode) {
