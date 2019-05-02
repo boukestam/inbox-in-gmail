@@ -149,14 +149,23 @@ const buildDateLabel = function(date) {
 	return date.getFullYear().toString();
 };
 
-const cleanupDateLabels =  function() {
+const cleanupDateLabels = function() {
     document.querySelectorAll(".time-row").forEach(row => {
-    	// delete any back to back date labels
-    	if(row.nextSibling && row.nextSibling.className === "time-row") {
-    		row.remove();
-		}
-	});
+    	// Delete any back to back date labels
+    	if (row.nextSibling && row.nextSibling.className === 'time-row') row.remove();
+
+			// TODO: check nextSibling recursively until reaching the next .time-row
+			// if all siblings are .bundled-email, then row.remove()
+			if (isEmptyDateLabel(row)) row.remove();
+		});
 };
+
+const isEmptyDateLabel = function (row) {
+	const sibling = row.nextSibling;
+	if (sibling.className === 'time-row') return true;
+	else if (sibling.classList.contains('.bundled-email')) return false;
+	return isEmptyDateLabel(sibling);
+}
 
 const getBundledLabels = function() {
 	return Array.from(document.querySelectorAll(".BltHke[role=main] .bundle-wrapper .label-link")).reduce((acc, e) => {acc[e.innerText] = true; return acc;}, {});
