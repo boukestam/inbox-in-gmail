@@ -7,20 +7,22 @@ let lastEmailCount = 0;
 let lastRefresh = new Date();
 let loadedMenu = false;
 
-const REMINDER_EMAIL_CLASS = "reminder";
-const CALENDAR_EMAIL_CLASS = "calendar-event";
-const CALENDAR_ATTACHMENT_CLASS = "calendar-attachment";
-const BUNDLE_WRAPPER_CLASS = "bundle-wrapper";
-const BUNDLED_EMAIL_CLASS = "bundled-email";
-const AVATAR_EMAIL_CLASS = "email-with-avatar";
-const AVATAR_CLASS = "avatar";
-const AVATAR_OPTION_CLASS = "show-avatar-enabled";
+const REMINDER_EMAIL_CLASS = 'reminder';
+const CALENDAR_EMAIL_CLASS = 'calendar-event';
+const CALENDAR_ATTACHMENT_CLASS = 'calendar-attachment';
+const BUNDLE_WRAPPER_CLASS = 'bundle-wrapper';
+const UNREAD_BUNDLE_CLASS = 'contains-unread';
+const BUNDLED_EMAIL_CLASS = 'bundled-email';
+const BUNDLING_OPTION_CLASS = 'email-bundling-enabled';
+const AVATAR_EMAIL_CLASS = 'email-with-avatar';
+const AVATAR_CLASS = 'avatar';
+const AVATAR_OPTION_CLASS = 'show-avatar-enabled';
 
-const DateLabels = {
-	Today: "Today",
-	Yesterday: "Yesterday",
-	ThisMonth: "This month",
-	LastYear: "Last year"
+const DATE_LABELS = {
+	TODAY: 'Today',
+	YESTERDAY: 'Yesterday',
+	THIS_MONTH: 'This month',
+	LAST_YEAR: 'Last year'
 };
 let options = {};
 
@@ -124,13 +126,13 @@ const buildDateLabel = function(date) {
 
 	if (now.getFullYear() == date.getFullYear()) {
 		if (now.getMonth() == date.getMonth()) {
-			if (now.getDate() == date.getDate()) return DateLabels.Today;
-			if (now.getDate()-1 == date.getDate()) return DateLabels.Yesterday;
-			return DateLabels.ThisMonth;
+			if (now.getDate() == date.getDate()) return DATE_LABELS.TODAY;
+			if (now.getDate() - 1 == date.getDate()) return DATE_LABELS.YESTERDAY;
+			return DATE_LABELS.THIS_MONTH;
 		}
 		return months[date.getMonth()];
 	}
-	if (now.getFullYear()-1 == date.getFullYear()) return DateLabels.LastYear;
+	if (now.getFullYear() - 1 == date.getFullYear()) return DATE_LABELS.LAST_YEAR;
 
 	return date.getFullYear().toString();
 };
@@ -154,15 +156,15 @@ const isEmptyDateLabel = function (row) {
 }
 
 const getBundledLabels = function() {
-	return Array.from(document.querySelectorAll(".BltHke[role=main] .bundle-wrapper .label-link")).reduce((acc, e) => {acc[e.innerText] = true; return acc;}, {});
+	return Array.from(document.querySelectorAll('.BltHke[role=main] .bundle-wrapper .label-link')).reduce((acc, e) => { acc[e.innerText] = true; return acc; }, {});
 };
 
 const addEventAttachment = function(email) {
-	if (email.querySelector("." + CALENDAR_ATTACHMENT_CLASS)) return;
+	if (email.querySelector('.' + CALENDAR_ATTACHMENT_CLASS)) return;
 
-	let title = "Calendar Event";
-	let time = "";
-	const titleNode = email.querySelector(".bqe,.bog");
+	let title = 'Calendar Event';
+	let time = '';
+	const titleNode = email.querySelector('.bqe, .bog');
 	if (titleNode) {
 		const titleFullText = titleNode.innerText;
 		let matches = Array.from(titleFullText.matchAll(/[^:]*: ([^@]*)@(.*)/g))[0];
@@ -191,7 +193,7 @@ const addEventAttachment = function(email) {
 	attachmentContentWrapper.appendChild(attachmentNameSpan);
 	attachmentContentWrapper.appendChild(attachmentTimeSpan);
 
-	// find Invitation Action
+	// Find Invitation Action
 	const action = email.querySelector(".aKS");
 	if (action) attachmentContentWrapper.appendChild(action);
 
@@ -215,17 +217,22 @@ const addEventAttachment = function(email) {
 };
 
 function reloadOptions() {
-	chrome.runtime.sendMessage({method: "getOptions"}, function(ops) {
+	chrome.runtime.sendMessage({ method: 'getOptions' }, function(ops) {
 		options = ops;
 	});
 
-	// add option classes to body for css styling
-	if(options.showAvatar === "enabled" && !document.body.classList.contains(AVATAR_OPTION_CLASS)) {
+	// Add option classes to body for css styling
+	if (options.showAvatar === 'enabled' && !document.body.classList.contains(AVATAR_OPTION_CLASS)) {
 		document.body.classList.add(AVATAR_OPTION_CLASS);
-	} else if(options.showAvatar === 'disabled') {
+	} else if (options.showAvatar === 'disabled' && document.body.classList.contains(AVATAR_OPTION_CLASS)) {
 		document.body.classList.remove(AVATAR_OPTION_CLASS);
 	}
-
+	
+	if (options.emailBundling === 'enabled' && !document.body.classList.contains(BUNDLING_OPTION_CLASS)) {
+		document.body.classList.add(BUNDLING_OPTION_CLASS);
+	} else if (options.emailBundling === 'disabled' && document.body.classList.contains(BUNDLING_OPTION_CLASS)) {
+		document.body.classList.remove(BUNDLING_OPTION_CLASS);
+	}
 }
 
 const getLabels = function(email) {
@@ -239,7 +246,7 @@ const htmlToElements = function(html) {
 };
 
 const buildBundleWrapper = function(email, label, hasImportantMarkers) {
-	const importantMarkerClass = hasImportantMarkers ? "" : "hide-important-markers";
+	const importantMarkerClass = hasImportantMarkers ? '' : 'hide-important-markers';
 
 	const bundleWrapper = htmlToElements(
 			`<div class="zA yO" bundleLabel="${label}">` +
@@ -396,9 +403,7 @@ const updateReminders = function () {
 		// This is a hack for snoozed emails. If the snoozed email is the
 		// first email, we just assume it arrived 'Today', any other snoozed email
 		// joins whichever label the previous email had.
-		if (emailInfo.isSnooze) {
-			label = (lastLabel == null) ? DateLabels.Today : lastLabel;
-		}
+		if (emailInfo.isSnooze) label = (lastLabel == null) ? DATE_LABELS.TODAY : lastLabel;
 
 		// Add date label if it's a new label
 		if (label !== lastLabel) {
@@ -407,9 +412,6 @@ const updateReminders = function () {
 		}
 
 		if (options.emailBundling === 'enabled') {
-			// Hide labels on emails in list
-			document.querySelector('body').setAttribute('emailBundling', true);
-
 			// Remove bundles that no longer have associated emails
 			if (emailInfo.isBundleWrapper() && !allLabels.has(emailEl.getAttribute('bundleLabel'))) {
 				emailEl.remove();
@@ -417,12 +419,16 @@ const updateReminders = function () {
 			}
 
 			const labels = emailInfo.labels;
-			if (isInInboxFlag && (labels.length > 0) && !emailInfo.bundleAlreadyProcessed()) {
+			if (isInInboxFlag && labels.length && !emailInfo.bundleAlreadyProcessed()) {
 				labels.forEach(label => {
 					addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
 					if (!(label in emailBundles)) {
 						buildBundleWrapper(emailEl, label, hasImportantMarkers);
 						emailBundles[label] = true;
+
+						// TODO: Likely the wrong place for this...
+						// If email is unread, use bold bundle title
+						// if (!getReadStatus(emailEl)) addClassToEmail(UNREAD_BUNDLE_CLASS);
 					}
 				});
 			}
@@ -430,6 +436,9 @@ const updateReminders = function () {
 	}
 };
 
+const getReadStatus = function(emailEl) {
+	return emailEl.className.indexOf('zE') < 0;
+}
 
 /**
  * If email has snooze data, return true.
