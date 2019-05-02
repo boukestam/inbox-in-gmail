@@ -327,11 +327,6 @@ const updateReminders = function () {
 	for (const emailInfo of emails) {
 		const emailEl = emailInfo.emailEl;
 
-		if(emailInfo.isBundleWrapper() && !allLabels.has(emailEl.getAttribute("bundleLabel"))) {
-			emailEl.remove();
-			continue;
-		}
-
 		if (emailInfo.isReminder && !emailInfo.reminderAlreadyProcessed()) { // skip if already added class
 			if (emailInfo.subject.toLowerCase() === "reminder") {
 				emailInfo.subjectEl.outerHTML = "";
@@ -403,15 +398,23 @@ const updateReminders = function () {
 			lastLabel = label;
 		}
 
-		const labels = emailInfo.labels;
-		if(isInInboxFlag && (labels.length > 0) && !emailInfo.bundleAlreadyProcessed()) {
-			labels.forEach(label => {
-				addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
-				if(!(label in emailBundles)) {
-					buildBundleWrapper(emailEl, label);
-					emailBundles[label] = true;
-				}
-			});
+		if(options.emailBundling === 'enabled') {
+			// remove labels that no longer have associated emails
+			if(emailInfo.isBundleWrapper() && !allLabels.has(emailEl.getAttribute("bundleLabel"))) {
+				emailEl.remove();
+				continue;
+			}
+
+			const labels = emailInfo.labels;
+			if (isInInboxFlag && (labels.length > 0) && !emailInfo.bundleAlreadyProcessed()) {
+				labels.forEach(label => {
+					addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
+					if (!(label in emailBundles)) {
+						buildBundleWrapper(emailEl, label);
+						emailBundles[label] = true;
+					}
+				});
+			}
 		}
 
 	}
