@@ -141,9 +141,8 @@ const cleanupDateLabels = function() {
     	if (row.nextSibling && row.nextSibling.className === 'time-row') row.remove();
 
 			// Check nextSibling recursively until reaching the next .time-row
-			// If all siblings are .bundled-email, then row.remove()
-			// console.log(row, isEmptyDateLabel(row));
-			// if (isEmptyDateLabel(row)) row.remove();
+			// If all siblings are .bundled-email, then hide row
+			if (isEmptyDateLabel(row)) row.hidden = true;
 		});
 };
 
