@@ -228,10 +228,16 @@ function reloadOptions() {
 		document.body.classList.remove(AVATAR_OPTION_CLASS);
 	}
 	
+	// Add option classes to body for css styling, and unbundle emails when disabled
 	if (options.emailBundling === 'enabled' && !document.body.classList.contains(BUNDLING_OPTION_CLASS)) {
 		document.body.classList.add(BUNDLING_OPTION_CLASS);
 	} else if (options.emailBundling === 'disabled' && document.body.classList.contains(BUNDLING_OPTION_CLASS)) {
 		document.body.classList.remove(BUNDLING_OPTION_CLASS);
+		
+		// Unbundle emails
+		document.querySelectorAll('.' + BUNDLED_EMAIL_CLASS).forEach(x => x.classList.remove(BUNDLED_EMAIL_CLASS));
+		// Remove bundle elements
+		document.querySelectorAll('.' + BUNDLE_WRAPPER_CLASS).forEach(x => x.remove());
 	}
 }
 
