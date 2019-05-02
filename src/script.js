@@ -237,10 +237,13 @@ const htmlToElements = function(html) {
 	return template.content.firstElementChild;
 };
 
-const buildBundleWrapper = function(email, label) {
+const buildBundleWrapper = function(email, label, hasImportantMarkers) {
+	const importantMarkerClass = hasImportantMarkers ? "" : "hide-important-markers";
+
 	const bundleWrapper = htmlToElements(
 			`<div class=\"zA yO\" bundleLabel=\"${label}\">` +
 			"	<span class=\"oZ-x3 xY aid bundle-image\"><img src=\"https://i.ibb.co/wCh8tQ9/ic-custom-cluster-24px-g60-r3-2x.png\" /></span>" +
+			`	<span class='WA xY ${importantMarkerClass}'></span>` +
 			`	<span class=\"yX xY label-link .yW\">${label}</span>` +
 			`	<span class=\"xW xY \"><span title=\"${getRawDate(email)}\"></span></span>` +
 			"</div>");
@@ -262,6 +265,10 @@ const fixLabel = function(label) {
 
 function isInInbox() {
 	return document.querySelector(".nZ a[title=Inbox]") != null;
+}
+
+function checkImportantMarkers() {
+	return document.querySelector("td.WA.xY");
 }
 
 function getEmails() {
@@ -320,6 +327,7 @@ const updateReminders = function () {
 	const myEmail = getMyEmailAddress();
 	let lastLabel = null;
 	let isInInboxFlag = isInInbox();
+	let hasImportantMarkers = checkImportantMarkers();
 
 	cleanupDateLabels();
 	const emailBundles = getBundledLabels();
@@ -410,7 +418,7 @@ const updateReminders = function () {
 				labels.forEach(label => {
 					addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
 					if (!(label in emailBundles)) {
-						buildBundleWrapper(emailEl, label);
+						buildBundleWrapper(emailEl, label, hasImportantMarkers);
 						emailBundles[label] = true;
 					}
 				});

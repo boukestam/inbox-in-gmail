@@ -1212,11 +1212,20 @@ div[aria-label="Hangouts"][role="complementary"] {
 }
 
 .bundle-wrapper .label-link {
-	margin-left: 35px;
+	margin-left: 5px;
 	font-weight: 700;
 	font-size: 13px;
 }
 
 .bundled-email {
+	display: none !important;
+}
+
+/* bundle row settings */
+.zA > span.oZ-x3 {
+	order: 0;
+}
+
+.hide-important-markers {
 	display: none !important;
 }
