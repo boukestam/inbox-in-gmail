@@ -1069,11 +1069,19 @@ div[aria-label="Hangouts"][role="complementary"] {
 	display: none;
 }
 
+.bundle-image {
+	margin-left: 13px;
+}
+.bundle-image img {
+	width: 28px;
+}
+
+.bundle-wrapper .label-link {
+	margin-left: 35px;
+	font-weight: 700;
+	font-size: 13px;
+}
 
 .bundled-email {
 	display: none !important;
-}
-.bundle-image {
-	width: 28px;
-	margin-left: -3px;
 }
