@@ -259,7 +259,7 @@ const buildBundleWrapper = function(email, label, hasImportantMarkers) {
 };
 
 const fixLabel = function(label) {
-	return encodeURI(label.replace(/[^a-zA-Z]/, "-"));
+	return encodeURI(label.replace(/ /g, '+'));
 };
 
 function isInInbox() {
