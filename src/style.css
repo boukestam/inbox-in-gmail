@@ -971,7 +971,7 @@ header form input {
 }
 
 /* Hides the checkbox when not checked */
-.zA .oZ-x3.xY .T-Jo {
+.show-avatar-enabled .zA .oZ-x3.xY .T-Jo {
 	display: none;
 }
 

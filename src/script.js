@@ -14,6 +14,8 @@ const BUNDLE_WRAPPER_CLASS = "bundle-wrapper";
 const BUNDLED_EMAIL_CLASS = "bundled-email";
 const AVATAR_EMAIL_CLASS = "email-with-avatar";
 const AVATAR_CLASS = "avatar";
+const AVATAR_OPTION_CLASS = "show-avatar-enabled";
+
 const DateLabels = {
 	Today: "Today",
 	Yesterday: "Yesterday",
@@ -225,6 +227,14 @@ function reloadOptions() {
 	chrome.runtime.sendMessage({method: "getOptions"}, function(ops) {
 		options = ops;
 	});
+
+	// add option classes to body for css styling
+	if(options.showAvatar === "enabled" && !document.body.classList.contains(AVATAR_OPTION_CLASS)) {
+		document.body.classList.add(AVATAR_OPTION_CLASS);
+	} else if(options.showAvatar === 'disabled') {
+		document.body.classList.remove(AVATAR_OPTION_CLASS);
+	}
+
 }
 
 const getLabels = function(email) {
@@ -278,6 +288,7 @@ function getEmails() {
 
 	let prevTimeStamp = null;
 	let allLabels = new Set();
+	let labelStats = {};
 
 	// start from end and go to beginning.
 	for(let i=emails.length - 1; i >= 0; i--) {
@@ -332,6 +343,7 @@ const updateReminders = function () {
 	cleanupDateLabels();
 	const emailBundles = getBundledLabels();
 
+
 	for (const emailInfo of emails) {
 		const emailEl = emailInfo.emailEl;
 
@@ -350,7 +362,7 @@ const updateReminders = function () {
 				avatarWrapperEl.appendChild(avatarElement);
 			}
 			addClassToEmail(emailEl, REMINDER_EMAIL_CLASS);
-		} else if (!emailInfo.reminderAlreadyProcessed() && !emailInfo.avatarAlreadyProcessed() && !emailInfo.bundleAlreadyProcessed()) {
+		} else if (options.showAvatar === 'enabled' && !emailInfo.reminderAlreadyProcessed() && !emailInfo.avatarAlreadyProcessed() && !emailInfo.bundleAlreadyProcessed()) {
 			let participants = Array.from(getEmailParticipants(emailEl));	// convert to array to filter
 			const excludingMe = participants.filter(node =>
 				node.getAttribute("email") !== myEmail &&
