@@ -136,19 +136,19 @@ const buildDateLabel = function(date) {
 };
 
 const cleanupDateLabels = function() {
-    document.querySelectorAll(".time-row").forEach(row => {
-    	// Delete any back to back date labels
-    	if (row.nextSibling && row.nextSibling.className === 'time-row') row.remove();
-
-			// Check nextSibling recursively until reaching the next .time-row
-			// If all siblings are .bundled-email, then hide row
-			if (isEmptyDateLabel(row)) row.hidden = true;
-		});
+	document.querySelectorAll(".time-row").forEach(row => {
+		// Delete any back to back date labels
+		if (row.nextSibling && row.nextSibling.className === 'time-row') row.remove();
+		// Check nextSibling recursively until reaching the next .time-row
+		// If all siblings are .bundled-email, then hide row
+		else if (isEmptyDateLabel(row)) row.hidden = true;
+	});
 };
 
 const isEmptyDateLabel = function (row) {
 	const sibling = row.nextSibling;
-	if (sibling.className === 'time-row') return true;
+	if (!sibling) return true;
+	else if (sibling.className === 'time-row') return true;
 	else if (![...sibling.classList].includes('bundled-email')) return false;
 	return isEmptyDateLabel(sibling);
 }
