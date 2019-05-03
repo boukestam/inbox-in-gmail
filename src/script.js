@@ -290,13 +290,13 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 	addClassToEmail(bundleWrapper, BUNDLE_WRAPPER_CLASS);
 
 	bundleWrapper.onclick = () => {
-		location.href = `#search/in%3Ainbox+label%3A"${fixLabel(label)}"`;
+		location.href = `#search/in%3Ainbox+label%3A${fixLabel(label)}`;
 	};
 
 	if (email && email.parentNode) email.parentElement.insertBefore(bundleWrapper, email);
 };
 
-const fixLabel = label => encodeURI(label.replace(/[\/\\ ]/g, '-'));
+const fixLabel = label => encodeURIComponent(label.replace(/[\/\\& ]/g, '-'));
 
 const isInInbox = () => document.querySelector('.nZ a[title=Inbox]') !== null;
 
