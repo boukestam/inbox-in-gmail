@@ -1,12 +1,9 @@
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const nameColors = ['1bbc9b','16a086','f1c40f','f39c11','2dcc70','27ae61','d93939','d25400','3598db','297fb8','e84c3d','c1392b','9a59b5','8d44ad','bec3c7','34495e','2d3e50','95a5a4','7e8e8e','ec87bf','d870ad','f69785','9ba37e','b49255','b49255','a94136'];
 
-let lastEmailCount = 0;
-let lastRefresh = new Date();
-let loadedMenu = false;
-let labelStats = {};
+const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const REMINDER_EMAIL_CLASS = 'reminder';
 const CALENDAR_EMAIL_CLASS = 'calendar-event';
@@ -27,9 +24,12 @@ const DATE_LABELS = {
 	THIS_MONTH: 'This month',
 	LAST_YEAR: 'Last year'
 };
-let options = {};
 
-const nameColors = ['1bbc9b','16a086','f1c40f','f39c11','2dcc70','27ae61','d93939','d25400','3598db','297fb8','e84c3d','c1392b','9a59b5','8d44ad','bec3c7','34495e','2d3e50','95a5a4','7e8e8e','ec87bf','d870ad','f69785','9ba37e','b49255','b49255','a94136'];
+let lastEmailCount = 0;
+let lastRefresh = new Date();
+let loadedMenu = false;
+let labelStats = {};
+let options = {};
 
 /* remove element */
 Element.prototype.remove = function () {
@@ -142,7 +142,10 @@ const isEmptyDateLabel = function (row) {
 }
 
 const getBundledLabels = function () {
-	return Array.from(document.querySelectorAll('.BltHke[role=main] .bundle-wrapper .label-link')).reduce((acc, e) => { acc[e.innerText] = true; return acc; }, {});
+	return Array.from(document.querySelectorAll('.BltHke[role=main] .bundle-wrapper')).reduce((bundledLabels, el) => {
+		bundledLabels[el.attributes.bundleLabel.value] = true;
+		return bundledLabels;
+	}, {});
 };
 
 const addEventAttachment = function (email) {
@@ -202,7 +205,7 @@ const addEventAttachment = function (email) {
 	if (emailSubjectWrapper) emailSubjectWrapper[0].appendChild(attachmentNode);
 };
 
-function reloadOptions() {
+const reloadOptions = () => {
 	chrome.runtime.sendMessage({ method: 'getOptions' }, function (ops) {
 		options = ops;
 	});
@@ -227,7 +230,7 @@ function reloadOptions() {
 		// Remove bundle wrapper rows
 		document.querySelectorAll('.' + BUNDLE_WRAPPER_CLASS).forEach(bundleEl => bundleEl.remove());
 	}
-}
+};
 
 const getLabels = function (email) {
 	return Array.from(email.querySelectorAll('.ar .at')).map(el => el.attributes.title.value);
@@ -237,6 +240,24 @@ const htmlToElements = function (html) {
 	var template = document.createElement('template');
 	template.innerHTML = html;
 	return template.content.firstElementChild;
+};
+
+const addClassToEmail = (emailEl, klass) => emailEl.classList.add(klass);
+
+const addClassToBundle = (label, klass) => {
+	const bundle = document.querySelector(`div[bundleLabel="${label}"]`);
+	if (bundle && !(bundle.classList.contains(klass))) bundle.classList.add(klass);
+};
+
+const removeClassFromBundle = (label, klass) => {
+	const bundle = document.querySelector(`div[bundleLabel="${label}"]`);
+	if (bundle && (bundle.classList.contains(klass))) bundle.classList.remove(klass);
+};
+
+const addCountToBundle = (label, count) => {
+	const bundleLabel = document.querySelector(`div[bundleLabel="${label}"] .label-link`);
+	if (!bundleLabel) return;
+	bundleLabel.innerText = `${label} (${count})`;
 };
 
 const buildBundleWrapper = function (email, label, hasImportantMarkers) {
@@ -264,23 +285,41 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 	if (email && email.parentNode) email.parentElement.insertBefore(bundleWrapper, email);
 };
 
-const fixLabel = function (label) {
-	return encodeURI(label.replace(/ /g, '+'));
-};
+const fixLabel = label => encodeURI(label.replace(/ /g, '+'));
 
 const isInInbox = () => document.querySelector('.nZ a[title=Inbox]') !== null;
 
 const isInBundle = () => document.location.hash.match(/#search\/in%3Ainbox\+label%3A/g) !== null;
 
-function checkImportantMarkers() {
-	return document.querySelector('td.WA.xY');
-}
+const checkImportantMarkers = () => document.querySelector('td.WA.xY');
 
-const checkEmailUnbundledLabel = function (labels) {
-	return labels.filter(label => label.indexOf(UNBUNDLED_PARENT_LABEL) >= 0).length > 0;
-}
+const checkEmailUnbundledLabel = labels => labels.filter(label => label.indexOf(UNBUNDLED_PARENT_LABEL) >= 0).length > 0;
 
-function getEmails() {
+const getReadStatus = (emailEl) => emailEl.className.indexOf('zE') < 0;
+
+/**
+ * If email has snooze data, return true.
+ * Expects that the curDate should be larger than prevDate, if not, then
+ * also return true;
+ */
+const isSnoozed = (email, curDate, prevDate) => {
+	const node = email.querySelector('.by1.cL');
+	if (node && node.innerText !== '') return true;
+
+	return prevDate !== null && curDate < prevDate;
+};
+
+const isStarred = email => {
+	const node = email.querySelector('.T-KT');
+	if (node && node.title !== 'Not starred') return true;
+};
+
+/**
+ * @return boolean true if email contains class
+ */
+const checkEmailClass = (emailEl, klass) => emailEl.classList.contains(klass);
+
+const getEmails = () => {
 	const emails = document.querySelectorAll('.BltHke[role=main] .zA');
 	const myEmailAddress = getMyEmailAddress();
 	const isInInboxFlag = isInInbox();
@@ -348,34 +387,19 @@ function getEmails() {
 		processedEmails[i] = info;
 	}
 
-	// Set bold title class for any bundle containing an unread email
-	for (key in labelStats) {
-		labelStats[key].unread ? addClassToBundle(key, UNREAD_BUNDLE_CLASS) : removeClassFromBundle(key, UNREAD_BUNDLE_CLASS);
+	// Update bundle stats
+	for (label in labelStats) {
+		// Set message count for each bundle
+		addCountToBundle(label, labelStats[label].count);
+
+		// Set bold title class for any bundle containing an unread email
+		labelStats[label].unread ? addClassToBundle(label, UNREAD_BUNDLE_CLASS) : removeClassFromBundle(label, UNREAD_BUNDLE_CLASS);
 	}
 
 	return [processedEmails, allLabels];
-}
+};
 
-function addClassToEmail(emailEl, klass) {
-	return emailEl.classList.add(klass);
-}
-
-function addClassToBundle(label, klass) {
-	const bundle = document.querySelector(`div[bundleLabel="${label}"]`);
-	if (bundle && !(bundle.classList.contains(klass))) bundle.classList.add(klass);
-}
-
-function removeClassFromBundle(label, klass) {
-	const bundle = document.querySelector(`div[bundleLabel="${label}"]`);
-	if (bundle && (bundle.classList.contains(klass))) bundle.classList.remove(klass);
-}
-
-/**
- * @return boolean true if email contains class
- */
-const checkEmailClass = (emailEl, klass) => emailEl.classList.contains(klass);
-
-const updateReminders = function () {
+const updateReminders = () => {
 	reloadOptions();
 	const [emails, allLabels] = getEmails();
 	const myEmail = getMyEmailAddress();
@@ -474,27 +498,6 @@ const updateReminders = function () {
 			}
 		}
 	}
-};
-
-const getReadStatus = function (emailEl) {
-	return emailEl.className.indexOf('zE') < 0;
-}
-
-/**
- * If email has snooze data, return true.
- * Expects that the curDate should be larger than prevDate, if not, then
- * also return true;
- */
-const isSnoozed = function (email, curDate, prevDate) {
-	const node = email.querySelector('.by1.cL');
-	if (node && node.innerText !== '') return true;
-
-	return prevDate !== null && curDate < prevDate;
-};
-
-const isStarred = function (email) {
-	const node = email.querySelector('.T-KT');
-	if (node && node.title !== 'Not starred') return true;
 };
 
 /*
