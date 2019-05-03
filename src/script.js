@@ -265,7 +265,8 @@ const addCountToBundle = (label, count) => {
 const addSendersToBundle = (label, senders) => {
 	const bundleSenders = document.querySelector(`div[bundleLabel="${label}"] .bundle-senders`);
 	if (!bundleSenders) return;
-	const replacementHTML = `${senders.reverse().map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`
+	let uniqueSenders = senders.reverse().filter((sender, index, self) => self.findIndex(s => s.name === sender.name && s.isUnread === sender.isUnread) === index);
+	const replacementHTML = `${uniqueSenders.map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`
 	if (bundleSenders.innerHTML !== replacementHTML) bundleSenders.innerHTML = replacementHTML;
 };
 
@@ -392,10 +393,20 @@ const getEmails = () => {
 			const firstParticipant = participants[0].getAttribute('name');
 			info.labels.forEach(label => {
 				if (!(label in labelStats)) {
-					labelStats[label] = { title: label, count: 1, senders: [{ name: firstParticipant, isUnread: info.isUnread }] };
+					labelStats[label] = {
+						title: label,
+						count: 1,
+						senders: [{
+							name: firstParticipant,
+							isUnread: info.isUnread
+						}]
+					};
 				} else { 
 					labelStats[label].count++;
-					labelStats[label].senders.push({ name: firstParticipant, isUnread: info.isUnread })
+					labelStats[label].senders.push({
+						name: firstParticipant,
+						isUnread: info.isUnread
+					});
 				}
 				if (info.isUnread) labelStats[label].containsUnread = true;
 			});
