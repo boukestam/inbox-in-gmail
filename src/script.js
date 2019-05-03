@@ -258,7 +258,13 @@ const removeClassFromBundle = (label, klass) => {
 const addCountToBundle = (label, count) => {
 	const bundleLabel = document.querySelector(`div[bundleLabel="${label}"] .label-link`);
 	if (!bundleLabel) return;
-	bundleLabel.innerText = `${label} (${count})`;
+	bundleLabel.innerHTML = `<span>${label}</span><span class="bundle-count">(${count})</span>`;
+};
+
+const addSendersToBundle = (label, senders) => {
+	const bundleSenders = document.querySelector(`div[bundleLabel="${label}"] .bundle-senders`);
+	if (!bundleSenders) return;
+	bundleSenders.innerHTML = `${senders.map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`;
 };
 
 const buildBundleWrapper = function (email, label, hasImportantMarkers) {
@@ -274,6 +280,7 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 				<span class="xW xY">
 					<span title="${getRawDate(email)}"/>
 				</span>
+				<div class="y2 bundle-senders"></div>
 			</div>
 	`);
 
@@ -377,12 +384,18 @@ const getEmails = () => {
 
 		info.isUnread = !getReadStatus(email);
 
-		// Collect message count and unread stats for each label
+		// Collect senders, message count and unread stats for each label
 		if (info.labels.length) {
+			const participants = Array.from(getEmailParticipants(email));
+			const firstParticipant = participants[0].getAttribute('name');
 			info.labels.forEach(label => {
-				if (!(label in labelStats)) labelStats[label] = { title: label, count: 1 };
-				else labelStats[label].count++;
-				if (info.isUnread) labelStats[label].unread = true;
+				if (!(label in labelStats)) {
+					labelStats[label] = { title: label, count: 1, senders: [{ name: firstParticipant, isUnread: info.isUnread }] };
+				} else { 
+					labelStats[label].count++;
+					labelStats[label].senders.push({ name: firstParticipant, isUnread: info.isUnread })
+				}
+				if (info.isUnread) labelStats[label].containsUnread = true;
 			});
 		}
 
@@ -400,11 +413,12 @@ const getEmails = () => {
 
 	// Update bundle stats
 	for (label in labelStats) {
-		// Set message count for each bundle
+		// Set message count for each bundle row
 		addCountToBundle(label, labelStats[label].count);
-
+		// Set list of senders for each bundle row
+		addSendersToBundle(label, labelStats[label].senders);
 		// Set bold title class for any bundle containing an unread email
-		labelStats[label].unread ? addClassToBundle(label, UNREAD_BUNDLE_CLASS) : removeClassFromBundle(label, UNREAD_BUNDLE_CLASS);
+		labelStats[label].containsUnread ? addClassToBundle(label, UNREAD_BUNDLE_CLASS) : removeClassFromBundle(label, UNREAD_BUNDLE_CLASS);
 	}
 
 	return [processedEmails, allLabels];

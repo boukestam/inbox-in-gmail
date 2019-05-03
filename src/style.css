@@ -1213,9 +1213,20 @@ div[aria-label="Hangouts"][role="complementary"] {
 .bundle-wrapper .label-link {
 	margin-left: 5px;
 	font-size: 13px;
+	margin-right: 32px;
 }
-.bundle-wrapper.contains-unread .label-link {
+.bundle-wrapper.contains-unread .label-link,
+.bundle-wrapper .bundle-senders span.strong {
 	font-weight: 700;
+}
+.bundle-senders {
+	color: #202124 !important;
+}
+
+.bundle-wrapper .label-link .bundle-count {
+	font-weight: 400;
+	margin-left: 5px;
+	color: gray;
 }
 
 .bundled-email {
