@@ -264,7 +264,7 @@ const addCountToBundle = (label, count) => {
 const addSendersToBundle = (label, senders) => {
 	const bundleSenders = document.querySelector(`div[bundleLabel="${label}"] .bundle-senders`);
 	if (!bundleSenders) return;
-	bundleSenders.innerHTML = `${senders.map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`;
+	bundleSenders.innerHTML = `${senders.reverse().map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`;
 };
 
 const buildBundleWrapper = function (email, label, hasImportantMarkers) {
