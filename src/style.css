@@ -1253,3 +1253,39 @@ body.email-bundling-enabled .bundled-email .yi,
 body.email-bundling-enabled.bundle-page .nH.ar4.B .yi {
 	display: none !important;
 }
+
+/* Override narrow width class */
+.Zs .zA {
+    -webkit-flex-wrap: nowrap !important;
+	flex-wrap: nowrap !important;
+}
+.Zs .zA > .a4W {
+	margin-left: unset !important;
+}
+.Zs .a4W .xT {
+	flex-wrap: unset !important;
+}
+.Zs .yi {
+	margin-left: 0 !important;
+	max-width: unset !important;
+}
+.Zs .y2 {
+	min-width: unset !important;
+	-webkit-flex: 1 !important;
+	flex: 1 !important;
+}
+.Zs .zA > .xW {
+	-webkit-flex-basis: 1 !important;
+	flex-basis: 1 !important;
+	flex-grow: 400 !important;
+	flex-basis: 0 !important;
+}
+.Zs .y6 {
+	order: 1 !important;
+}
+.Zs .zA > .yX {
+	flex: initial !important;
+}
+.Zs .zA > .xY {
+	order: 1 !important;
+}
