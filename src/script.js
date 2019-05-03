@@ -258,13 +258,15 @@ const removeClassFromBundle = (label, klass) => {
 const addCountToBundle = (label, count) => {
 	const bundleLabel = document.querySelector(`div[bundleLabel="${label}"] .label-link`);
 	if (!bundleLabel) return;
-	bundleLabel.innerHTML = `<span>${label}</span><span class="bundle-count">(${count})</span>`;
+	const replacementHTML = `<span>${label}</span><span class="bundle-count">(${count})</span>`;
+	if (bundleLabel.innerHTML !== replacementHTML) bundleLabel.innerHTML = replacementHTML;
 };
 
 const addSendersToBundle = (label, senders) => {
 	const bundleSenders = document.querySelector(`div[bundleLabel="${label}"] .bundle-senders`);
 	if (!bundleSenders) return;
-	bundleSenders.innerHTML = `${senders.reverse().map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`;
+	const replacementHTML = `${senders.reverse().map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`
+	if (bundleSenders.innerHTML !== replacementHTML) bundleSenders.innerHTML = replacementHTML;
 };
 
 const buildBundleWrapper = function (email, label, hasImportantMarkers) {
