@@ -296,7 +296,7 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 	if (email && email.parentNode) email.parentElement.insertBefore(bundleWrapper, email);
 };
 
-const fixLabel = label => encodeURI(label.replace(/[\/\\]/g, '-').replace(' ', '+'));
+const fixLabel = label => encodeURI(label.replace(/[\/\\ ]/g, '-'));
 
 const isInInbox = () => document.querySelector('.nZ a[title=Inbox]') !== null;
 
