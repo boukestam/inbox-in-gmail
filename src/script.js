@@ -6,6 +6,7 @@ const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 let lastEmailCount = 0;
 let lastRefresh = new Date();
 let loadedMenu = false;
+let labelStats = {};
 
 const REMINDER_EMAIL_CLASS = 'reminder';
 const CALENDAR_EMAIL_CLASS = 'calendar-event';
@@ -281,14 +282,14 @@ const checkEmailUnbundledLabel = function (labels) {
 
 function getEmails() {
 	const emails = document.querySelectorAll('.BltHke[role=main] .zA');
-	let myEmailAddress = getMyEmailAddress();
-	let isInInboxFlag = isInInbox();
-	let isInBundleFlag = isInBundle();
-	let processedEmails = [];
+	const myEmailAddress = getMyEmailAddress();
+	const isInInboxFlag = isInInbox();
+	const isInBundleFlag = isInBundle();
+	const processedEmails = [];
 
 	let prevTimeStamp = null;
-	let allLabels = new Set();
-	let labelStats = {};
+	labelStats = {};
+	const allLabels = new Set();
 
 	// Start from last email on page and head towards first
 	for (let i = emails.length - 1; i >= 0; i--) {
@@ -324,6 +325,17 @@ function getEmails() {
 			});
 		}
 
+		info.isUnread = !getReadStatus(email);
+
+		// Collect message count and unread stats for each label
+		if (info.labels.length) {
+			info.labels.forEach(label => {
+				if (!(label in labelStats)) labelStats[label] = { title: label, count: 1 };
+				else labelStats[label].count++;
+				if (info.isUnread) labelStats[label].unread = true;
+			});
+		}
+
 		info.subjectEl = email.querySelector('.y6');
 		info.subject = info.subjectEl && info.subjectEl.innerText.trim();
 
@@ -336,6 +348,11 @@ function getEmails() {
 		processedEmails[i] = info;
 	}
 
+	// Set bold title class for any bundle containing an unread email
+	for (key in labelStats) {
+		labelStats[key].unread ? addClassToBundle(key, UNREAD_BUNDLE_CLASS) : removeClassFromBundle(key, UNREAD_BUNDLE_CLASS);
+	}
+
 	return [processedEmails, allLabels];
 }
 
@@ -343,12 +360,20 @@ function addClassToEmail(emailEl, klass) {
 	return emailEl.classList.add(klass);
 }
 
+function addClassToBundle(label, klass) {
+	const bundle = document.querySelector(`div[bundleLabel="${label}"]`);
+	if (bundle && !(bundle.classList.contains(klass))) bundle.classList.add(klass);
+}
+
+function removeClassFromBundle(label, klass) {
+	const bundle = document.querySelector(`div[bundleLabel="${label}"]`);
+	if (bundle && (bundle.classList.contains(klass))) bundle.classList.remove(klass);
+}
+
 /**
  * @return boolean true if email contains class
  */
-function checkEmailClass(emailEl, klass) {
-	return emailEl.classList.contains(klass);
-}
+const checkEmailClass = (emailEl, klass) => emailEl.classList.contains(klass);
 
 const updateReminders = function () {
 	reloadOptions();
@@ -418,7 +443,6 @@ const updateReminders = function () {
 			addEventAttachment(emailEl);
 		}
 
-
 		let label = emailInfo.dateLabel;
 		// This is a hack for snoozed emails. If the snoozed email is the
 		// first email, we just assume it arrived 'Today', any other snoozed email
@@ -437,19 +461,14 @@ const updateReminders = function () {
 				emailEl.remove();
 				continue;
 			}
-			if (emailInfo.isStarred) continue;
 
 			const labels = emailInfo.labels;
-			if (isInInboxFlag && labels.length && !emailInfo.isUnbundled && !emailInfo.bundleAlreadyProcessed()) {
+			if (isInInboxFlag && !emailInfo.isStarred && labels.length && !emailInfo.isUnbundled && !emailInfo.bundleAlreadyProcessed()) {
 				labels.forEach(label => {
 					addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
 					if (!(label in emailBundles)) {
 						buildBundleWrapper(emailEl, label, hasImportantMarkers);
 						emailBundles[label] = true;
-
-						// TODO: Likely the wrong place for this...
-						// If email is unread, use bold bundle title
-						// if (!getReadStatus(emailEl)) addClassToEmail(UNREAD_BUNDLE_CLASS);
 					}
 				});
 			}

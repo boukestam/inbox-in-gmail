@@ -1214,7 +1214,7 @@ div[aria-label="Hangouts"][role="complementary"] {
 	margin-left: 5px;
 	font-size: 13px;
 }
-.bundle-wrapper .label-link .contains-unread {
+.bundle-wrapper.contains-unread .label-link {
 	font-weight: 700;
 }
 
