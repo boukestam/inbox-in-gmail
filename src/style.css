@@ -291,7 +291,7 @@ td.apU.xY .T-KT.xf::before {
 	color: transparent;
 	font-size: 14px;
 }
-@-moz-document url-prefix() { 
+@-moz-document url-prefix() {
 	.ar4.z .TD > .TC {
 		background-image: url('moz-extension://__MSG_@@extension_id__/images/ic_zero_inbox_2x.png') !important;
 	}
@@ -364,7 +364,7 @@ td.apU.xY .T-KT.xf::before {
 	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_done_clr_24dp_r4_2x.png') !important;
 }
 
-@-moz-document url-prefix() { 
+@-moz-document url-prefix() {
 	/* Compose email image */
 	.z0>.L3::before {
 		background-image: url('moz-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_white_24dp_2x.png') !important;
@@ -498,7 +498,6 @@ td.apU.xY .T-KT.xf::before {
 	background-repeat: repeat-x;
 	padding: 12px;
 	width: 48px;
-	length: 48px;
 	border: 3px solid #F2F2F2;
   	box-sizing: border-box;
 	border-radius: 30%;
@@ -508,7 +507,7 @@ td.apU.xY .T-KT.xf::before {
 	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_spam_g60_24dp_r2_2x.png') !important;
 }
 
-@-moz-document url-prefix() { 
+@-moz-document url-prefix() {
 	/* Inbox */
 	.aHS-bnt .qj {
 		background-image: url('moz-extension://__MSG_@@extension_id__/images/inbox_googblue_24dp.png') !important;
@@ -819,7 +818,7 @@ header form input {
 	background-size: 24px !important;
 }
 
-@-moz-document url-prefix() { 
+@-moz-document url-prefix() {
 	/* Add reminder image */
 	.add-reminder::before {
 		background-image: url('moz-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_reminders_white_24dp_2x.png') !important
@@ -971,7 +970,7 @@ header form input {
 }
 
 /* Hides the checkbox when not checked */
-.zA .oZ-x3.xY .T-Jo {
+.show-avatar-enabled .zA .oZ-x3.xY .T-Jo {
 	display: none;
 }
 
@@ -1092,6 +1091,11 @@ header form input {
 	}
 }
 
+/* Remove gmail calendar icon */
+.yf img.xL {
+	display: none;
+}
+
 /* Labels inline in email list */
 .ar {
 	height: 22px !important;
@@ -1109,7 +1113,7 @@ header form input {
 	border-radius: 50%;
 	font-size: 18px;
 	font-family: 'Roboto', sans-serif;
-	font-weight: 500;
+	font-weight: 400;
 	position: relative;
 	left: -6px;
 	flex: 32px 0 0;
@@ -1197,4 +1201,91 @@ div[aria-label="Hangouts"][role="complementary"] {
 /* Hide inline ads/promotions */
 .aKB {
 	display: none;
+}
+
+.bundle-image {
+	margin-left: 13px;
+}
+.bundle-image img {
+	width: 28px;
+}
+
+.bundle-wrapper .label-link {
+	margin-left: 5px;
+	font-size: 13px;
+	margin-right: 32px;
+}
+.bundle-wrapper.contains-unread .label-link,
+.bundle-wrapper .bundle-senders span.strong {
+	font-weight: 700;
+}
+
+.bundle-senders {
+	color: #202124 !important;
+}
+/* Parent of .bundle-senders */
+.label-link + .xW.xY {
+	flex-grow: 1;
+	overflow: hidden;
+}
+
+.bundle-wrapper .label-link .bundle-count {
+	font-weight: 400;
+	margin-left: 5px;
+	color: gray;
+}
+
+.bundled-email {
+	display: none !important;
+}
+
+/* Bundle row settings */
+.zA > span.oZ-x3 {
+	order: 0;
+}
+
+.hide-important-markers {
+	display: none !important;
+}
+
+/* Hide labels on emails when bundling is enabled */
+body.email-bundling-enabled .bundled-email .yi,
+body.email-bundling-enabled.bundle-page .nH.ar4.B .yi {
+	display: none !important;
+}
+
+/* Override narrow width class */
+.Zs .zA {
+    -webkit-flex-wrap: nowrap !important;
+	flex-wrap: nowrap !important;
+}
+.Zs .zA > .a4W {
+	margin-left: unset !important;
+}
+.Zs .a4W .xT {
+	flex-wrap: unset !important;
+}
+.Zs .yi {
+	margin-left: 0 !important;
+	max-width: unset !important;
+}
+.Zs .y2 {
+	min-width: unset !important;
+	-webkit-flex: 1 !important;
+	flex: 1 !important;
+}
+.Zs .zA > .xW {
+	-webkit-flex-basis: 1 !important;
+	flex-basis: 1 !important;
+	flex-grow: 400 !important;
+	flex-basis: 0 !important;
+}
+.Zs .y6 {
+	order: 1 !important;
+}
+.Zs .zA > .yX {
+	flex: initial !important;
+}
+.Zs .zA > .xY {
+	order: 1 !important;
 }
