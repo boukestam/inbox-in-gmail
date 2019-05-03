@@ -2,7 +2,7 @@
 
 Web extension which modifies Gmail to bring back the features and uncluttered design you knew and loved from Google's discontinued Inbox
 
-![alt text](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8.png?raw=true)
+![alt text](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8-2.png?raw=true)
 
 Downloadable versions are available at:
 
