@@ -1219,8 +1219,14 @@ div[aria-label="Hangouts"][role="complementary"] {
 .bundle-wrapper .bundle-senders span.strong {
 	font-weight: 700;
 }
+
 .bundle-senders {
 	color: #202124 !important;
+}
+/* Parent of .bundle-senders */
+.label-link + .xW.xY {
+	flex-grow: 1;
+	overflow: hidden;
 }
 
 .bundle-wrapper .label-link .bundle-count {
