@@ -8,6 +8,7 @@ const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+")
 const REMINDER_EMAIL_CLASS = 'reminder';
 const CALENDAR_EMAIL_CLASS = 'calendar-event';
 const CALENDAR_ATTACHMENT_CLASS = 'calendar-attachment';
+const BUNDLE_PAGE_CLASS = 'bundle-page';
 const BUNDLE_WRAPPER_CLASS = 'bundle-wrapper';
 const UNREAD_BUNDLE_CLASS = 'contains-unread';
 const BUNDLED_EMAIL_CLASS = 'bundled-email';
@@ -319,16 +320,26 @@ const isStarred = email => {
  */
 const checkEmailClass = (emailEl, klass) => emailEl.classList.contains(klass);
 
+const addClassToBody = (klass) => {
+	if (!document.body.classList.contains(klass)) document.body.classList.add(klass);
+};
+
+const removeClassFromBody = (klass) => {
+	if (document.body.classList.contains(klass)) document.body.classList.remove(klass);
+};
+
 const getEmails = () => {
 	const emails = document.querySelectorAll('.BltHke[role=main] .zA');
 	const myEmailAddress = getMyEmailAddress();
 	const isInInboxFlag = isInInbox();
 	const isInBundleFlag = isInBundle();
 	const processedEmails = [];
+	const allLabels = new Set();
 
 	let prevTimeStamp = null;
 	labelStats = {};
-	const allLabels = new Set();
+
+	isInBundleFlag ? addClassToBody(BUNDLE_PAGE_CLASS) : removeClassFromBody(BUNDLE_PAGE_CLASS);
 
 	// Start from last email on page and head towards first
 	for (let i = emails.length - 1; i >= 0; i--) {
