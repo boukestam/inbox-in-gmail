@@ -3,8 +3,6 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
 const nameColors = ['1bbc9b','16a086','f1c40f','f39c11','2dcc70','27ae61','d93939','d25400','3598db','297fb8','e84c3d','c1392b','9a59b5','8d44ad','bec3c7','34495e','2d3e50','95a5a4','7e8e8e','ec87bf','d870ad','f69785','9ba37e','b49255','b49255','a94136'];
 
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
 const REMINDER_EMAIL_CLASS = 'reminder';
 const CALENDAR_EMAIL_CLASS = 'calendar-event';
 const CALENDAR_ATTACHMENT_CLASS = 'calendar-attachment';
@@ -37,18 +35,7 @@ Element.prototype.remove = function () {
 	this.parentElement.removeChild(this);
 };
 
-const getMyEmailAddress = function () {
-	const accountInfo = document.querySelector('div[aria-label="Account Information"]');
-	if (accountInfo) {
-		for (const child of accountInfo.getElementsByTagName('*')) {
-			if (child.children.length > 0) continue;
-			const emailMatch = (child.innerText || '').match(emailRegex);
-			if (emailMatch) return emailMatch[0];
-		}
-	}
-
-	return '';
-};
+const getMyEmailAddress = () => document.querySelector('.gb_db') ? document.querySelector('.gb_db').innerText : '';
 
 const getEmailParticipants = function (email) {
 	return email.querySelectorAll('.yW span[email]');
