@@ -285,17 +285,33 @@ const getBundleImageForLabel = (label) => {
 	}
 };
 
+const getBundleTitleColorForLabel = (email, label) => {
+	const labelEls = email.querySelectorAll('.at');
+	let bundleTitleColor = null;
+
+	labelEls.forEach((labelEl) => {
+		if (labelEl.innerText === label) {
+			const labelColor = labelEl.style.backgroundColor;
+			// Ignore default label color, light gray
+			if (labelColor !== 'rgb(221, 221, 221)') bundleTitleColor = labelColor;
+		}
+	});
+
+	return bundleTitleColor;
+};
+
 const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 	const importantMarkerClass = hasImportantMarkers ? '' : 'hide-important-markers';
-	const bundleImage = getBundleImageForLabel(label);
+	const bundleImage = getBundleImageForLabel(email);
+	const bundleTitleColor = bundleImage.match(/custom-cluster/) && getBundleTitleColorForLabel(email, label);
 
 	const bundleWrapper = htmlToElements(`
 			<div class="zA yO" bundleLabel="${label}">
 				<span class="oZ-x3 xY aid bundle-image">
-					<img src="${bundleImage}"/>
+					<img src="${bundleImage}" ${bundleTitleColor ? `style="filter: drop-shadow(0 0 0 ${bundleTitleColor}) saturate(300%)"` : ''}/>
 				</span>
 				<span class="WA xY ${importantMarkerClass}"></span>
-				<span class="yX xY label-link .yW">${label}</span>
+				<span class="yX xY label-link .yW" ${bundleTitleColor ? `style="color: ${bundleTitleColor}"` : ''}>${label}</span>
 				<span class="xW xY">
 					<span title="${getRawDate(email)}"/>
 				</span>
