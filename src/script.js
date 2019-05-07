@@ -252,7 +252,12 @@ const addCountToBundle = (label, count) => {
 const addSendersToBundle = (label, senders) => {
 	const bundleSenders = document.querySelector(`div[bundleLabel="${label}"] .bundle-senders`);
 	if (!bundleSenders) return;
-	let uniqueSenders = senders.reverse().filter((sender, index, self) => self.findIndex(s => s.name === sender.name && s.isUnread === sender.isUnread) === index);
+	let uniqueSenders = senders.reverse().filter((sender, index, self) => {
+		if (self.findIndex(s => s.name === sender.name && s.isUnread === sender.isUnread) === index) {
+			if (!sender.isUnread && self.findIndex(s => s.name === sender.name && s.isUnread) >= 0) return false;
+			return true;
+		};
+	});
 	const replacementHTML = `${uniqueSenders.map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`
 	if (bundleSenders.innerHTML !== replacementHTML) bundleSenders.innerHTML = replacementHTML;
 };
