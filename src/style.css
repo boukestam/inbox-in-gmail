@@ -709,7 +709,19 @@ button.gb_lf {
 
 /* top bar (old, new) */
 .gb_Ld.gb_je.gb_Td, .nH.w-asV.aiw, .nH.nn {
-	background-color: #4C85F1 !important;
+	background-color: #898984;
+}
+.nH.w-asV.aiw[pageTitle="inbox"],
+.nH.w-asV.aiw[pageTitle="inbox"] .nH.nn {
+	background-color: #4285f4;
+}
+.nH.w-asV.aiw[pageTitle="snoozed"],
+.nH.w-asV.aiw[pageTitle="snoozed"] .nH.nn {
+	background-color: #ef6c00;
+}
+.nH.w-asV.aiw[pageTitle="archive"],
+.nH.w-asV.aiw[pageTitle="archive"] .nH.nn {
+	background-color: #0f9d58;
 }
 
 /* storage usage, terms of service, privacy, account activity */
@@ -718,23 +730,60 @@ button.gb_lf {
 }
 
 /* Gmail icon (old, new) */
-a[href='#inbox'] {
+a[title="Gmail"] {
 	width: 120px;
 	overflow: hidden;
 	text-decoration: none;
 }
-a[href='#inbox'] img {
-	display: none
+a[title="Gmail"] img {
+	display: none;
 }
 
 /* Gmail text */
-a[href='#inbox']::after {
-	content: 'Inbox';
+a[title="Gmail"]::after {
+	content: 'Search';
 	font-size: 20px;
 	color: #FFF;
 	position: relative;
 	top: -2px;
 	padding-left: 7px;
+}
+
+a[title="Gmail"][href="#inbox"]::after {
+	content: 'Inbox';
+}
+a[title="Gmail"][href="#snoozed"]::after {
+	content: 'Snoozed';
+}
+a[title="Gmail"][href="#archive"]::after {
+	content: 'Done';
+}
+a[title="Gmail"][href="#starred"]::after {
+	content: 'Starred';
+}
+a[title="Gmail"][href="#sent"]::after {
+	content: 'Sent';
+}
+a[title="Gmail"][href="#drafts"]::after {
+	content: 'Drafts';
+}
+a[title="Gmail"][href="#imp"]::after {
+	content: 'Important';
+}
+a[title="Gmail"][href="#chats"]::after {
+	content: 'Chats';
+}
+a[title="Gmail"][href="#scheduled"]::after {
+	content: 'Scheduled';
+}
+a[title="Gmail"][href="#all"]::after {
+	content: 'All Mail';
+}
+a[title="Gmail"][href="#spam"]::after {
+	content: 'Spam';
+}
+a[title="Gmail"][href="#trash"]::after {
+	content: 'Trash';
 }
 
 /* Invisible inbox info with huge padding at bottom of email  */
@@ -750,7 +799,7 @@ header svg {
 
 /* Search bar (old, new) */
 header form {
-	background: #5E97F6 !important;
+	background: rgba(255, 255, 255, 0.125) !important;
 	max-width: 90% !important;
 }
 
