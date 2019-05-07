@@ -285,7 +285,7 @@ td.apU.xY .T-KT.xf::before {
 
 /* Fix for weird white space */
 .eb.TD {
-	display:none;
+	display: none;
 }
 
 /* Fix padding on search */
@@ -1230,6 +1230,9 @@ div[aria-label="Hangouts"][role="complementary"] {
 .bundle-wrapper.contains-unread .label-link,
 .bundle-wrapper .bundle-senders span.strong {
 	font-weight: 700;
+}
+.bundle-wrapper:not(.contains-unread) .bundle-image img {
+	opacity: 0.6;
 }
 
 .bundle-senders {
