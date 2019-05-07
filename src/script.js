@@ -276,9 +276,7 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 
 	addClassToEmail(bundleWrapper, BUNDLE_WRAPPER_CLASS);
 
-	bundleWrapper.onclick = () => {
-		location.href = `#search/in%3Ainbox+label%3A${fixLabel(label)}`;
-	};
+	bundleWrapper.onclick = () => location.href = `#search/in%3Ainbox+label%3A${fixLabel(label)}`;
 
 	if (email && email.parentNode) email.parentElement.insertBefore(bundleWrapper, email);
 };
@@ -652,7 +650,7 @@ const waitForElement = function (selector, callback, tries = 100) {
 
 const handleHashChange = () => {
   let hash = window.location.hash;
-  if (hash.match(/#search\/in%3Ainbox\+label%3/)) hash = '#inbox';
+  if (isInBundle()) hash = '#inbox';
   else hash = hash.split('/')[0];
   const headerElement = document.querySelector('header').parentElement.parentElement;
   const titleNode = document.querySelector('a[title="Gmail"]:not([aria-label])');
