@@ -1250,6 +1250,31 @@ div[aria-label="Hangouts"][role="complementary"] {
 	color: gray;
 }
 
+/* Colored bundle titles for Inbox categories */
+.zA.yO[bundleLabel="Updates"] .label-link > span:not(.bundle-count) {
+	color: rgb(255, 104, 57);
+}
+.zA.yO[bundleLabel="Promotions"] .label-link > span:not(.bundle-count) {
+	color: rgb(0, 188, 212);
+}
+.zA.yO[bundleLabel="Forums"] .label-link > span:not(.bundle-count) {
+	color: rgb(63, 81, 181);
+}
+.zA.yO[bundleLabel="Social"] .label-link > span:not(.bundle-count) {
+	color: rgb(219, 68, 55);
+}
+.zA.yO[bundleLabel="Travel"] .label-link > span:not(.bundle-count),
+.zA.yO[bundleLabel="Trips"] .label-link > span:not(.bundle-count) {
+	color: rgb(156, 39, 176);
+}
+.zA.yO[bundleLabel="Finance"] .label-link > span:not(.bundle-count) {
+	color: rgb(103, 159, 56);
+}
+.zA.yO[bundleLabel="Orders"] .label-link > span:not(.bundle-count),
+.zA.yO[bundleLabel="Purchases"] .label-link > span:not(.bundle-count) {
+	color: rgb(121, 85, 72);
+}
+
 .bundled-email {
 	display: none !important;
 }

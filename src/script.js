@@ -262,13 +262,37 @@ const addSendersToBundle = (label, senders) => {
 	if (bundleSenders.innerHTML !== replacementHTML) bundleSenders.innerHTML = replacementHTML;
 };
 
+const getBundleImageForLabel = (label) => {
+	switch (label) {
+		case 'Promotions':
+			return chrome.runtime.getURL('images/ic_offers_24px_clr_r3_2x.png');
+		case 'Finance':
+			return chrome.runtime.getURL('images/ic_finance_24px_clr_r3_2x.png');
+		case 'Purchases':
+		case 'Orders':
+			return chrome.runtime.getURL('images/ic_purchases_24px_clr_r3_2x.png');
+		case 'Trips':
+		case 'Travel':
+			return chrome.runtime.getURL('images/ic_travel_clr_24dp_r1_2x.png');
+		case 'Updates':
+			return chrome.runtime.getURL('images/ic_updates_24px_clr_r3_2x.png');
+		case 'Forums':
+			return chrome.runtime.getURL('images/ic_forums_24px_clr_r3_2x.png');
+		case 'Social':
+			return chrome.runtime.getURL('images/ic_social_24px_clr_r3_2x.png');
+		default:
+			return chrome.runtime.getURL('images/ic_custom-cluster_24px_g60_r3_2x.png');
+	}
+};
+
 const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 	const importantMarkerClass = hasImportantMarkers ? '' : 'hide-important-markers';
+	const bundleImage = getBundleImageForLabel(label);
 
 	const bundleWrapper = htmlToElements(`
 			<div class="zA yO" bundleLabel="${label}">
 				<span class="oZ-x3 xY aid bundle-image">
-					<img src="${chrome.runtime.getURL('images/ic_custom-cluster_24px_g60_r3_2x.png')}"/>
+					<img src="${bundleImage}"/>
 				</span>
 				<span class="WA xY ${importantMarkerClass}"></span>
 				<span class="yX xY label-link .yW">${label}</span>
