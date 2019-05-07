@@ -599,7 +599,8 @@ const reorderMenuItems = () => {
 
       // Add border seperator to bottom of Done
       const innerDone = done.querySelector('div');
-      innerDone.style.borderBottom = '1px solid rgb(221, 221, 221)';
+      innerDone.parentElement.style.borderBottom = '1px solid rgb(221, 221, 221)';
+      innerDone.parentElement.style.paddingBottom = '15px';
       innerDone.style.paddingBottom = '5px';
       innerDone.style.paddingTop = '5px';
 
@@ -690,6 +691,16 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	});
 	document.body.appendChild(addReminder);
+
+	const floatingComposeButton = document.createElement('div');
+	floatingComposeButton.className = 'floating-compose';
+	floatingComposeButton.addEventListener('click', function () {
+		// TODO: Replace all of the below with gmail.compose.start_compose() via the Gmail.js lib
+		const composeButton = document.querySelector('.T-I.J-J5-Ji.T-I-KE.L3');
+		triggerMouseEvent(composeButton, 'mousedown');
+		triggerMouseEvent(composeButton, 'mouseup');
+	});
+	document.body.appendChild(floatingComposeButton);
 
 	setInterval(updateReminders, 250);
 });
