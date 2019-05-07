@@ -304,7 +304,7 @@ const getBundleTitleColorForLabel = (email, label) => {
 
 const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 	const importantMarkerClass = hasImportantMarkers ? '' : 'hide-important-markers';
-	const bundleImage = getBundleImageForLabel(email);
+	const bundleImage = getBundleImageForLabel(label);
 	const bundleTitleColor = bundleImage.match(/custom-cluster/) && getBundleTitleColorForLabel(email, label);
 
 	const bundleWrapper = htmlToElements(`
