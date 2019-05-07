@@ -321,9 +321,7 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 
 	addClassToEmail(bundleWrapper, BUNDLE_WRAPPER_CLASS);
 
-	bundleWrapper.onclick = () => {
-		location.href = `#search/in%3Ainbox+label%3A${fixLabel(label)}`;
-	};
+	bundleWrapper.onclick = () => location.href = `#search/in%3Ainbox+label%3A${fixLabel(label)}`;
 
 	if (email && email.parentNode) email.parentElement.insertBefore(bundleWrapper, email);
 };
@@ -338,12 +336,11 @@ const checkImportantMarkers = () => document.querySelector('td.WA.xY');
 
 const checkEmailUnbundledLabel = labels => labels.filter(label => label.indexOf(UNBUNDLED_PARENT_LABEL) >= 0).length > 0;
 
-const getReadStatus = (emailEl) => emailEl.className.indexOf('zE') < 0;
+const getReadStatus = emailEl => emailEl.className.indexOf('zE') < 0;
 
 /**
  * If email has snooze data, return true.
- * Expects that the curDate should be larger than prevDate, if not, then
- * also return true;
+ * Expects that the curDate should be larger than prevDate, if not, then also return true;
  */
 const isSnoozed = (email, curDate, prevDate) => {
 	const node = email.querySelector('.by1.cL');
@@ -522,7 +519,7 @@ const updateReminders = () => {
 					avatarElement.style.background = '#000000';
 					// Some unicode characters are not affected by 'color: white', hence this alternative
 					avatarElement.style.color = 'transparent';
-					avatarElement.style.textShadow = '0 0 0 #ffffff';
+					avatarElement.style.textShadow = '0 0 rgba(255, 255, 255, 0.65)';
 				}
 
 				avatarElement.innerText = firstLetter;
@@ -576,9 +573,8 @@ const updateReminders = () => {
 **
 */
 
-const _nodes = {};
-
-const setupNodes = () => {
+const menuNodes = {};
+const setupMenuNodes = () => {
   const observer = new MutationObserver(() => {
     // menu items
     [
@@ -594,24 +590,7 @@ const setupNodes = () => {
       { label: 'chats',     selector: '.aHS-aHP' },
     ].map(({ label, selector }) => {
       const node = queryParentSelector(document.querySelector(selector), '.aim');
-      if (node) _nodes[label] = node;
-    });
-
-    // others
-    [
-      { label: 'title',          selector: 'a[title=Gmail]:not([aria-label])' },
-      { label: 'back',           selector: '.lS'     },
-      { label: 'archive',        selector: '.lR'     },
-      { label: 'resportSpam',    selector: '.nN'     },
-      { label: 'deleteMail',     selector: '.bvt'    },
-      { label: 'markUnread',     selector: '.uUQygd' },
-      { label: 'moveTo',         selector: '.ns'     },
-      { label: 'addLabel',       selector: '.mw'     },
-      { label: 'more',           selector: '.nf'     },
-      { label: 'messageSection', selector: '.Bs'     },
-    ].map(({ label, selector }) => {
-      const node = document.querySelector(selector);
-      if (node) _nodes[label] = node;
+      if (node) menuNodes[label] = node;
     });
   });
   observer.observe(document.body, { subtree: true, childList: true });
@@ -621,7 +600,7 @@ const reorderMenuItems = () => {
   const observer = new MutationObserver(() => {
     const parent = document.querySelector('.wT .byl');
     const refer = document.querySelector('.wT .byl>.TK');
-    const { inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats } = _nodes;
+    const { inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats } = menuNodes;
 
     if (parent && refer && loadedMenu && inbox && snoozed && done && drafts && sent && spam && trash && starred && important && chats) {
       // Gmail will execute its script to add element to the first child, so
@@ -714,6 +693,21 @@ const waitForElement = function (selector, callback, tries = 100) {
 	else if (tries > 0) setTimeout(() => waitForElement(selector, callback, tries - 1), 100);
 };
 
+const handleHashChange = () => {
+  let hash = window.location.hash;
+  if (isInBundle()) hash = '#inbox';
+  else hash = hash.split('/')[0];
+  const headerElement = document.querySelector('header').parentElement.parentElement;
+  const titleNode = document.querySelector('a[title="Gmail"]:not([aria-label])');
+
+  if (!titleNode || !headerElement) return;
+
+  headerElement.setAttribute('pageTitle', hash.replace('#', ''));
+  titleNode.href = hash;
+};
+
+window.addEventListener('hashchange', handleHashChange);
+
 document.addEventListener('DOMContentLoaded', function () {
 	const addReminder = document.createElement('div');
 	addReminder.className = 'add-reminder';
@@ -735,7 +729,9 @@ document.addEventListener('DOMContentLoaded', function () {
 			body.focus();
 		});
 	});
-	document.body.appendChild(addReminder);
+  document.body.appendChild(addReminder);
+  
+  waitForElement('a[title="Gmail"]:not([aria-label])', handleHashChange);
 
 	const floatingComposeButton = document.createElement('div');
 	floatingComposeButton.className = 'floating-compose';
@@ -754,7 +750,7 @@ const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').hr
 
 const init = () => {
 	setFavicon();
-	setupNodes();
+	setupMenuNodes();
 	reorderMenuItems();
 };
 
