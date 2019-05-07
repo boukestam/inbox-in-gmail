@@ -580,7 +580,8 @@ const reorderMenuItems = () => {
 
       // Add border seperator to bottom of Done
       const innerDone = done.querySelector('div');
-      innerDone.style.borderBottom = '1px solid rgb(221, 221, 221)';
+      innerDone.parentElement.style.borderBottom = '1px solid rgb(221, 221, 221)';
+      innerDone.parentElement.style.paddingBottom = '15px';
       innerDone.style.paddingBottom = '5px';
       innerDone.style.paddingTop = '5px';
 
