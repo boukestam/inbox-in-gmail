@@ -535,16 +535,16 @@ const setupMenuNodes = () => {
   const observer = new MutationObserver(() => {
     // menu items
     [
-      { label: 'inbox', selector: '.aHS-bnt' },
-      { label: 'snoozed', selector: '.aHS-bu1' },
-      { label: 'done', selector: '.aHS-aHO' },
-      { label: 'drafts', selector: '.aHS-bnq' },
-      { label: 'sent', selector: '.aHS-bnu' },
-      { label: 'spam', selector: '.aHS-bnv' },
-      { label: 'trash', selector: '.aHS-bnx' },
-      { label: 'starred', selector: '.aHS-bnw' },
+      { label: 'inbox',     selector: '.aHS-bnt' },
+      { label: 'snoozed',   selector: '.aHS-bu1' },
+      { label: 'done',      selector: '.aHS-aHO' },
+      { label: 'drafts',    selector: '.aHS-bnq' },
+      { label: 'sent',      selector: '.aHS-bnu' },
+      { label: 'spam',      selector: '.aHS-bnv' },
+      { label: 'trash',     selector: '.aHS-bnx' },
+      { label: 'starred',   selector: '.aHS-bnw' },
       { label: 'important', selector: '.aHS-bns' },
-      { label: 'chats', selector: '.aHS-aHP' },
+      { label: 'chats',     selector: '.aHS-aHP' },
     ].map(({ label, selector }) => {
       const node = queryParentSelector(document.querySelector(selector), '.aim');
       if (node) menuNodes[label] = node;
@@ -698,7 +698,7 @@ const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').hr
 const init = () => {
 	setFavicon();
 	setupMenuNodes();
-  reorderMenuItems();
+	reorderMenuItems();
 };
 
 if (document.head) init();
