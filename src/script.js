@@ -691,6 +691,16 @@ document.addEventListener('DOMContentLoaded', function () {
 	});
 	document.body.appendChild(addReminder);
 
+	const floatingComposeButton = document.createElement('div');
+	floatingComposeButton.className = 'floating-compose';
+	floatingComposeButton.addEventListener('click', function () {
+		// TODO: Replace all of the below with gmail.compose.start_compose() via the Gmail.js lib
+		const composeButton = document.querySelector('.T-I.J-J5-Ji.T-I-KE.L3');
+		triggerMouseEvent(composeButton, 'mousedown');
+		triggerMouseEvent(composeButton, 'mouseup');
+	});
+	document.body.appendChild(floatingComposeButton);
+
 	setInterval(updateReminders, 250);
 });
 

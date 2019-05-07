@@ -265,20 +265,6 @@ td.apU.xY .T-KT.xf::before {
 	background: #FFF !important;
 }
 
-/* Compose email button */
-.T-I.J-J5-Ji.T-I-KE.L3 {
-	position: fixed;
-	right: 40px;
-	bottom: 20px;
-	z-index: 1000;
-	width: 56px;
-	height: 56px;
-	border-radius: 50%;
-	padding: 0;
-	background: #d23f31;
-	overflow: hidden;
-}
-
 /* Inbox Email is Empty show Sun */
 .ar4.z .TD > .TC {
 	background-image: url('chrome-extension://__MSG_@@extension_id__/images/ic_zero_inbox_2x.png') !important;
@@ -343,20 +329,10 @@ td.apU.xY .T-KT.xf::before {
 	background-color: rgba(0,0,0,.05) !important;
 }
 
-/* Left sidebar collapsed
+/* Left sidebar collapsed */
 .aeN.bhZ {
-	display: none !important;
-}*/
-
-/* Compose email image */
-.z0>.L3::before {
-	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_white_24dp_2x.png') !important;
-	background-size: 24px !important;
-}
-
-.z0>.L3:hover::before {
-	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_compose_white_24dp_2x.png') !important;
-	background-size: 24px !important;
+	transform: translateX(-50px) !important;
+	transition: transform 0.2s ease;
 }
 
 /* Done icon (green checkmark) */
@@ -365,13 +341,6 @@ td.apU.xY .T-KT.xf::before {
 }
 
 @-moz-document url-prefix() {
-	/* Compose email image */
-	.z0>.L3::before {
-		background-image: url('moz-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_white_24dp_2x.png') !important;
-	}
-	.z0>.L3:hover::before {
-		background-image: url('moz-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_compose_white_24dp_2x.png') !important;
-	}
 	/* Done icon (green checkmark) */
 	.byl > .TK:nth-of-type(2) > .aim:nth-of-type(3) .qj {
 		background-image: url('moz-extension://__MSG_@@extension_id__/images/ic_done_clr_24dp_r4_2x.png') !important;
@@ -772,38 +741,74 @@ header form input {
 	color: white !important;
 }
 
-/* Add reminder */
-.add-reminder {
+/* Add reminder button */
+.add-reminder,
+/* Floating compose button */
+.floating-compose {
 	user-select: none;
 	position: fixed;
-	right: 48px;
-	bottom: 90px;
 	z-index: 1000;
-	width: 40px;
-	height: 40px;
 	border-radius: 50%;
 	padding: 0;
-	background: #4285f4;
 	overflow: hidden;
 	box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
 	cursor: pointer;
 }
 
-/* Add reminder image */
-.add-reminder::before {
-	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_reminders_white_24dp_2x.png') !important;
+.add-reminder:hover,
+.floating-compose:hover {
+	box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
+}
+
+/* Add reminder button */
+.add-reminder {
+	right: 48px;
+	bottom: 90px;
+	width: 40px;
+	height: 40px;
+	background: #4285f4;
+}
+
+/* Add reminder button image */
+.add-reminder::before,
+/* Compose button image */
+.floating-compose::before {
 	background-size: 24px !important;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: 32px;
 	content: '';
 	display: block;
+}
+
+/* Add reminder button image */
+.add-reminder::before {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_reminders_white_24dp_2x.png') !important;
 	height: 40px;
 	width: 40px;
 }
 
-.add-reminder:hover {
-	box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
+/* Floating compose button */
+.floating-compose {
+	right: 40px;
+	bottom: 20px;
+	width: 56px;
+	height: 56px;
+	background: #d23f31;
+}
+
+/* Compose button image */
+.floating-compose::before {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_white_24dp_2x.png') !important;
+	height: 56px;
+	width: 56px;
+}
+.floating-compose:hover::before {
+	background-image: url('chrome-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_compose_white_24dp_2x.png') !important;
+}
+
+/* Hide old compose button */
+.T-I.J-J5-Ji.T-I-KE.L3 {
+	display: none;
 }
 
 /* Archive button (inbox email, opened email) */
@@ -819,9 +824,16 @@ header form input {
 }
 
 @-moz-document url-prefix() {
-	/* Add reminder image */
+	/* Add reminder button image */
 	.add-reminder::before {
 		background-image: url('moz-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_reminders_white_24dp_2x.png') !important
+	}
+	/* Compose email image */
+	.floating-compose::before {
+		background-image: url('moz-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_white_24dp_2x.png') !important;
+	}
+	.floating-compose:hover::before {
+		background-image: url('moz-extension://__MSG_@@extension_id__/images/btw_ic_speeddial_compose_white_24dp_2x.png') !important;
 	}
 	/* Archive button (inbox email, opened email) */
 	.brq, .ar8 {
