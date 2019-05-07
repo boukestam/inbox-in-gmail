@@ -476,7 +476,7 @@ const updateReminders = () => {
 					avatarElement.style.background = '#000000';
 					// Some unicode characters are not affected by 'color: white', hence this alternative
 					avatarElement.style.color = 'transparent';
-					avatarElement.style.textShadow = '0 0 0 #ffffff';
+					avatarElement.style.textShadow = '0 0 rgba(255, 255, 255, 0.65)';
 				}
 
 				avatarElement.innerText = firstLetter;
