@@ -650,7 +650,7 @@ const waitForElement = function (selector, callback, tries = 100) {
 };
 
 const handleHashChange = () => {
-	let { hash } = window.location;
+  let { hash } = window.location;
   document.body.dataset.hash = hash;
   const headerElement = document.querySelector('header').parentElement.parentElement;
   const titleNode = document.querySelector('a[title="Gmail"]:not([aria-label])');
@@ -658,7 +658,7 @@ const handleHashChange = () => {
   if (!titleNode || !headerElement) return;
 
   headerElement.setAttribute('pageTitle', hash.replace('#', ''));
-	titleNode.href = hash;
+  titleNode.href = hash;
 };
 
 window.addEventListener('hashchange', handleHashChange);
