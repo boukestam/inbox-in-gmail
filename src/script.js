@@ -650,7 +650,7 @@ const waitForElement = function (selector, callback, tries = 100) {
 };
 
 const handleHashChange = () => {
-  let { hash } = window.location;
+  const hash = window.location.hash.split('/')[0];
   document.body.dataset.hash = hash;
   const headerElement = document.querySelector('header').parentElement.parentElement;
   const titleNode = document.querySelector('a[title="Gmail"]:not([aria-label])');
