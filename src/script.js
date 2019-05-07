@@ -16,6 +16,7 @@ const UNBUNDLED_EMAIL_CLASS = 'unbundled-email';
 const AVATAR_EMAIL_CLASS = 'email-with-avatar';
 const AVATAR_CLASS = 'avatar';
 const AVATAR_OPTION_CLASS = 'show-avatar-enabled';
+const STYLE_NODE_ID_PREFIX = 'hide-email-';
 
 const DATE_LABELS = {
 	TODAY: 'Today',
@@ -28,6 +29,7 @@ let lastEmailCount = 0;
 let lastRefresh = new Date();
 let loadedMenu = false;
 let labelStats = {};
+let hiddenEmailIds = [];
 let options = {};
 
 /* remove element */
@@ -367,6 +369,23 @@ const removeClassFromBody = (klass) => {
 	if (document.body.classList.contains(klass)) document.body.classList.remove(klass);
 };
 
+const removeStyleNodeWithEmailId = (id) => {
+	if (document.getElementById(STYLE_NODE_ID_PREFIX + id)) {
+		hiddenEmailIds.splice(hiddenEmailIds.indexOf(id), 1);
+		document.getElementById(STYLE_NODE_ID_PREFIX + id).remove();
+	}
+}
+
+const createStyleNodeWithEmailId = (id) => {
+	hiddenEmailIds.push(id);
+
+	const style = document.createElement('style');
+	document.head.appendChild(style);
+	style.id = STYLE_NODE_ID_PREFIX + id;
+	style.type = 'text/css';
+	style.appendChild(document.createTextNode(`.nH.ar4.z [id="${id}"] { display: none; }`));
+};
+
 const getEmails = () => {
 	const emails = document.querySelectorAll('.BltHke[role=main] .zA');
 	const myEmailAddress = getMyEmailAddress();
@@ -557,11 +576,16 @@ const updateReminders = () => {
 			if (isInInboxFlag && !emailInfo.isStarred && labels.length && !emailInfo.isUnbundled && !emailInfo.bundleAlreadyProcessed()) {
 				labels.forEach(label => {
 					addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
+					// Insert style node to avoid bundled emails appearing briefly in inbox during redraw
+					if (!hiddenEmailIds.includes(emailEl.id)) createStyleNodeWithEmailId(emailEl.id);
+
 					if (!(label in emailBundles)) {
 						buildBundleWrapper(emailEl, label, hasImportantMarkers);
 						emailBundles[label] = true;
 					}
 				});
+			} else if (!emailInfo.isUnbundled && !labels.length && hiddenEmailIds.includes(emailEl.id)) {
+				removeStyleNodeWithEmailId(emailEl.id);
 			}
 		}
 	}
