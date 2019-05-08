@@ -39,9 +39,7 @@ Element.prototype.remove = function () {
 
 const getMyEmailAddress = () => document.querySelector('.gb_db') ? document.querySelector('.gb_db').innerText : '';
 
-const getEmailParticipants = function (email) {
-	return email.querySelectorAll('.yW span[email]');
-};
+const getEmailParticipants = email => email.querySelectorAll('.yW span[email]');
 
 const isReminder = function (email, myEmailAddress) {
 	// if user doesn't want reminders treated special, then just return as though current email is not a reminder
@@ -222,9 +220,7 @@ const reloadOptions = () => {
 	}
 };
 
-const getLabels = function (email) {
-	return Array.from(email.querySelectorAll('.ar .at')).map(el => el.attributes.title.value);
-};
+const getLabels = email => Array.from(email.querySelectorAll('.ar .at')).map(el => el.attributes.title.value);
 
 const htmlToElements = function (html) {
 	var template = document.createElement('template');
@@ -768,7 +764,14 @@ document.addEventListener('DOMContentLoaded', function () {
 	document.body.appendChild(floatingComposeButton);
 
 	setInterval(updateReminders, 250);
+	// setInterval(testProfilePhotoScript, 1000);
 });
+
+const testProfilePhotoScript = () => {
+	if (options.showProfilePhoto !== 'enabled') return;
+	console.log('testProfilePhotoScript');
+	// localStorage.setItem('newSenderEmail', 'boukestam@gmail.com');
+};
 
 const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = chrome.runtime.getURL('images/favicon.png');;
 
@@ -776,7 +779,15 @@ const init = () => {
 	setFavicon();
 	setupMenuNodes();
 	reorderMenuItems();
+	appendProfileScript();
 };
 
 if (document.head) init();
 else document.addEventListener('DOMContentLoaded', init);
+
+const appendProfileScript = () => {
+	var profilePhotoScript = document.createElement('script');
+	profilePhotoScript.src = chrome.runtime.getURL('src/profile-photo.js');
+	profilePhotoScript.onload = () => console.log('Loaded Fetch Profile Photo Script');
+	(document.head || document.documentElement).appendChild(profilePhotoScript);
+}

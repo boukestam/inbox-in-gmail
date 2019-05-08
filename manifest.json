@@ -38,6 +38,7 @@
     }
   ],
   "web_accessible_resources": [
-    "images/*"
+    "images/*",
+    "src/profile-photo.js"
   ]
 }

@@ -1,13 +1,15 @@
 const REMINDER_TREATMENT_SELECTOR = 'input[name=reminder-treatment]';
 const BUNDLED_EMAIL_SELECTOR = 'input[name=email-bundling]';
 const AVATAR_SELECTOR = 'input[name=avatar]';
+const PROFILE_PHOTO_SELECTOR = 'input[name=profile-photo]';
 
 function saveOptions() {
 	const reminderTreatment = getSelectedRadioValue(REMINDER_TREATMENT_SELECTOR);
 	const emailBundling = getSelectedRadioValue(BUNDLED_EMAIL_SELECTOR);
 	const showAvatar = getSelectedRadioValue(AVATAR_SELECTOR);
+	const showProfilePhoto = getSelectedRadioValue(PROFILE_PHOTO_SELECTOR);
 
-	const options = { reminderTreatment, emailBundling, showAvatar };
+	const options = { reminderTreatment, emailBundling, showAvatar, showProfilePhoto };
 
 	localStorage.setItem('options', JSON.stringify(options));
 }
@@ -17,6 +19,7 @@ function restoreOptions() {
 		selectRadioWithValue(REMINDER_TREATMENT_SELECTOR, options.reminderTreatment);
 		selectRadioWithValue(BUNDLED_EMAIL_SELECTOR, options.emailBundling);
 		selectRadioWithValue(AVATAR_SELECTOR, options.showAvatar);
+		selectRadioWithValue(PROFILE_PHOTO_SELECTOR, options.showProfilePhoto);
 	});
 }
 
@@ -34,3 +37,4 @@ document.addEventListener('DOMContentLoaded', restoreOptions);
 document.querySelectorAll(REMINDER_TREATMENT_SELECTOR).forEach(monitorChange);
 document.querySelectorAll(BUNDLED_EMAIL_SELECTOR).forEach(monitorChange);
 document.querySelectorAll(AVATAR_SELECTOR).forEach(monitorChange);
+document.querySelectorAll(PROFILE_PHOTO_SELECTOR).forEach(monitorChange);
