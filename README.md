@@ -2,7 +2,7 @@
 
 Web extension which modifies Gmail to bring back the features and uncluttered design you knew and loved from Google's discontinued Inbox
 
-![alt text](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8-3.png?raw=true)
+![inbox screenshot](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8-3.png?raw=true)
 
 Downloadable versions are available at:
 
@@ -23,7 +23,9 @@ Downloadable versions are available at:
 
 ## Extension Options
 
-Right click the extension's icon at the top right of your browser, and click 'Options' to adjust the behavior of some features:
+![options popup screenshot](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/options%20v0.4.8.png?raw=true)
+
+Click the extension's icon at the top right of your browser to adjust the behavior of some features:
 
 #### Reminders
 This option is used to determine how to treat emails sent to yourself.
