@@ -2,11 +2,11 @@
 
 Web extension which modifies Gmail to bring back the features and uncluttered design you knew and loved from Google's discontinued Inbox
 
-![alt text](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8-2.png?raw=true)
+![alt text](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8-3.png?raw=true)
 
 Downloadable versions are available at:
 
-[Chrome Web Store: Inbox in Gmail](https://chrome.google.com/webstore/detail/inbox-in-gmail/foceiplcmbcdoggojeegeelhkaebhjoo)
+[Chrome Web Store: Inbox in Gmail](https://chrome.google.com/webstore/detail/inbox-in-gmail/foceiplcmbcdoggojeegeelhkaebhjoo) **NOTE**: Currently unavailable, see [issue #69](https://github.com/boukestam/inbox-in-gmail/issues/69)
 
 [Firefox Add-ons: Inbox in Gmail](https://addons.mozilla.org/firefox/addon/inbox-in-gmail)
 
