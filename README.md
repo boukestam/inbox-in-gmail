@@ -23,7 +23,7 @@ Downloadable versions are available at:
 
 ## Extension Options
 
-![options popup screenshot](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/options%20v0.4.8.png?raw=true)
+![options popup screenshot](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/options%20v0.4.8-2.png?raw=true)
 
 Click the extension's icon at the top right of your browser to adjust the behavior of some features:
 
