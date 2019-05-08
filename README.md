@@ -28,19 +28,19 @@ Downloadable versions are available at:
 Click the extension's icon at the top right of your browser to adjust the behavior of some features:
 
 #### Reminders
-This option is used to determine how to treat emails sent to yourself.
+Choose how to treat emails sent to yourself.
 
 - All are treated as reminders. 
 - Only emails with a subject containing the word "reminder" are treated as reminders. 
 - Leave the emails as they are. (Disable)
 
 #### Email Bundling
-This option is used to bundle emails by label in the inbox.
+Bundle emails by label & category in your inbox.
 
 - Toggle Enable/Disable
 
-#### Email Avatars
-This option will show a circle with the first letter initial of the sender, to the left of the email in your folder.
+#### Avatars
+Displays a profile photo for Gmail/G Suite users, or falls back to a colored circle with the first letter initial of the sender, instead of the empty checkbox in the inbox.
 
 - Toggle Enable/Disable
 
