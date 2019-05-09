@@ -1,4 +1,5 @@
-# Inbox Reborn (formerly known as Inbox in Gmail)
+# Inbox Reborn
+### *formerly known as **Inbox in Gmail***
 
 Web extension which modifies Gmail to bring back the features and uncluttered design you knew and loved from Google's discontinued Inbox
 
@@ -41,7 +42,6 @@ This option is used to bundle emails by label in the inbox.
 
 #### Email Avatars
 This option will show a circle with the first letter initial of the sender, to the left of the email in your folder.
-
 - Toggle Enable/Disable
 
 
