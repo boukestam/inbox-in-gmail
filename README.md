@@ -1,5 +1,5 @@
 # Inbox Reborn
-### *formerly known as **Inbox in Gmail***
+#### *Formerly known as Inbox in Gmail*
 
 Web extension which modifies Gmail to bring back the features and uncluttered design you knew and loved from Google's discontinued Inbox
 
