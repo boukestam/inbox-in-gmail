@@ -1,8 +1,8 @@
 {
-  "name": "Inbox Reborn",
-  "version": "0.4.8",
+  "name": "Inbox Reborn theme for Gmail™",
+  "version": "0.5.0",
   "manifest_version": 2,
-  "description": "This extension re-creates Inbox's lost features like reminders, email bundling and the minimalistic style in Gmail.",
+  "description": "Adds features like reminders, email bundling and Inbox's minimalistic style to Gmail™",
   "homepage_url": "https://github.com/boukestam/inbox-in-gmail",
   "browser_action": {
     "default_popup": "src/options/options.html"

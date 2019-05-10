@@ -1,7 +1,7 @@
-# Inbox Reborn
+# Inbox Reborn theme for Gmail™
 #### *Formerly known as Inbox in Gmail*
 
-Web extension which modifies Gmail to bring back the features and uncluttered design you knew and loved from Google's discontinued Inbox
+Web extension which modifies Gmail™ to bring back the features and uncluttered design you knew and loved from Google's discontinued Inbox
 
 ![inbox screenshot](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8-3.png?raw=true)
 
@@ -16,7 +16,7 @@ Downloadable versions are available at:
 
 - Bundle emails by label and category
 - Group emails by date (today, yesterday, this month, etc)
-- Clean interface to come closer to the simplicity of Inbox
+- Clean interface to return to the simplicity of Inbox
 - Display emails sent to yourself with subject "Reminder" as reminders
 - Colored avatars based on senders name
 - Calendar events displayed in a small card, with inline responses
@@ -45,7 +45,7 @@ This option will show a circle with the first letter initial of the sender, to t
 - Toggle Enable/Disable
 
 
-## Recommended Gmail Settings
+## Recommended Gmail™ Settings
 
 Using these settings will more closely replicate the visual style of Inbox:
 
@@ -72,7 +72,7 @@ If you'd like a specific label not to be bundled, create a label called 'Unbundl
 ## Known Issues
 
 - This extension works best in English, because it relies on specific date formats.
-- This currently only supports Gmail's default theme. If you enable the Dark theme, you will experience white/invisible text and icons.
+- This currently only supports Gmail™'s default theme. If you enable the Dark theme, you will experience white/invisible text and icons.
 
 
 ## Privacy
@@ -81,4 +81,4 @@ If you'd like a specific label not to be bundled, create a label called 'Unbundl
 - This extension does not use any analytics platforms.
 - The code is open source, ready for you to audit.
 
-In other words, you are not being tracked, and your data is not leaving the page to be processed or stored anywhere else. This extension just sits as a layer on top of Gmail, modifying the style and behavior of the page.
+In other words, you are not being tracked, and your data is not leaving the page to be processed or stored anywhere else. This extension just sits as a layer on top of Gmail™, modifying the style and behavior of the page.
