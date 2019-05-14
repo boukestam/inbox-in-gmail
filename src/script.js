@@ -720,7 +720,7 @@ const waitForElement = function (selector, callback, tries = 100) {
 const handleHashChange = () => {
   let hash = window.location.hash;
   if (isInBundle()) hash = '#inbox';
-  else hash = hash.split('/')[0];
+  else hash = hash.split('/')[0].split('?')[0];
   const headerElement = document.querySelector('header').parentElement.parentElement;
   const titleNode = document.querySelector('a[title="Gmail"]:not([aria-label])');
 
