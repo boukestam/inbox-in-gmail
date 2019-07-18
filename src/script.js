@@ -226,9 +226,7 @@ const getLabels = function (email) {
 	return Array.from(email.querySelectorAll('.ar .at')).map(el => el.attributes.title.value);
 };
 
-const getTabs = function () {
-	return Array.from(document.querySelectorAll('.aKz')).map(el => el.innerText);
-};
+const getTabs = () => Array.from(document.querySelectorAll('.aKz')).map(el => el.innerText);
 
 const htmlToElements = function (html) {
 	var template = document.createElement('template');
@@ -399,7 +397,7 @@ const getEmails = () => {
 	const allLabels = new Set();
 	const tabs = getTabs();
 
-  let currentTab = tabs.length > 0 ? document.querySelector('.aAy[aria-selected="true"]') : false;
+	let currentTab = tabs.length && document.querySelector('.aAy[aria-selected="true"]');
 	let prevTimeStamp = null;
 	labelStats = {};
 
@@ -508,7 +506,7 @@ const updateReminders = () => {
 	let lastLabel = null;
 	let isInInboxFlag = isInInbox();
 	let hasImportantMarkers = checkImportantMarkers();
-  let tabs = getTabs();
+	let tabs = getTabs();
 
 	cleanupDateLabels();
 	const emailBundles = getBundledLabels();
