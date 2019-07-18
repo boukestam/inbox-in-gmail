@@ -7,7 +7,7 @@ Web extension which modifies Gmail™ to bring back the features and uncluttered
 
 Downloadable versions are available at:
 
-[Chrome Web Store: Inbox in Gmail](https://chrome.google.com/webstore/detail/inbox-reborn-theme-for-gm/nffhiljihjelnbniafkljmpkjicfpeoj) **NOTE**: Temporary link, see [issue #69](https://github.com/boukestam/inbox-in-gmail/issues/69)
+[CRX file for Chrome available in this repo's Releases page](https://github.com/boukestam/inbox-in-gmail/releases) **NOTE**: It's been removed from the Chrome Web Store for unknown reasons, see [issue #69](https://github.com/boukestam/inbox-in-gmail/issues/69)
 
 [Firefox Add-ons: Inbox in Gmail](https://addons.mozilla.org/firefox/addon/inbox-in-gmail)
 
