@@ -226,6 +226,8 @@ const getLabels = function (email) {
 	return Array.from(email.querySelectorAll('.ar .at')).map(el => el.attributes.title.value);
 };
 
+const getTabs = () => Array.from(document.querySelectorAll('.aKz')).map(el => el.innerText);
+
 const htmlToElements = function (html) {
 	var template = document.createElement('template');
 	template.innerHTML = html;
@@ -393,7 +395,9 @@ const getEmails = () => {
 	const isInBundleFlag = isInBundle();
 	const processedEmails = [];
 	const allLabels = new Set();
+	const tabs = getTabs();
 
+	let currentTab = tabs.length && document.querySelector('.aAy[aria-selected="true"]');
 	let prevTimeStamp = null;
 	labelStats = {};
 
@@ -428,6 +432,16 @@ const getEmails = () => {
 					labelEl.querySelector('.av').innerText = labelEl.innerText.replace(UNBUNDLED_PARENT_LABEL + '/', '');
 				} else {
 					// Hide labels that aren't nested under UNBUNDLED_PARENT_LABEL
+					labelEl.hidden = true;
+				}
+			});
+		}
+		
+		// Check for labels used for Tabs, and hide them from the row.
+		if ( false != currentTab ) {
+			info.emailEl.querySelectorAll('.ar.as').forEach(labelEl => {
+				if ( labelEl.innerText == currentTab.innerText ) {
+					// Remove Tabbed labels from the row.
 					labelEl.hidden = true;
 				}
 			});
@@ -492,6 +506,7 @@ const updateReminders = () => {
 	let lastLabel = null;
 	let isInInboxFlag = isInInbox();
 	let hasImportantMarkers = checkImportantMarkers();
+	let tabs = getTabs();
 
 	cleanupDateLabels();
 	const emailBundles = getBundledLabels();
@@ -572,7 +587,7 @@ const updateReminders = () => {
 				continue;
 			}
 
-			const labels = emailInfo.labels;
+			const labels = emailInfo.labels.filter(x => !tabs.includes(x));
 			if (isInInboxFlag && !emailInfo.isStarred && labels.length && !emailInfo.isUnbundled && !emailInfo.bundleAlreadyProcessed()) {
 				labels.forEach(label => {
 					addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
