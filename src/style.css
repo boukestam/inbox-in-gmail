@@ -688,6 +688,13 @@ button.gb_lf {
 	background-color: #0f9d58;
 }
 
+/* Fix background color for vertical split layout */
+.UI .nH.nn,
+.nH.bkK.nn,
+.age {
+	background-color: unset !important;
+}
+
 /* storage usage, terms of service, privacy, account activity */
 .aeG {
 	display: none;
