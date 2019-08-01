@@ -37,7 +37,7 @@ Element.prototype.remove = function () {
 	this.parentElement.removeChild(this);
 };
 
-const getMyEmailAddress = () => document.querySelector('.gb_db') ? document.querySelector('.gb_db').innerText : '';
+const getMyEmailAddress = () => document.querySelector('.gb_lb') ? document.querySelector('.gb_lb').innerText : '';
 
 const getEmailParticipants = function (email) {
 	return email.querySelectorAll('.yW span[email]');
@@ -762,7 +762,9 @@ document.addEventListener('DOMContentLoaded', function () {
 		waitForElement('textarea[name=to]', to => {
 			const title = document.querySelector('input[name=subjectbox]');
 			const body = document.querySelector('div[aria-label="Message Body"]');
+			const from = document.querySelector('input[name="from"]');
 
+			from.value = myEmail;
 			to.value = myEmail;
 			title.value = 'Reminder';
 			body.focus();
