@@ -5,14 +5,14 @@
   "description": "Adds features like reminders, email bundling and Inbox's minimalistic style to Gmail™",
   "homepage_url": "https://github.com/boukestam/inbox-in-gmail",
   "browser_action": {
-    "default_popup": "src/options/options.html"
+    "default_popup": "options/options.html"
   },
   "options_ui": {
-    "page": "src/options/options.html",
+    "page": "options/options.html",
     "open_in_tab": false
   },
   "background": {
-    "scripts": ["src/background.js"],
+    "scripts": ["background.bundle.js"],
     "persistent": false
   },
   "permissions": [
@@ -29,10 +29,10 @@
         "https://mail.google.com/*"
       ],
       "css": [
-        "src/style.css"
+        "style.css"
       ],
       "js": [
-        "src/script.js"
+        "content-script.bundle.js"
       ],
       "run_at": "document_start"
     }

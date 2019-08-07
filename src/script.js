@@ -1,3 +1,31 @@
+import "./style.css"
+console.log("Extension loading.....");
+const jQuery = require("jquery");
+const $ = jQuery;
+const GmailFactory = require("gmail-js");
+const gmail = new GmailFactory.Gmail($);
+
+
+gmail.observe.on("load", () => {
+	console.log('starting inbox reborn')
+	updateReminders();
+	const categoryBar = document.querySelectorAll('.aRz.J-KU');
+
+	categoryBar.forEach(category => {
+		category.addEventListener("click", () => {
+			console.log('updateing')
+			updateReminders();
+		})
+	}) 
+});
+
+gmail.observe.on("new_email", () => {
+	console.log('new mail, running bundler')
+	updateReminders();
+})
+
+
+
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -487,7 +515,7 @@ const getEmails = () => {
 	}
 
 	// Update bundle stats
-	for (label in labelStats) {
+	for (const label in labelStats) {
 		// Set message count for each bundle row
 		addCountToBundle(label, labelStats[label].count);
 		// Set list of senders for each bundle row
@@ -747,7 +775,7 @@ const handleHashChange = () => {
 
 window.addEventListener('hashchange', handleHashChange);
 
-document.addEventListener('DOMContentLoaded', function () {
+const gmailLoaderInit = () => {
 	const addReminder = document.createElement('div');
 	addReminder.className = 'add-reminder';
 	addReminder.addEventListener('click', function () {
@@ -783,9 +811,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		triggerMouseEvent(composeButton, 'mouseup');
 	});
 	document.body.appendChild(floatingComposeButton);
-
-	setInterval(updateReminders, 250);
-});
+};
 
 const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').href = chrome.runtime.getURL('images/favicon.png');;
 
@@ -793,6 +819,8 @@ const init = () => {
 	setFavicon();
 	setupMenuNodes();
 	reorderMenuItems();
+	gmailLoaderInit();
+	reloadOptions();
 };
 
 if (document.head) init();
