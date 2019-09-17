@@ -3,8 +3,6 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 
 const nameColors = ['1bbc9b','16a086','f1c40f','f39c11','2dcc70','27ae61','d93939','d25400','3598db','297fb8','e84c3d','c1392b','9a59b5','8d44ad','bec3c7','34495e','2d3e50','95a5a4','7e8e8e','ec87bf','d870ad','f69785','9ba37e','b49255','b49255','a94136'];
 
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
 const REMINDER_EMAIL_CLASS = 'reminder';
 const CALENDAR_EMAIL_CLASS = 'calendar-event';
 const CALENDAR_ATTACHMENT_CLASS = 'calendar-attachment';
@@ -18,6 +16,7 @@ const UNBUNDLED_EMAIL_CLASS = 'unbundled-email';
 const AVATAR_EMAIL_CLASS = 'email-with-avatar';
 const AVATAR_CLASS = 'avatar';
 const AVATAR_OPTION_CLASS = 'show-avatar-enabled';
+const STYLE_NODE_ID_PREFIX = 'hide-email-';
 
 const DATE_LABELS = {
 	TODAY: 'Today',
@@ -30,6 +29,7 @@ let lastEmailCount = 0;
 let lastRefresh = new Date();
 let loadedMenu = false;
 let labelStats = {};
+let hiddenEmailIds = [];
 let options = {};
 
 /* remove element */
@@ -37,18 +37,7 @@ Element.prototype.remove = function () {
 	this.parentElement.removeChild(this);
 };
 
-const getMyEmailAddress = function () {
-	const accountInfo = document.querySelector('div[aria-label="Account Information"]');
-	if (accountInfo) {
-		for (const child of accountInfo.getElementsByTagName('*')) {
-			if (child.children.length > 0) continue;
-			const emailMatch = (child.innerText || '').match(emailRegex);
-			if (emailMatch) return emailMatch[0];
-		}
-	}
-
-	return '';
-};
+const getMyEmailAddress = () => document.querySelector('.gb_lb') ? document.querySelector('.gb_lb').innerText : '';
 
 const getEmailParticipants = function (email) {
 	return email.querySelectorAll('.yW span[email]');
@@ -237,6 +226,8 @@ const getLabels = function (email) {
 	return Array.from(email.querySelectorAll('.ar .at')).map(el => el.attributes.title.value);
 };
 
+const getTabs = () => Array.from(document.querySelectorAll('.aKz')).map(el => el.innerText);
+
 const htmlToElements = function (html) {
 	var template = document.createElement('template');
 	template.innerHTML = html;
@@ -265,21 +256,66 @@ const addCountToBundle = (label, count) => {
 const addSendersToBundle = (label, senders) => {
 	const bundleSenders = document.querySelector(`div[bundleLabel="${label}"] .bundle-senders`);
 	if (!bundleSenders) return;
-	let uniqueSenders = senders.reverse().filter((sender, index, self) => self.findIndex(s => s.name === sender.name && s.isUnread === sender.isUnread) === index);
+	let uniqueSenders = senders.reverse().filter((sender, index, self) => {
+		if (self.findIndex(s => s.name === sender.name && s.isUnread === sender.isUnread) === index) {
+			if (!sender.isUnread && self.findIndex(s => s.name === sender.name && s.isUnread) >= 0) return false;
+			return true;
+		};
+	});
 	const replacementHTML = `${uniqueSenders.map(sender => `<span class="${sender.isUnread ? 'strong' : ''}">${sender.name}</span>`).join(', ')}`
 	if (bundleSenders.innerHTML !== replacementHTML) bundleSenders.innerHTML = replacementHTML;
 };
 
+const getBundleImageForLabel = (label) => {
+	switch (label) {
+		case 'Promotions':
+			return chrome.runtime.getURL('images/ic_offers_24px_clr_r3_2x.png');
+		case 'Finance':
+			return chrome.runtime.getURL('images/ic_finance_24px_clr_r3_2x.png');
+		case 'Purchases':
+		case 'Orders':
+			return chrome.runtime.getURL('images/ic_purchases_24px_clr_r3_2x.png');
+		case 'Trips':
+		case 'Travel':
+			return chrome.runtime.getURL('images/ic_travel_clr_24dp_r1_2x.png');
+		case 'Updates':
+			return chrome.runtime.getURL('images/ic_updates_24px_clr_r3_2x.png');
+		case 'Forums':
+			return chrome.runtime.getURL('images/ic_forums_24px_clr_r3_2x.png');
+		case 'Social':
+			return chrome.runtime.getURL('images/ic_social_24px_clr_r3_2x.png');
+		default:
+			return chrome.runtime.getURL('images/ic_custom-cluster_24px_g60_r3_2x.png');
+	}
+};
+
+const getBundleTitleColorForLabel = (email, label) => {
+	const labelEls = email.querySelectorAll('.at');
+	let bundleTitleColor = null;
+
+	labelEls.forEach((labelEl) => {
+		if (labelEl.innerText === label) {
+			const labelColor = labelEl.style.backgroundColor;
+			// Ignore default label color, light gray
+			if (labelColor !== 'rgb(221, 221, 221)') bundleTitleColor = labelColor;
+		}
+	});
+
+	return bundleTitleColor;
+};
+
 const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 	const importantMarkerClass = hasImportantMarkers ? '' : 'hide-important-markers';
+	const bundleImage = getBundleImageForLabel(label);
+	const bundleTitleColor = bundleImage.match(/custom-cluster/) && getBundleTitleColorForLabel(email, label);
 
 	const bundleWrapper = htmlToElements(`
 			<div class="zA yO" bundleLabel="${label}">
 				<span class="oZ-x3 xY aid bundle-image">
-					<img src="${chrome.runtime.getURL('images/ic_custom-cluster_24px_g60_r3_2x.png')}"/>
+					<img src="${bundleImage}" ${bundleTitleColor ? `style="filter: drop-shadow(0 0 0 ${bundleTitleColor}) saturate(300%)"` : ''}/>
 				</span>
 				<span class="WA xY ${importantMarkerClass}"></span>
-				<span class="yX xY label-link .yW">${label}</span>
+				<span class="yX xY label-link .yW" ${bundleTitleColor ? `style="color: ${bundleTitleColor}"` : ''}>${label}</span>
 				<span class="xW xY">
 					<span title="${getRawDate(email)}"/>
 				</span>
@@ -289,9 +325,7 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 
 	addClassToEmail(bundleWrapper, BUNDLE_WRAPPER_CLASS);
 
-	bundleWrapper.onclick = () => {
-		location.href = `#search/in%3Ainbox+label%3A${fixLabel(label)}`;
-	};
+	bundleWrapper.onclick = () => location.href = `#search/in%3Ainbox+label%3A${fixLabel(label)}`;
 
 	if (email && email.parentNode) email.parentElement.insertBefore(bundleWrapper, email);
 };
@@ -306,12 +340,11 @@ const checkImportantMarkers = () => document.querySelector('td.WA.xY');
 
 const checkEmailUnbundledLabel = labels => labels.filter(label => label.indexOf(UNBUNDLED_PARENT_LABEL) >= 0).length > 0;
 
-const getReadStatus = (emailEl) => emailEl.className.indexOf('zE') < 0;
+const getReadStatus = emailEl => emailEl.className.indexOf('zE') < 0;
 
 /**
  * If email has snooze data, return true.
- * Expects that the curDate should be larger than prevDate, if not, then
- * also return true;
+ * Expects that the curDate should be larger than prevDate, if not, then also return true;
  */
 const isSnoozed = (email, curDate, prevDate) => {
 	const node = email.querySelector('.by1.cL');
@@ -338,6 +371,23 @@ const removeClassFromBody = (klass) => {
 	if (document.body.classList.contains(klass)) document.body.classList.remove(klass);
 };
 
+const removeStyleNodeWithEmailId = (id) => {
+	if (document.getElementById(STYLE_NODE_ID_PREFIX + id)) {
+		hiddenEmailIds.splice(hiddenEmailIds.indexOf(id), 1);
+		document.getElementById(STYLE_NODE_ID_PREFIX + id).remove();
+	}
+}
+
+const createStyleNodeWithEmailId = (id) => {
+	hiddenEmailIds.push(id);
+
+	const style = document.createElement('style');
+	document.head.appendChild(style);
+	style.id = STYLE_NODE_ID_PREFIX + id;
+	style.type = 'text/css';
+	style.appendChild(document.createTextNode(`.nH.ar4.z [id="${id}"] { display: none; }`));
+};
+
 const getEmails = () => {
 	const emails = document.querySelectorAll('.BltHke[role=main] .zA');
 	const myEmailAddress = getMyEmailAddress();
@@ -345,7 +395,9 @@ const getEmails = () => {
 	const isInBundleFlag = isInBundle();
 	const processedEmails = [];
 	const allLabels = new Set();
+	const tabs = getTabs();
 
+	let currentTab = tabs.length && document.querySelector('.aAy[aria-selected="true"]');
 	let prevTimeStamp = null;
 	labelStats = {};
 
@@ -380,6 +432,16 @@ const getEmails = () => {
 					labelEl.querySelector('.av').innerText = labelEl.innerText.replace(UNBUNDLED_PARENT_LABEL + '/', '');
 				} else {
 					// Hide labels that aren't nested under UNBUNDLED_PARENT_LABEL
+					labelEl.hidden = true;
+				}
+			});
+		}
+		
+		// Check for labels used for Tabs, and hide them from the row.
+		if ( false != currentTab ) {
+			info.emailEl.querySelectorAll('.ar.as').forEach(labelEl => {
+				if ( labelEl.innerText == currentTab.innerText ) {
+					// Remove Tabbed labels from the row.
 					labelEl.hidden = true;
 				}
 			});
@@ -444,6 +506,7 @@ const updateReminders = () => {
 	let lastLabel = null;
 	let isInInboxFlag = isInInbox();
 	let hasImportantMarkers = checkImportantMarkers();
+	let tabs = getTabs();
 
 	cleanupDateLabels();
 	const emailBundles = getBundledLabels();
@@ -490,7 +553,7 @@ const updateReminders = () => {
 					avatarElement.style.background = '#000000';
 					// Some unicode characters are not affected by 'color: white', hence this alternative
 					avatarElement.style.color = 'transparent';
-					avatarElement.style.textShadow = '0 0 0 #ffffff';
+					avatarElement.style.textShadow = '0 0 rgba(255, 255, 255, 0.65)';
 				}
 
 				avatarElement.innerText = firstLetter;
@@ -524,15 +587,20 @@ const updateReminders = () => {
 				continue;
 			}
 
-			const labels = emailInfo.labels;
+			const labels = emailInfo.labels.filter(x => !tabs.includes(x));
 			if (isInInboxFlag && !emailInfo.isStarred && labels.length && !emailInfo.isUnbundled && !emailInfo.bundleAlreadyProcessed()) {
 				labels.forEach(label => {
 					addClassToEmail(emailEl, BUNDLED_EMAIL_CLASS);
+					// Insert style node to avoid bundled emails appearing briefly in inbox during redraw
+					if (!hiddenEmailIds.includes(emailEl.id)) createStyleNodeWithEmailId(emailEl.id);
+
 					if (!(label in emailBundles)) {
 						buildBundleWrapper(emailEl, label, hasImportantMarkers);
 						emailBundles[label] = true;
 					}
 				});
+			} else if (!emailInfo.isUnbundled && !labels.length && hiddenEmailIds.includes(emailEl.id)) {
+				removeStyleNodeWithEmailId(emailEl.id);
 			}
 		}
 	}
@@ -544,9 +612,8 @@ const updateReminders = () => {
 **
 */
 
-const _nodes = {};
-
-const setupNodes = () => {
+const menuNodes = {};
+const setupMenuNodes = () => {
   const observer = new MutationObserver(() => {
     // menu items
     [
@@ -562,24 +629,7 @@ const setupNodes = () => {
       { label: 'chats',     selector: '.aHS-aHP' },
     ].map(({ label, selector }) => {
       const node = queryParentSelector(document.querySelector(selector), '.aim');
-      if (node) _nodes[label] = node;
-    });
-
-    // others
-    [
-      { label: 'title',          selector: 'a[title=Gmail]:not([aria-label])' },
-      { label: 'back',           selector: '.lS'     },
-      { label: 'archive',        selector: '.lR'     },
-      { label: 'resportSpam',    selector: '.nN'     },
-      { label: 'deleteMail',     selector: '.bvt'    },
-      { label: 'markUnread',     selector: '.uUQygd' },
-      { label: 'moveTo',         selector: '.ns'     },
-      { label: 'addLabel',       selector: '.mw'     },
-      { label: 'more',           selector: '.nf'     },
-      { label: 'messageSection', selector: '.Bs'     },
-    ].map(({ label, selector }) => {
-      const node = document.querySelector(selector);
-      if (node) _nodes[label] = node;
+      if (node) menuNodes[label] = node;
     });
   });
   observer.observe(document.body, { subtree: true, childList: true });
@@ -589,7 +639,7 @@ const reorderMenuItems = () => {
   const observer = new MutationObserver(() => {
     const parent = document.querySelector('.wT .byl');
     const refer = document.querySelector('.wT .byl>.TK');
-    const { inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats } = _nodes;
+    const { inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats } = menuNodes;
 
     if (parent && refer && loadedMenu && inbox && snoozed && done && drafts && sent && spam && trash && starred && important && chats) {
       // Gmail will execute its script to add element to the first child, so
@@ -612,7 +662,8 @@ const reorderMenuItems = () => {
 
       // Add border seperator to bottom of Done
       const innerDone = done.querySelector('div');
-      innerDone.style.borderBottom = '1px solid rgb(221, 221, 221)';
+      innerDone.parentElement.style.borderBottom = '1px solid rgb(221, 221, 221)';
+      innerDone.parentElement.style.paddingBottom = '15px';
       innerDone.style.paddingBottom = '5px';
       innerDone.style.paddingTop = '5px';
 
@@ -681,6 +732,21 @@ const waitForElement = function (selector, callback, tries = 100) {
 	else if (tries > 0) setTimeout(() => waitForElement(selector, callback, tries - 1), 100);
 };
 
+const handleHashChange = () => {
+  let hash = window.location.hash;
+  if (isInBundle()) hash = '#inbox';
+  else hash = hash.split('/')[0].split('?')[0];
+  const headerElement = document.querySelector('header').parentElement.parentElement;
+  const titleNode = document.querySelector('a[title="Gmail"]:not([aria-label])');
+
+  if (!titleNode || !headerElement) return;
+
+  headerElement.setAttribute('pageTitle', hash.replace('#', ''));
+  titleNode.href = hash;
+};
+
+window.addEventListener('hashchange', handleHashChange);
+
 document.addEventListener('DOMContentLoaded', function () {
 	const addReminder = document.createElement('div');
 	addReminder.className = 'add-reminder';
@@ -696,13 +762,27 @@ document.addEventListener('DOMContentLoaded', function () {
 		waitForElement('textarea[name=to]', to => {
 			const title = document.querySelector('input[name=subjectbox]');
 			const body = document.querySelector('div[aria-label="Message Body"]');
+			const from = document.querySelector('input[name="from"]');
 
+			from.value = myEmail;
 			to.value = myEmail;
 			title.value = 'Reminder';
 			body.focus();
 		});
 	});
-	document.body.appendChild(addReminder);
+  document.body.appendChild(addReminder);
+  
+  waitForElement('a[title="Gmail"]:not([aria-label])', handleHashChange);
+
+	const floatingComposeButton = document.createElement('div');
+	floatingComposeButton.className = 'floating-compose';
+	floatingComposeButton.addEventListener('click', function () {
+		// TODO: Replace all of the below with gmail.compose.start_compose() via the Gmail.js lib
+		const composeButton = document.querySelector('.T-I.J-J5-Ji.T-I-KE.L3');
+		triggerMouseEvent(composeButton, 'mousedown');
+		triggerMouseEvent(composeButton, 'mouseup');
+	});
+	document.body.appendChild(floatingComposeButton);
 
 	setInterval(updateReminders, 250);
 });
@@ -711,7 +791,7 @@ const setFavicon = () => document.querySelector('link[rel*="shortcut icon"]').hr
 
 const init = () => {
 	setFavicon();
-	setupNodes();
+	setupMenuNodes();
 	reorderMenuItems();
 };
 

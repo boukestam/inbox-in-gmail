@@ -2,6 +2,7 @@ body {
     background-color: rgb(242, 242, 242);
     font-family: Roboto, system-ui, sans-serif;
     font-size: 13px;
+    margin: 0;
 }
 
 h1 {
@@ -13,8 +14,7 @@ h1 {
     box-shadow: rgb(224, 224, 224) 0px -1px 0px, rgba(0, 0, 0, 0.12) 0px 0px 2px, rgba(0, 0, 0, 0.24) 0px 2px 4px !important;
     background-color: white;
     padding: 0 20px;
-    margin: auto;
-    width: 600px;
+    width: 550px;
 }
 
 .settings-wrapper {
@@ -29,12 +29,12 @@ h1 {
 
 .setting-title {
     font-weight: bold;
+    margin-bottom: 5px;
 }
 
 .setting-content {
     color: #616161;
 }
-
 
 button.save {
     float: right;
