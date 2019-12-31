@@ -5,9 +5,22 @@ Web extension which modifies Gmail™ to bring back the features and uncluttered
 
 ![inbox screenshot](https://github.com/boukestam/inbox-in-gmail/blob/master/screenshots/inbox%20v0.4.8-3.png?raw=true)
 
-Downloadable versions are available at:
+## Installing
 
-[CRX file for Chrome available in this repo's Releases page](https://github.com/boukestam/inbox-in-gmail/releases) **NOTE**: It's been removed from the Chrome Web Store for unknown reasons, see [issue #69](https://github.com/boukestam/inbox-in-gmail/issues/69)
+### Chrome
+
+**NOTE**: This extension been removed from the Chrome Web Store for unknown reasons, see [issue #69](https://github.com/boukestam/inbox-in-gmail/issues/69)
+
+CRX file for Chrome available in [this repo's Releases page](https://github.com/boukestam/inbox-in-gmail/releases)
+
+If the CRX file does not work directly, try loading Inbox Reborn as an **unpacked extension**:
+1. Download [this repo's source code here](https://github.com/boukestam/inbox-in-gmail/archive/master.zip), and unzip it where you like
+2. Go to Chrome's extension settings page, at `chrome://extensions`
+3. Tick the `Developer mode` checkbox on the top right of the page
+4. Click the `Load unpacked` button, then select the unzipped folder you downloaded earlier
+
+
+### Firefox
 
 [Firefox Add-ons: Inbox in Gmail](https://addons.mozilla.org/firefox/addon/inbox-in-gmail)
 
