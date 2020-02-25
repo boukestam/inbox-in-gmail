@@ -1,0 +1,35 @@
+{
+  "name": "inbox-in-gmail",
+  "version": "0.5.2",
+  "description": "Web extension which modifies Gmail™ to bring back the features and uncluttered design you knew and loved from Google's discontinued Inbox",
+  "scripts": {
+    "start": "webpack --config webpack.config.js --mode=development --watch --progress",
+    "build": "webpack --config webpack.config.js --mode=production --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guybbb/inbox-in-gmail.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guybbb/inbox-in-gmail/issues"
+  },
+  "homepage": "https://github.com/guybbb/inbox-in-gmail#readme",
+  "dependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.2.0",
+    "gmail-js": "^0.9.8",
+    "jquery": "^3.4.1",
+    "mini-css-extract-plugin": "^0.8.0",
+    "webpack": "^4.39.1",
+    "webpack-extension-reloader": "^1.1.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^3.3.6",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
