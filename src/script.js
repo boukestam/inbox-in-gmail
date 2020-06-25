@@ -84,10 +84,10 @@ Element.prototype.remove = function () {
 };
 
 const getMyEmailAddress = () => { 
-	if (select.emailAddressSource1().innerText) return select.emailAddressSource1().innerText; 
-	if (select.emailAddressSource2().innerText) return select.emailAddressSource2().innerText; 
-	if (select.emailAddressSource3().innerText) return select.emailAddressSource3().innerText; 
-	return '';
+    let emailAddressSource1 = select.emailAddressSource1(); let emailAddressSource1Text = emailAddressSource1 && emailAddressSource1.innerText
+    let emailAddressSource2 = select.emailAddressSource2(); let emailAddressSource2Text = emailAddressSource2 && emailAddressSource2.innerText
+    let emailAddressSource3 = select.emailAddressSource3(); let emailAddressSource3Text = emailAddressSource3 && emailAddressSource3.innerText
+    return emailAddressSource1Text || emailAddressSource2Text || emailAddressSource3Text || ""
 }
 
 const isReminder = function (email, myEmailAddress) {
