@@ -18,6 +18,52 @@ const AVATAR_CLASS = 'avatar';
 const AVATAR_OPTION_CLASS = 'show-avatar-enabled';
 const STYLE_NODE_ID_PREFIX = 'hide-email-';
 
+// 
+// Element Selectors 
+//
+// All the selectors for things-created-by-google in one place
+// so that when they inevitably break, they can be corrected
+// this is also for making it easier for implementing more 
+// reliable retrieval methods like:
+// gmail.compose.start_compose() via the Gmail.js lib
+let select = {
+    emailAddressSource1: ()=>document.querySelector('.gb_hb'),
+    emailAddressSource2: ()=>document.querySelector('.gb_lb'),
+    emailAddressSource3: ()=>document.querySelector('.gb_qb'),
+    tabs:                ()=>document.querySelectorAll('.aKz'),
+    bundleWrappers:      ()=>document.querySelectorAll('.BltHke[role=main] .bundle-wrapper'),
+    inbox:               ()=>document.querySelector('.nZ a[title=Inbox]'),
+    importanceMarkers:   ()=>document.querySelector('td.WA.xY'),
+    emails:              ()=>document.querySelectorAll('.BltHke[role=main] .zA'),
+    currentTab:          ()=>document.querySelector('.aAy[aria-selected="true"]'),
+    menu:                ()=>document.body.querySelector('.J-Ke.n4.ah9'),
+    composeButton:       ()=>document.querySelector('.T-I.T-I-KE.L3'),
+    menuParent:          ()=>document.querySelector('.wT .byl'),
+    menuRefer:           ()=>document.querySelector('.wT .byl>.TK'),
+    titleNode:           ()=>document.querySelector('a[title="Gmail"]:not([aria-label])'),
+    messageBody:         ()=>document.querySelector('div[aria-label="Message Body"]'),
+    messageFrom:         ()=>document.querySelector('input[name="from"]'),
+    messageSubjectBox:   ()=>document.querySelector('input[name=subjectbox]'),
+    emailParticipants:   (email)=>email.querySelectorAll('.yW span[email]'),
+    emailTitleNode:      (email)=>email.querySelector('.y6'),
+    eventTitle:          (email)=>email.querySelector('.bqe, .bog'),
+    emailCalendarEvent:  (email)=>email.querySelector('.aKS .aJ6'),
+    emailDate:           (email)=>email.querySelector('.xW.xY span'),
+    emailSubjectWrapper: (email)=>email.querySelectorAll('.a4W'),
+    emailAction:         (email)=>email.querySelector('.aKS'),
+    emailLabels:         (email)=>email.querySelectorAll('.ar .at'),
+    emailLabelEls:       (email)=>email.querySelectorAll('.at'),
+    emailAllLabels:      (email)=>email.querySelectorAll('.ar.as'),
+    emailSnoozed:        (email)=>email.querySelector('.by1.cL'),
+    emailStarred:        (email)=>email.querySelector('.T-KT'),
+    emailAvatarWrapper:  (email)=>email.querySelector('.oZ-x3'),
+    emailMiscPart1:      (email)=>email.querySelectorAll('.y2'),
+    emailMiscPart2:      (email)=>email.querySelectorAll('.yP,.zF'), 
+    emailMiscPart3:      (email)=>email.querySelectorAll('.Zt'),
+    labelTitle:          (label)=>label.querySelector('.at'),
+    labelInnerText:      (label)=>label.querySelector('.av'),
+};
+
 const DATE_LABELS = {
 	TODAY: 'Today',
 	YESTERDAY: 'Yesterday',
@@ -38,21 +84,17 @@ Element.prototype.remove = function () {
 };
 
 const getMyEmailAddress = () => { 
-	if (document.querySelector('.gb_hb').innerText) return document.querySelector('.gb_hb').innerText; 
-	if (document.querySelector('.gb_lb').innerText) return document.querySelector('.gb_lb').innerText; 
-	if (document.querySelector('.gb_qb').innerText) return document.querySelector('.gb_qb').innerText; 
-	return '';
+    let emailAddressSource1 = select.emailAddressSource1(); let emailAddressSource1Text = emailAddressSource1 && emailAddressSource1.innerText
+    let emailAddressSource2 = select.emailAddressSource2(); let emailAddressSource2Text = emailAddressSource2 && emailAddressSource2.innerText
+    let emailAddressSource3 = select.emailAddressSource3(); let emailAddressSource3Text = emailAddressSource3 && emailAddressSource3.innerText
+    return emailAddressSource1Text || emailAddressSource2Text || emailAddressSource3Text || ""
 }
-
-const getEmailParticipants = function (email) {
-	return email.querySelectorAll('.yW span[email]');
-};
 
 const isReminder = function (email, myEmailAddress) {
 	// if user doesn't want reminders treated special, then just return as though current email is not a reminder
 	if (options.reminderTreatment === 'none') return false;
 
-	const nameNodes = getEmailParticipants(email);
+	const nameNodes = select.emailParticipants(email);
 	let allNamesMe = true;
 
 	if (nameNodes.length === 0) allNamesMe = false;
@@ -64,7 +106,7 @@ const isReminder = function (email, myEmailAddress) {
 	if (options.reminderTreatment === 'all') {
 		return allNamesMe;
 	} else if (options.reminderTreatment === 'containing-word') {
-		const titleNode = email.querySelector('.y6');
+		const titleNode = select.emailTitleNode(email);
 		return allNamesMe && titleNode && titleNode.innerText.match(/reminder/i);
 	}
 
@@ -72,7 +114,7 @@ const isReminder = function (email, myEmailAddress) {
 };
 
 const isCalendarEvent = function (email) {
-	const node = email.querySelector('.aKS .aJ6');
+	const node = select.emailCalendarEvent(email);
 	return node && node.innerText === 'RSVP';
 };
 
@@ -93,7 +135,7 @@ const addDateLabel = function (email, label) {
 };
 
 const getRawDate = function (email) {
-	const dateElement = email.querySelector('.xW.xY span');
+	const dateElement = select.emailDate(email);
 	if (dateElement) return dateElement.getAttribute('title');
 };
 
@@ -137,7 +179,7 @@ const isEmptyDateLabel = function (row) {
 }
 
 const getBundledLabels = function () {
-	return Array.from(document.querySelectorAll('.BltHke[role=main] .bundle-wrapper')).reduce((bundledLabels, el) => {
+	return Array.from(select.bundleWrappers()).reduce((bundledLabels, el) => {
 		bundledLabels[el.attributes.bundleLabel.value] = true;
 		return bundledLabels;
 	}, {});
@@ -148,7 +190,7 @@ const addEventAttachment = function (email) {
 
 	let title = 'Calendar Event';
 	let time = '';
-	const titleNode = email.querySelector('.bqe, .bog');
+	const titleNode = select.eventTitle(email);
 	if (titleNode) {
 		const titleFullText = titleNode.innerText;
 		let matches = Array.from(titleFullText.matchAll(/[^:]*: ([^@]*)@(.*)/g))[0];
@@ -178,7 +220,7 @@ const addEventAttachment = function (email) {
 	attachmentContentWrapper.appendChild(attachmentTimeSpan);
 
 	// Find Invitation Action
-	const action = email.querySelector('.aKS');
+	const action = select.emailAction(email);
 	if (action) attachmentContentWrapper.appendChild(action);
 
 	const imageSpan = document.createElement('span');
@@ -196,7 +238,7 @@ const addEventAttachment = function (email) {
 	attachmentNode.appendChild(span);
 	attachmentNode.appendChild(attachmentCard);
 
-	const emailSubjectWrapper = email.querySelectorAll('.a4W');
+	const emailSubjectWrapper = select.emailSubjectWrapper(email);
 	if (emailSubjectWrapper) emailSubjectWrapper[0].appendChild(attachmentNode);
 };
 
@@ -228,10 +270,10 @@ const reloadOptions = () => {
 };
 
 const getLabels = function (email) {
-	return Array.from(email.querySelectorAll('.ar .at')).map(el => el.attributes.title.value);
+	return Array.from(select.emailLabels(email)).map(el => el.attributes.title.value);
 };
 
-const getTabs = () => Array.from(document.querySelectorAll('.aKz')).map(el => el.innerText);
+const getTabs = () => Array.from(select.tabs()).map(el => el.innerText);
 
 const htmlToElements = function (html) {
 	var template = document.createElement('template');
@@ -295,7 +337,7 @@ const getBundleImageForLabel = (label) => {
 };
 
 const getBundleTitleColorForLabel = (email, label) => {
-	const labelEls = email.querySelectorAll('.at');
+	const labelEls = select.emailLabelEls(email);
 	let bundleTitleColor = null;
 
 	labelEls.forEach((labelEl) => {
@@ -337,11 +379,11 @@ const buildBundleWrapper = function (email, label, hasImportantMarkers) {
 
 const fixLabel = label => encodeURIComponent(label.replace(/[\/\\& ]/g, '-'));
 
-const isInInbox = () => document.querySelector('.nZ a[title=Inbox]') !== null;
+const isInInbox = () => select.inbox() !== null;
 
 const isInBundle = () => document.location.hash.match(/#search\/in%3Ainbox\+label%3A/g) !== null;
 
-const checkImportantMarkers = () => document.querySelector('td.WA.xY');
+const checkImportantMarkers = () => select.importanceMarkers();
 
 const checkEmailUnbundledLabel = labels => labels.filter(label => label.indexOf(UNBUNDLED_PARENT_LABEL) >= 0).length > 0;
 
@@ -352,14 +394,14 @@ const getReadStatus = emailEl => emailEl.className.indexOf('zE') < 0;
  * Expects that the curDate should be larger than prevDate, if not, then also return true;
  */
 const isSnoozed = (email, curDate, prevDate) => {
-	const node = email.querySelector('.by1.cL');
+	const node = select.emailSnoozed(email);
 	if (node && node.innerText !== '') return true;
 
 	return prevDate !== null && curDate < prevDate;
 };
 
 const isStarred = email => {
-	const node = email.querySelector('.T-KT');
+	const node = select.emailStarred(email);
 	if (node && node.title !== 'Not starred') return true;
 };
 
@@ -394,7 +436,7 @@ const createStyleNodeWithEmailId = (id) => {
 };
 
 const getEmails = () => {
-	const emails = document.querySelectorAll('.BltHke[role=main] .zA');
+	const emails = select.emails();
 	const myEmailAddress = getMyEmailAddress();
 	const isInInboxFlag = isInInbox();
 	const isInBundleFlag = isInBundle();
@@ -402,7 +444,7 @@ const getEmails = () => {
 	const allLabels = new Set();
 	const tabs = getTabs();
 
-	let currentTab = tabs.length && document.querySelector('.aAy[aria-selected="true"]');
+	let currentTab = tabs.length && select.currentTab();
 	let prevTimeStamp = null;
 	labelStats = {};
 
@@ -431,10 +473,10 @@ const getEmails = () => {
 		info.isUnbundled = checkEmailUnbundledLabel(info.labels);
 		if ((isInInboxFlag || isInBundleFlag) && info.isUnbundled && !info.unbundledAlreadyProcessed()) {
 			addClassToEmail(email, UNBUNDLED_EMAIL_CLASS);
-			info.emailEl.querySelectorAll('.ar.as').forEach(labelEl => {
-				if (labelEl.querySelector('.at').title.indexOf(UNBUNDLED_PARENT_LABEL) >= 0) {
+            select.emailAllLabels(info.emailEl).forEach(labelEl => {
+				if (select.labelTitle(labelEl).title.indexOf(UNBUNDLED_PARENT_LABEL) >= 0) {
 					// Remove 'Unbundled/' from display in the UI
-					labelEl.querySelector('.av').innerText = labelEl.innerText.replace(UNBUNDLED_PARENT_LABEL + '/', '');
+                    select.labelInnerText(labelEl).innerText = labelEl.innerText.replace(UNBUNDLED_PARENT_LABEL + '/', '');
 				} else {
 					// Hide labels that aren't nested under UNBUNDLED_PARENT_LABEL
 					labelEl.hidden = true;
@@ -444,7 +486,7 @@ const getEmails = () => {
 		
 		// Check for labels used for Tabs, and hide them from the row.
 		if ( false != currentTab ) {
-			info.emailEl.querySelectorAll('.ar.as').forEach(labelEl => {
+			select.emailAllLabels(info.emailEl).forEach(labelEl => {
 				if ( labelEl.innerText == currentTab.innerText ) {
 					// Remove Tabbed labels from the row.
 					labelEl.hidden = true;
@@ -456,7 +498,7 @@ const getEmails = () => {
 
 		// Collect senders, message count and unread stats for each label
 		if (info.labels.length) {
-			const participants = Array.from(getEmailParticipants(email));
+			const participants = Array.from(select.emailParticipants(email));
 			const firstParticipant = participants[0].getAttribute('name');
 			info.labels.forEach(label => {
 				if (!(label in labelStats)) {
@@ -479,7 +521,7 @@ const getEmails = () => {
 			});
 		}
 
-		info.subjectEl = email.querySelector('.y6');
+		info.subjectEl = select.emailTitleNode(email);
 		info.subject = info.subjectEl && info.subjectEl.innerText.trim();
 
 		info.isBundleEmail = () => checkEmailClass(email, BUNDLED_EMAIL_CLASS);
@@ -522,12 +564,12 @@ const updateReminders = () => {
 		if (emailInfo.isReminder && !emailInfo.reminderAlreadyProcessed()) { // skip if already added class
 			if (emailInfo.subject.toLowerCase() === 'reminder') {
 				emailInfo.subjectEl.outerHTML = '';
-				emailEl.querySelectorAll('.Zt').forEach(node => node.outerHTML = '');
-				emailEl.querySelectorAll('.y2').forEach(node => node.style.color = '#202124');
+				select.emailMiscPart3(emailEl).forEach(node => node.outerHTML = '');
+				select.emailMiscPart1(emailEl).forEach(node => node.style.color = '#202124');
 			}
-			emailEl.querySelectorAll('.yP,.zF').forEach(node => { node.innerHTML = 'Reminder';});
+			select.emailMiscPart2(emailEl).forEach(node => { node.innerHTML = 'Reminder';});
 
-			const avatarWrapperEl = emailEl.querySelector('.oZ-x3');
+			const avatarWrapperEl = select.emailAvatarWrapper(emailEl);
 			if (avatarWrapperEl && avatarWrapperEl.getElementsByClassName(AVATAR_CLASS).length === 0) {
 				const avatarElement = document.createElement('div');
 				avatarElement.className = AVATAR_CLASS;
@@ -535,7 +577,7 @@ const updateReminders = () => {
 			}
 			addClassToEmail(emailEl, REMINDER_EMAIL_CLASS);
 		} else if (options.showAvatar === 'enabled' && !emailInfo.reminderAlreadyProcessed() && !emailInfo.avatarAlreadyProcessed() && !emailInfo.bundleAlreadyProcessed()) {
-			let participants = Array.from(getEmailParticipants(emailEl));	// convert to array to filter
+			let participants = Array.from(select.emailParticipants(emailEl));	// convert to array to filter
 			if (!participants.length) continue; // Prevents Drafts in Search or Drafts folder from causing errors
 			let firstParticipant = participants[0];
 
@@ -545,7 +587,7 @@ const updateReminders = () => {
 
 			const name = firstParticipant.getAttribute('name');
 			const firstLetter = (name && name.toUpperCase()[0]) || '-';
-			const targetElement = emailEl.querySelector('.oZ-x3');
+			const targetElement = select.emailAvatarWrapper(emailEl);
 
 			if (targetElement && targetElement.getElementsByClassName(AVATAR_CLASS).length === 0) {
 				const avatarElement = document.createElement('div');
@@ -642,8 +684,8 @@ const setupMenuNodes = () => {
 
 const reorderMenuItems = () => {
   const observer = new MutationObserver(() => {
-    const parent = document.querySelector('.wT .byl');
-    const refer = document.querySelector('.wT .byl>.TK');
+    const parent = select.menuParent();
+    const refer = select.menuRefer();
     const { inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats } = menuNodes;
 
     if (parent && refer && loadedMenu && inbox && snoozed && done && drafts && sent && spam && trash && starred && important && chats) {
@@ -683,13 +725,13 @@ const reorderMenuItems = () => {
       setupClickEventForNodes([inbox, snoozed, done, drafts, sent, spam, trash, starred, important, chats]);
 
       // Close More menu
-      document.body.querySelector('.J-Ke.n4.ah9').click();
+      select.menu().click();
       observer.disconnect();
     }
 
     if (!loadedMenu && inbox) {
       // Open More menu
-      document.body.querySelector('.J-Ke.n4.ah9').click();
+      select.menu().click();
       loadedMenu = true;
     }
   });
@@ -742,7 +784,7 @@ const handleHashChange = () => {
   if (isInBundle()) hash = '#inbox';
   else hash = hash.split('/')[0].split('?')[0];
   const headerElement = document.querySelector('header').parentElement.parentElement;
-  const titleNode = document.querySelector('a[title="Gmail"]:not([aria-label])');
+  const titleNode = select.titleNode();
 
   if (!titleNode || !headerElement) return;
 
@@ -759,15 +801,14 @@ document.addEventListener('DOMContentLoaded', function () {
 		const myEmail = getMyEmailAddress();
 
 		// TODO: Replace all of the below with gmail.compose.start_compose() via the Gmail.js lib
-		const composeButton = document.querySelector('.T-I.J-J5-Ji.T-I-KE.L3');
-		triggerMouseEvent(composeButton, 'mousedown');
-		triggerMouseEvent(composeButton, 'mouseup');
+		const composeButton = select.composeButton();
+        composeButton.click();
 
 		// TODO: Delete waitForElement() function, replace with gmail.observe.on('compose') via the Gmail.js lib
 		waitForElement('textarea[name=to]', to => {
-			const title = document.querySelector('input[name=subjectbox]');
-			const body = document.querySelector('div[aria-label="Message Body"]');
-			const from = document.querySelector('input[name="from"]');
+			const title = select.messageSubjectBox();
+			const body = select.messageBody();
+			const from = select.messageFrom();
 
 			from.value = myEmail;
 			to.value = myEmail;
@@ -783,9 +824,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	floatingComposeButton.className = 'floating-compose';
 	floatingComposeButton.addEventListener('click', function () {
 		// TODO: Replace all of the below with gmail.compose.start_compose() via the Gmail.js lib
-		const composeButton = document.querySelector('.T-I.J-J5-Ji.T-I-KE.L3');
-		triggerMouseEvent(composeButton, 'mousedown');
-		triggerMouseEvent(composeButton, 'mouseup');
+		const composeButton = select.composeButton();
+        composeButton.click();
 	});
 	document.body.appendChild(floatingComposeButton);
 

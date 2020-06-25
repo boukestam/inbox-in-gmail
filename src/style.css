@@ -1,3 +1,8 @@
+:root {
+    --inbox-margin-right: 7vw;
+    --email-max-width: 1200px;
+}
+
 /* Change font everywhere */
 * {
 	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -39,7 +44,7 @@ header {
 .Cp {
 	/*box-shadow: 0 -1px 0 #e0e0e0, 0 0 2px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.24);*/
 	margin: auto !important;
-	max-width: 1200px;
+	max-width: var(--email-max-width);
 	padding: 0 10px;
 }
 
@@ -53,17 +58,16 @@ header {
 /* Align toolbar with email width */
 .aeH > .G-atb {
 	margin: auto !important;
-	max-width: 1180px;
 }
-
-@media only screen and (min-width: 1420px) {
-	.aeH > .G-atb {
-		padding-left: 0;
-	}
+.D.E.G-atb {
+    width: var(--email-max-width);
+    /* this percent effectively enforces a 3.5% (7% / 2) padding when */
+    max-width: 93%;
 }
 
 .aeH {
-	margin-right: 7vw;
+    width: calc(100% - var(--inbox-margin-right));
+    display: flex;
 }
 
 /* Enforce background color behind emails */
@@ -621,7 +625,7 @@ button.gb_ff.gb_gf  {
 
 /* Inbox tabs align center */
 .aAA {
-	max-width: 1200px !important;
+	max-width: var(--email-max-width) !important;
 }
 
 .aKk>tbody, .aAA, .aRz.J-KU {
@@ -853,8 +857,8 @@ header form input {
 }
 
 /* Hide old compose button */
-.T-I.J-J5-Ji.T-I-KE.L3 {
-	display: none;
+.T-I-KE.L3 {
+	display: none !important;
 }
 
 /* Archive button (inbox email, opened email) */
@@ -978,7 +982,7 @@ header form input {
 /* Inbox: message list layout */
 .nH .AO .aeF {
 	min-width: 512px;
-	margin-right: 7vw;
+	margin-right: var(--inbox-margin-right);
 	width: auto;
 }
 
@@ -1074,13 +1078,11 @@ header form input {
 }
 
 .Cq.aqL {
-	margin-left: auto;
-	margin-right: -24px;
+	margin-left: 0;
 }
 
 .Cr.aqJ {
-	margin-left: 0px;
-	margin-right: 0px;
+	margin-left: auto;
 }
 
 /* Snoozed notification styling */
