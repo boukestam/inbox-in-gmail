@@ -802,8 +802,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 		// TODO: Replace all of the below with gmail.compose.start_compose() via the Gmail.js lib
 		const composeButton = select.composeButton();
-		triggerMouseEvent(composeButton, 'mousedown');
-		triggerMouseEvent(composeButton, 'mouseup');
+        composeButton.click();
 
 		// TODO: Delete waitForElement() function, replace with gmail.observe.on('compose') via the Gmail.js lib
 		waitForElement('textarea[name=to]', to => {
@@ -826,8 +825,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	floatingComposeButton.addEventListener('click', function () {
 		// TODO: Replace all of the below with gmail.compose.start_compose() via the Gmail.js lib
 		const composeButton = select.composeButton();
-		triggerMouseEvent(composeButton, 'mousedown');
-		triggerMouseEvent(composeButton, 'mouseup');
+        composeButton.click();
 	});
 	document.body.appendChild(floatingComposeButton);
 

@@ -853,8 +853,8 @@ header form input {
 }
 
 /* Hide old compose button */
-.T-I.J-J5-Ji.T-I-KE.L3 {
-	display: none;
+.T-I-KE.L3 {
+	display: none !important;
 }
 
 /* Archive button (inbox email, opened email) */
