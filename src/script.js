@@ -360,7 +360,7 @@ const isSnoozed = (email, curDate, prevDate) => {
 
 const isStarred = email => {
 	const node = email.querySelector('.T-KT');
-	if (node && node.title !== 'Not starred') return true;
+ 	if (node && node.ariaLabel !== 'Not starred') return true;
 };
 
 /**
